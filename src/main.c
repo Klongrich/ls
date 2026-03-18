@@ -10,7 +10,9 @@ void read_dir(){
 		printf("Error\n");
 
 	while ((dp = readdir(dir))) {
-		printf("%s\n", dp->d_name);
+		if (!(dp->d_name[0] == '.')) {
+			printf("%s\n", dp->d_name);
+		}
 	}
 }
 
