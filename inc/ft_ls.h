@@ -18,3 +18,4 @@ int	parse_flags(char *str, t_flags *flags);
 void	initialize_flags(t_flags *flags);
 void	print_flags(t_flags *flags);
 int	is_dir(const char *path);
+int	is_file(const char *path);
