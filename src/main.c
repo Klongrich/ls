@@ -14,15 +14,6 @@ void read_dir(){
 	}
 }
 
-int	is_dir(const char *path) {
-	struct stat path_stat;
-
-	stat(path, &path_stat);
-	return(S_ISDIR(path_stat.st_mode));
-
-}
-
-
 int is_file(const char *path) {	
 	printf("is_file path: %s\n", path);
 	struct stat path_stat;
