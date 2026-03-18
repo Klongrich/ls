@@ -60,8 +60,11 @@ int 	main(int argc, char **argv){
 					if (is_dir(argv[i])) {
 						printf("is a dir\n");
 					}
-					if (is_file(argv[i])) {	
+					else if (is_file(argv[i])) {	
 						printf("is a file\n");
+					}
+					else {
+						printf("ls: %s: no such file or directory\n", argv[i]);
 					}
 				}
 			}
