@@ -3,18 +3,55 @@
 void read_dir(){
 	DIR	*dir;
 	struct dirent *dp;
+	int repo_or_file_count;
+	char **all_files_or_directories;
+	int i;
 
+	i = 0;
 	dir = opendir(".");
-	
+	repo_or_file_count = 0;
 	if (!dir)
 		printf("Error\n");
 
+	//Counting the amount of character array's we have to allocate
 	while ((dp = readdir(dir))) {
 		if (!(dp->d_name[0] == '.')) {
-			printf("%s\n", dp->d_name);
+			repo_or_file_count++;
 		}
 	}
+	closedir(dir);	
+
+	//Allocating character array
+	all_files_or_directories = (char **)malloc(sizeof(char *) * repo_or_file_count + 1);
+	if (!all_files_or_directories)
+		printf("Error mallocing\n");
+
+	//Copying data into our new array
+	dir = opendir(".");
+	while ((dp = readdir(dir))) {
+		if (!(dp->d_name[0] == '.')) {
+			all_files_or_directories[i] = ft_memalloc(ft_strlen(dp->d_name) + 1);
+			all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
+			i++;		
+		}
+	}
+	closedir(dir);
+	
+	//Sorting our array a to z
+	all_files_or_directories = bubble_sort(all_files_or_directories);
+
+	int k;
+
+	k = 0;
+	while (all_files_or_directories[k]) {
+		printf("%s\n", all_files_or_directories[k]);
+		free(all_files_or_directories[k]);
+		k++;
+	}
+	free(all_files_or_directories);
 }
+
+
 
 int 	main(int argc, char **argv){
 
@@ -33,8 +70,7 @@ int 	main(int argc, char **argv){
 		return (0);
 	}
 	if (argc == 1){
-		printf("%s\n", argv[0]);
-		read_dir();
+		read_dir();	
 	}
 	if (argc > 1) {
 		i = 1;
@@ -75,6 +111,6 @@ int 	main(int argc, char **argv){
 		}
 	
 	}
-	print_flags(&flags);
+	//print_flags(&flags);
 	return(0);
 }

@@ -4,6 +4,9 @@
 #include <sys/stat.h>
 #include "../libft/libft.h"
 
+# define MAX_FILE_LENGTH 255
+# define MAX_PATH_LENGTH 4096
+
 typedef struct 		flags {
 
 	int	l;
@@ -19,3 +22,4 @@ void	initialize_flags(t_flags *flags);
 void	print_flags(t_flags *flags);
 int	is_dir(const char *path);
 int	is_file(const char *path);
+char	**bubble_sort(char **str);
