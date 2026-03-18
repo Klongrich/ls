@@ -1,7 +1,6 @@
 #include "../inc/ft_ls.h"
 
 int	is_file(const char *path){
-	printf("is_file path: %s\n", path);
 	struct stat path_stat;
 
 	if ((stat(path, &path_stat)) == -1)
