@@ -52,6 +52,16 @@ void read_dir(){
 }
 
 
+void run_recur(char **argv, t_flags *flags, int i) {
+	while (argv[i]) {
+		printf("%s\n", argv[i]);
+		i++;
+	}
+	print_flags(flags);
+}
+
+
+
 
 int 	main(int argc, char **argv){
 
@@ -91,11 +101,20 @@ int 	main(int argc, char **argv){
 			if (argv[i][0] != '-') {
 				getting_flags = 0;
 			}
+			
+			if (i + 1 == argc) {
+				getting_flags = 0;
+			}
 
 			if (!getting_flags) {
 				if (argv[i][0] == '-' && argv[i][1] == '-' && !dashdash_found && !dash_found) {
 					dashdash_found = 1;
 				} else {
+					
+					if(flags.recur) {
+						run_recur(argv, &flags, i);
+						return(0);
+					}
 					if (is_dir(argv[i])) {
 						printf("is a dir\n");
 					}
