@@ -27,3 +27,4 @@ void	print_list(char **str);
 void	print_list_n(char **str, int n);
 int	get_size(char **str);
 int	is_flag(char *str);
+void	free_list(char **list);
