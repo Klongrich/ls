@@ -25,3 +25,4 @@ int	is_file(const char *path);
 char	**bubble_sort(char **str);
 void	print_list(char **str);
 void	print_list_n(char **str, int n);
+int	get_size(char **str);
