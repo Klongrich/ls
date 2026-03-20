@@ -10,9 +10,11 @@ char 	**read_dir(char *dir_path){
 	i = 0;
 	dir = opendir(dir_path);
 	repo_or_file_count = 0;
-	if (!dir)
-		printf("Error\n");
-
+	if (!dir) {
+		printf("Opertaion Not Permitted\n");
+		return (0);
+	}
+	else {
 	//Counting the amount of character array's we have to allocate
 	while ((dp = readdir(dir))) {
 		if (!(dp->d_name[0] == '.')) {
@@ -30,7 +32,8 @@ char 	**read_dir(char *dir_path){
 	dir = opendir(dir_path);
 	while ((dp = readdir(dir))) {
 		if (!(dp->d_name[0] == '.')) {
-			all_files_or_directories[i] = dp->d_name;
+			all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
+			all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
 			i++;		
 		}
 	}
@@ -46,8 +49,8 @@ char 	**read_dir(char *dir_path){
 		printf("%s\n", all_files_or_directories[k]);
 		k++;
 	}
-	free(all_files_or_directories);
 	return(all_files_or_directories);
+	}
 }
 
 char	**check_is_file_or_dir(char **sorted_args){
@@ -68,6 +71,60 @@ char	**check_is_file_or_dir(char **sorted_args){
 		i++;
 	}
 	return(result);
+}
+
+/*
+int	check_end(char *dir_path){
+	
+	if (dir_path[ft_strlen(dir_path) - 1] == '/')
+		return(1);
+	else 
+		return (0);
+}
+
+
+char 	**append_dir(char *dir, char **files_or_dirs) {
+	int i;
+	char **res;
+	char *dir_; 
+
+
+	i = 0;
+	dir_ = dir;
+	res = (char **)malloc(sizeof(char *) * get_size(files_or_dirs) + 1);
+	if (!check_end(dir))
+		dir_ = ft_strjoin(dir, "/");
+	while(files_or_dirs[i]) {
+		res[i] = ft_strjoin(dir_, files_or_dirs[i]);
+		i++;
+	}
+	if (!check_end(dir)) 
+		free(dir_);
+	return(res);
+}
+*/
+
+int	recur(char **files_or_repos) {
+	int i;
+	char **append;
+	char **files_from_repo;
+
+	i = 0;
+	printf("\n");
+	while (files_or_repos[i]) {
+		if(is_dir(files_or_repos[i])) {
+			printf("%s:\n", files_or_repos[i]);
+			files_from_repo = read_dir(files_or_repos[i]);
+			if(files_from_repo) {
+				append = append_dir(files_or_repos[i], files_from_repo);
+				recur(append);
+			}
+			//free_list(files_from_repo);
+			//free_list(append);
+		}
+		i++;
+	}
+	return (0);
 }
 
 void initalize_arguments(char **argv, t_flags *flags, int i){
@@ -99,7 +156,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		i = 0;
 		
 		if(flags->recur) {
-			printf("recur found\n");
+			recur(list_of_args);
 		} else {
 			while (list_of_args[i]) {
 				if (is_dir(list_of_args[i])) {
@@ -114,7 +171,6 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		}
 
 		if (flags) {}	
-
 		free(list_of_args);
 	}
 	free_list(parsed_argv);

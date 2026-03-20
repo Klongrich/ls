@@ -14,7 +14,7 @@ char	**append_dir(char *dir, char **files_or_dirs) {
 	if (!check_end(dir))
 		dir_ = ft_strjoin(dir, "/");
 	while(files_or_dirs[i]) {
-		res[i] = ft_strjoin(dir, files_or_dirs[i]);
+		res[i] = ft_strjoin(dir_, files_or_dirs[i]);
 		i++;
 	}
 	if (!check_end(dir))
