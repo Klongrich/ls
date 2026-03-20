@@ -24,3 +24,4 @@ int	is_dir(const char *path);
 int	is_file(const char *path);
 char	**bubble_sort(char **str);
 void	print_list(char **str);
+void	print_list_n(char **str, int n);
