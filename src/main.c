@@ -97,14 +97,20 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		list_of_args = check_is_file_or_dir(sorted);
 
 		i = 0;
-		while (list_of_args[i]) {
-			if (is_dir(list_of_args[i])) {
-				printf("\n%s:\n", list_of_args[i]);
-				read_dir(list_of_args[i]);	
-			} else {
-				printf("%s\n", list_of_args[i]);
+		
+		if(flags->recur) {
+			printf("recur found\n");
+		} else {
+			while (list_of_args[i]) {
+				if (is_dir(list_of_args[i])) {
+					printf("%s:\n", list_of_args[i]);
+					read_dir(list_of_args[i]);
+					printf("\n");	
+				} else {
+					printf("%s\n", list_of_args[i]);
+				}
+				i++;
 			}
-			i++;
 		}
 
 		if (flags) {}	
