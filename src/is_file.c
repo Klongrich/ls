@@ -6,7 +6,7 @@ int	is_file(const char *path){
 	if ((stat(path, &path_stat)) == -1)
 		return(0);
 	mode_t file_type = path_stat.st_mode & S_IFMT;
-	printf("mode_t: %hu\n", file_type);
+	//printf("mode_t: %hu\n", file_type);
 	
 	//Character device (e.g. /dev/tty)
 	if (S_ISCHR(path_stat.st_mode)) {
