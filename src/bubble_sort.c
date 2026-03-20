@@ -1,17 +1,5 @@
 #include "../inc/ft_ls.h"
 
-int number_of_files_or_repos(char **str){
-
-	int i;
-
-	i = 0;
-	while(str[i]) {
-		i++;
-	}
-	return(i);
-}
-
-
 //Chaning our characters arrays to all lowercase before using ft_strcmp
 int	compare_strs(char *str1, char *str2){
 	int count;
@@ -47,7 +35,7 @@ char	**bubble_sort(char **str) {
 	int size;
 	char temp[MAX_FILE_LENGTH];
 
-	size = number_of_files_or_repos(str);
+	size = get_size(str);
 	i = 0;
 	j = 0;
 	while (i < size - 1) {
