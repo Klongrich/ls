@@ -50,64 +50,6 @@ char 	**read_dir(char *dir_path){
 	return(all_files_or_directories);
 }
 
-
-/*
-void run_recur(char **info, t_flags *flags, int i) {
-	char **parameters; 	
-	int count;
-	int j;
-	int start;
-
-
-	count = 0;
-	j = 0;
-	start = i;
-	while(info[i]) {
-		count++;
-		i++;
-	}
-
-	parameters = (char **)malloc(sizeof(char *) * count + 1);
-	if (!parameters) {
-		printf("problem with mallocing parameters\n");
-	}
-
-	i = start;
-	while (info[i]) {
-		parameters[j] = info[i];
-		j++;
-		i++;
-	}
-
-	parameters = bubble_sort(parameters);
-	
-	j = 0;
-	while(parameters[j]) {
-		if (is_dir(parameters[j])) {
-			printf("%s:\n", parameters[j]);
-			//read_dir(parameters[j]);
-			printf("\n");
-		} else if (is_file(parameters[j])){
-			printf("%s\n", parameters[j]);
-		} else {
-			printf("file not found %s\n", parameters[j]);
-		}
-		j++;
-	}
-
-	j = 0;
-	while(parameters[j]) {
-		if (is_dir(parameters[j])) {
-			run_recur(read_dir(parameters[j]), flags, 0);
-		}
-		j++;
-	}
-
-	free(parameters);
-	print_flags(flags);
-}
-*/
-
 char	**check_is_file_or_dir(char **sorted_args){
 	int i;
 	int j;
@@ -164,7 +106,9 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			}
 			i++;
 		}
+
 		if (flags) {}	
+
 		free(list_of_args);
 	}
 	free_list(parsed_argv);
@@ -222,25 +166,6 @@ int 	main(int argc, char **argv){
 						i++;
 					initalize_arguments(argv, &flags, i);
 					break;
-						
-					/*
-					if(flags.recur) {
-						if (is_flag(argv[i]))
-							i++;
-						run_recur(argv, &flags, i);
-						break;
-					}
-					
-					if (is_dir(argv[i])) {
-						printf("is a dir\n");
-					}
-					else if (is_file(argv[i])) {	
-						printf("is a file\n");
-					}
-					else {
-						printf("ls: %s: no such file or directory\n", argv[i]);
-					}*/
-					
 				}
 			}
 			i++;
