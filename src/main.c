@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void read_dir(char *dir_path){
+char 	**read_dir(char *dir_path){
 	DIR	*dir;
 	struct dirent *dp;
 	int repo_or_file_count;
@@ -44,44 +44,14 @@ void read_dir(char *dir_path){
 	k = 0;
 	while (all_files_or_directories[k]) {
 		printf("%s\n", all_files_or_directories[k]);
-		//free(all_files_or_directories[k]);
 		k++;
 	}
 	free(all_files_or_directories);
+	return(all_files_or_directories);
 }
 
 
-
-int is_flag(char *str) {
-	int i;
-
-	i = 0;
-	if (str[i] == '-') {
-		i++;
-		if (!str[i])
-			return (0);
-	} else {
-		return (0);
-	}
-
-	while (str[i]) {
-		if (str[i] == 'a')
-			i++;
-		else if (str[i] == 't')
-			i++;
-		else if (str[i] == 'l')
-			i++;
-		else if (str[i] == 'r')
-			i++;
-		else if (str[i] == 'R')
-			i++;
-		else
-			return(0);
-	}
-	return (1);
-}
-
-
+/*
 void run_recur(char **info, t_flags *flags, int i) {
 	char **parameters; 	
 	int count;
@@ -104,7 +74,6 @@ void run_recur(char **info, t_flags *flags, int i) {
 
 	i = start;
 	while (info[i]) {
-		//parameters[j] = (char *)malloc(sizeof(char) * ft_strlen(info[i]));
 		parameters[j] = info[i];
 		j++;
 		i++;
@@ -116,7 +85,7 @@ void run_recur(char **info, t_flags *flags, int i) {
 	while(parameters[j]) {
 		if (is_dir(parameters[j])) {
 			printf("%s:\n", parameters[j]);
-			read_dir(parameters[j]);
+			//read_dir(parameters[j]);
 			printf("\n");
 		} else if (is_file(parameters[j])){
 			printf("%s\n", parameters[j]);
@@ -127,14 +96,78 @@ void run_recur(char **info, t_flags *flags, int i) {
 	}
 
 	j = 0;
-	/*
-	while (parameters[j]) {
-		free(parameters[j]);
+	while(parameters[j]) {
+		if (is_dir(parameters[j])) {
+			run_recur(read_dir(parameters[j]), flags, 0);
+		}
 		j++;
-	}*/
-	free(parameters);
+	}
 
+	free(parameters);
 	print_flags(flags);
+}
+*/
+
+char	**check_is_file_or_dir(char **sorted_args){
+	int i;
+	int j;
+	char **result;
+
+	i = 0;
+	j = 0;
+	result = (char **)malloc(sizeof(char *) * get_size(sorted_args) + 1);
+	while(sorted_args[i]) {
+		if (is_dir(sorted_args[i]) || is_file(sorted_args[i])) {
+			result[j] = sorted_args[i];
+			j++;
+		} else {
+			printf("ls: %s: file or dir not found\n", sorted_args[i]);
+		}
+		i++;
+	}
+	return(result);
+}
+
+void initalize_arguments(char **argv, t_flags *flags, int i){
+	char **parsed_argv;
+	char **sorted;
+	char **list_of_args;
+	int j;
+	
+	j = 0;	
+	parsed_argv = (char **)malloc(sizeof(char *) * get_size(argv) + 1 - i);
+	if (!parsed_argv) {
+		printf("error mallocing\n");
+	}
+
+	if (!argv[i]) {
+		printf("no files or repo's passed\n");
+	} else {
+
+		while(argv[i]) {
+			parsed_argv[j] = (char *)malloc(sizeof(char ) * MAX_PATH_LENGTH + 1);
+			parsed_argv[j]= ft_strcpy(parsed_argv[j], argv[i]);
+			i++;
+			j++;
+		}
+
+		sorted = bubble_sort(parsed_argv);	
+		list_of_args = check_is_file_or_dir(sorted);
+
+		i = 0;
+		while (list_of_args[i]) {
+			if (is_dir(list_of_args[i])) {
+				printf("\n%s:\n", list_of_args[i]);
+				read_dir(list_of_args[i]);	
+			} else {
+				printf("%s\n", list_of_args[i]);
+			}
+			i++;
+		}
+		if (flags) {}	
+		free(list_of_args);
+	}
+	free_list(parsed_argv);
 }
 
 int 	main(int argc, char **argv){
@@ -184,13 +217,20 @@ int 	main(int argc, char **argv){
 				if (argv[i][0] == '-' && argv[i][1] == '-' && !dashdash_found && !dash_found) {
 					dashdash_found = 1;
 				} else {
-					
+				
+					if (is_flag(argv[i]))
+						i++;
+					initalize_arguments(argv, &flags, i);
+					break;
+						
+					/*
 					if(flags.recur) {
 						if (is_flag(argv[i]))
 							i++;
 						run_recur(argv, &flags, i);
-						return(0);
+						break;
 					}
+					
 					if (is_dir(argv[i])) {
 						printf("is a dir\n");
 					}
@@ -199,13 +239,13 @@ int 	main(int argc, char **argv){
 					}
 					else {
 						printf("ls: %s: no such file or directory\n", argv[i]);
-					}
+					}*/
+					
 				}
 			}
 			i++;
 		}
 	
 	}
-	//print_flags(&flags);
 	return(0);
 }
