@@ -28,3 +28,4 @@ void	print_list_n(char **str, int n);
 int	get_size(char **str);
 int	is_flag(char *str);
 void	free_list(char **list);
+int	compare_strs_lowercase(char *str1, char *str2);

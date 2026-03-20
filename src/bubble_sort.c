@@ -1,33 +1,5 @@
 #include "../inc/ft_ls.h"
 
-//Chaning our characters arrays to all lowercase before using ft_strcmp
-int	compare_strs(char *str1, char *str2){
-	int count;
-	char *lower_case_all_characters_one;
-	char *lower_case_all_characters_two;
-	int diff;
-
-	count = 0; 
-	lower_case_all_characters_one = (char *)malloc(sizeof(char) * ft_strlen(str1));
-	lower_case_all_characters_two = (char *)malloc(sizeof(char) * ft_strlen(str2)); 
-	while (str1[count]) {
-		lower_case_all_characters_one[count] = ft_tolower(str1[count]);
-		count++;
-	}
-	count = 0;
-	while(str2[count]){
-		lower_case_all_characters_two[count] = ft_tolower(str2[count]);
-		count++;
-	}
-
-	diff = ft_strcmp(lower_case_all_characters_one, lower_case_all_characters_two);
-	
-	free(lower_case_all_characters_one);
-	free(lower_case_all_characters_two);
-	return (diff);
-}
-
-
 char	**bubble_sort(char **str) {
 
 	int i;
@@ -41,7 +13,7 @@ char	**bubble_sort(char **str) {
 	while (i < size - 1) {
 		j = 0;
 		while (j < size - i - 1) {
-			if (compare_strs(str[j], str[j + 1]) > 0) {
+			if (compare_strs_lowercase(str[j], str[j + 1]) > 0) {
 				ft_strcpy(temp, str[j]);
 				ft_strcpy(str[j], str[j + 1]);
 				ft_strcpy(str[j + 1], temp);
