@@ -73,37 +73,6 @@ char	**check_is_file_or_dir(char **sorted_args){
 	return(result);
 }
 
-/*
-int	check_end(char *dir_path){
-	
-	if (dir_path[ft_strlen(dir_path) - 1] == '/')
-		return(1);
-	else 
-		return (0);
-}
-
-
-char 	**append_dir(char *dir, char **files_or_dirs) {
-	int i;
-	char **res;
-	char *dir_; 
-
-
-	i = 0;
-	dir_ = dir;
-	res = (char **)malloc(sizeof(char *) * get_size(files_or_dirs) + 1);
-	if (!check_end(dir))
-		dir_ = ft_strjoin(dir, "/");
-	while(files_or_dirs[i]) {
-		res[i] = ft_strjoin(dir_, files_or_dirs[i]);
-		i++;
-	}
-	if (!check_end(dir)) 
-		free(dir_);
-	return(res);
-}
-*/
-
 int	recur(char **files_or_repos) {
 	int i;
 	char **append;
