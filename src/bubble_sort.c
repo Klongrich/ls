@@ -19,7 +19,7 @@ int	compare_strs(char *str1, char *str2){
 	char *lower_case_all_characters_two;
 	int diff;
 
-	count = 0;
+	count = 0; 
 	lower_case_all_characters_one = (char *)malloc(sizeof(char) * ft_strlen(str1));
 	lower_case_all_characters_two = (char *)malloc(sizeof(char) * ft_strlen(str2)); 
 	while (str1[count]) {
@@ -48,18 +48,19 @@ char	**bubble_sort(char **str) {
 	char temp[MAX_FILE_LENGTH];
 
 	size = number_of_files_or_repos(str);
-	i = -1;
-	j = i;
-	while (i++ < size - 1) {
-		j = i;
-		while (j++ < size - 1) {
-			if (compare_strs(str[i], str[j]) > 0) {
-				ft_strcpy(temp, str[i]);
-				ft_strcpy(str[i], str[j]);
-				ft_strcpy(str[j], temp);
+	i = 0;
+	j = 0;
+	while (i < size - 1) {
+		j = 0;
+		while (j < size - i - 1) {
+			if (compare_strs(str[j], str[j + 1]) > 0) {
+				ft_strcpy(temp, str[j]);
+				ft_strcpy(str[j], str[j + 1]);
+				ft_strcpy(str[j + 1], temp);
 			}
+			j++;
 		}
-
+		i++;
 	}
 	return (str);
 }
