@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void read_dir(){
+void read_dir(char *dir_path){
 	DIR	*dir;
 	struct dirent *dp;
 	int repo_or_file_count;
@@ -8,7 +8,7 @@ void read_dir(){
 	int i;
 
 	i = 0;
-	dir = opendir(".");
+	dir = opendir(dir_path);
 	repo_or_file_count = 0;
 	if (!dir)
 		printf("Error\n");
@@ -19,7 +19,7 @@ void read_dir(){
 			repo_or_file_count++;
 		}
 	}
-	closedir(dir);	
+	closedir(dir);
 
 	//Allocating character array
 	all_files_or_directories = (char **)malloc(sizeof(char *) * repo_or_file_count + 1);
@@ -27,11 +27,10 @@ void read_dir(){
 		printf("Error mallocing\n");
 
 	//Copying data into our new array
-	dir = opendir(".");
+	dir = opendir(dir_path);
 	while ((dp = readdir(dir))) {
 		if (!(dp->d_name[0] == '.')) {
-			all_files_or_directories[i] = ft_memalloc(ft_strlen(dp->d_name) + 1);
-			all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
+			all_files_or_directories[i] = dp->d_name;
 			i++;		
 		}
 	}
@@ -45,7 +44,7 @@ void read_dir(){
 	k = 0;
 	while (all_files_or_directories[k]) {
 		printf("%s\n", all_files_or_directories[k]);
-		free(all_files_or_directories[k]);
+		//free(all_files_or_directories[k]);
 		k++;
 	}
 	free(all_files_or_directories);
@@ -82,16 +81,61 @@ int is_flag(char *str) {
 	return (1);
 }
 
-void run_recur(char **argv, t_flags *flags, int i) {
-	while (argv[i]) {
-		printf("%s\n", argv[i]);
+
+void run_recur(char **info, t_flags *flags, int i) {
+	char **parameters; 	
+	int count;
+	int j;
+	int start;
+
+
+	count = 0;
+	j = 0;
+	start = i;
+	while(info[i]) {
+		count++;
 		i++;
 	}
+
+	parameters = (char **)malloc(sizeof(char *) * count + 1);
+	if (!parameters) {
+		printf("problem with mallocing parameters\n");
+	}
+
+	i = start;
+	while (info[i]) {
+		//parameters[j] = (char *)malloc(sizeof(char) * ft_strlen(info[i]));
+		parameters[j] = info[i];
+		j++;
+		i++;
+	}
+
+	parameters = bubble_sort(parameters);
+	
+	j = 0;
+	while(parameters[j]) {
+		if (is_dir(parameters[j])) {
+			printf("%s:\n", parameters[j]);
+			read_dir(parameters[j]);
+			printf("\n");
+		} else if (is_file(parameters[j])){
+			printf("%s\n", parameters[j]);
+		} else {
+			printf("file not found %s\n", parameters[j]);
+		}
+		j++;
+	}
+
+	j = 0;
+	/*
+	while (parameters[j]) {
+		free(parameters[j]);
+		j++;
+	}*/
+	free(parameters);
+
 	print_flags(flags);
 }
-
-
-
 
 int 	main(int argc, char **argv){
 
@@ -110,7 +154,7 @@ int 	main(int argc, char **argv){
 		return (0);
 	}
 	if (argc == 1){
-		read_dir();	
+		read_dir(".");	
 	}
 	if (argc > 1) {
 		i = 1;
