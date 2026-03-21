@@ -119,7 +119,11 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	}
 
 	if (!argv[i]) {
-		read_dir(".", flags->a);
+		if(flags->recur) {
+			recur(read_dir(".", flags->a), flags);
+		} else {
+			read_dir(".", flags->a);
+		}
 	} else {
 
 		while(argv[i]) {
