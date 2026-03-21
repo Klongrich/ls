@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-char 	**read_dir(char *dir_path, int a_flag){
+char 	**read_dir(char *dir_path, t_flags *flags){
 	DIR	*dir;
 	struct dirent *dp;
 	int repo_or_file_count;
@@ -17,7 +17,7 @@ char 	**read_dir(char *dir_path, int a_flag){
 	else {
 	//Counting the amount of character array's we have to allocate
 	while ((dp = readdir(dir))) {
-		if(!a_flag) {
+		if(!flags->a) {
 			if (!(dp->d_name[0] == '.')) {
 				repo_or_file_count++;
 			}
@@ -35,7 +35,7 @@ char 	**read_dir(char *dir_path, int a_flag){
 	//Copying data into our new array
 	dir = opendir(dir_path);
 	while ((dp = readdir(dir))) {
-		if(!a_flag) {
+		if(!flags->a) {
 			if (!(dp->d_name[0] == '.')) {
 				all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
 				all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
@@ -50,7 +50,7 @@ char 	**read_dir(char *dir_path, int a_flag){
 	closedir(dir);
 	
 	//Sorting our array a to z
-	all_files_or_directories = bubble_sort(all_files_or_directories);
+	all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
 
 	int k;
 
@@ -93,7 +93,7 @@ int	recur(char **files_or_repos, t_flags *flags) {
 	while (files_or_repos[i]) {
 		if(is_dir(files_or_repos[i])) {
 			printf("%s:\n", files_or_repos[i]);
-			files_from_repo = read_dir(files_or_repos[i],flags->a);
+			files_from_repo = read_dir(files_or_repos[i],flags);
 			if(files_from_repo) {
 				append = append_dir(files_or_repos[i], files_from_repo);
 				recur(append, flags);
@@ -120,9 +120,9 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 
 	if (!argv[i]) {
 		if(flags->recur) {
-			recur(read_dir(".", flags->a), flags);
+			recur(read_dir(".", flags), flags);
 		} else {
-			read_dir(".", flags->a);
+			read_dir(".", flags);
 		}
 	} else {
 
@@ -133,7 +133,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			j++;
 		}
 
-		sorted = bubble_sort(parsed_argv);	
+		sorted = bubble_sort(parsed_argv, flags->r);	
 		list_of_args = check_is_file_or_dir(sorted);
 
 		i = 0;
@@ -144,7 +144,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			while (list_of_args[i]) {
 				if (is_dir(list_of_args[i])) {
 					printf("%s:\n", list_of_args[i]);
-					read_dir(list_of_args[i], flags->a);
+					read_dir(list_of_args[i], flags);
 					printf("\n");	
 				} else {
 					printf("%s\n", list_of_args[i]);
@@ -176,7 +176,7 @@ int 	main(int argc, char **argv){
 		return (0);
 	}
 	if (argc == 1){
-		read_dir(".", 0);	
+		read_dir(".", &flags);	
 	}
 	if (argc > 1) {
 		i = 1;

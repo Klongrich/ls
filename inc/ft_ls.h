@@ -22,7 +22,7 @@ void	initialize_flags(t_flags *flags);
 void	print_flags(t_flags *flags);
 int	is_dir(const char *path);
 int	is_file(const char *path);
-char	**bubble_sort(char **str);
+char	**bubble_sort(char **str, int r);
 void	print_list(char **str);
 void	print_list_n(char **str, int n);
 int	get_size(char **str);
