@@ -119,7 +119,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	}
 
 	if (!argv[i]) {
-		printf("no files or repo's passed\n");
+		read_dir(".", flags->a);
 	} else {
 
 		while(argv[i]) {
