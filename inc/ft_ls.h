@@ -31,3 +31,4 @@ void	free_list(char **list);
 int	compare_strs_lowercase(char *str1, char *str2);
 char	**append_dir(char *dir, char **file_or_dirs);
 int	check_end(char *dir_path);
+void	initialize_flags(t_flags *flags);

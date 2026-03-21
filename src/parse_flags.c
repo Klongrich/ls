@@ -22,15 +22,6 @@ int 	parse_flags(char *str, t_flags *flags){
 	return (1);
 }
 
-void	initialize_flags(t_flags *flags){
-	flags->l = 0;
-	flags->r = 0;
-	flags->recur = 0;
-	flags->t = 0;
-	flags->a = 0;
-}	
-
-
 void print_flags(t_flags *flags){
 	printf("l: %d\n", flags->l);
 	printf("a: %d\n", flags->a);
