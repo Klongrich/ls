@@ -35,3 +35,4 @@ void	initialize_flags(t_flags *flags);
 char 	**time_sort(char **str, int r);
 void	print_mtime(char *file_path);
 void	print_nsec(char *file_path);
+void	print_long_format(char **all_files_or_dirs);
