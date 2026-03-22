@@ -61,8 +61,8 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	k = 0;
 	while (all_files_or_directories[k]) {
 		printf("%s\n", all_files_or_directories[k]);
-		print_mtime(all_files_or_directories[k]);
-		print_nsec(all_files_or_directories[k]);
+	//	print_mtime(all_files_or_directories[k]);
+	//	print_nsec(all_files_or_directories[k]);
 		k++;
 	}
 	return(all_files_or_directories);
