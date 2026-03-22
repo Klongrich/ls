@@ -57,10 +57,12 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	}
 
 	int k;
+	struct stat time;
 
 	k = 0;
 	while (all_files_or_directories[k]) {
-		printf("%s\n", all_files_or_directories[k]);
+		lstat(all_files_or_directories[k], &time);
+		printf("%s: %ld\n", all_files_or_directories[k], time.st_mtime);
 		k++;
 	}
 	return(all_files_or_directories);
