@@ -33,3 +33,4 @@ char	**append_dir(char *dir, char **file_or_dirs);
 int	check_end(char *dir_path);
 void	initialize_flags(t_flags *flags);
 char 	**time_sort(char **str, int r);
+void	print_mtime(char *file_path);
