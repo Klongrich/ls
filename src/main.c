@@ -49,8 +49,12 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	}
 	closedir(dir);
 	
-	//Sorting our array a to z
-	all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
+	//Sorting our array a to z or by m_time;
+	if (flags->t) {
+		all_files_or_directories = time_sort(all_files_or_directories, flags->r);
+	} else {
+		all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
+	}
 
 	int k;
 
