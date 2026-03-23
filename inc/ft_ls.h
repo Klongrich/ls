@@ -36,3 +36,5 @@ char 	**time_sort(char **str, int r);
 void	print_mtime(char *file_path);
 void	print_nsec(char *file_path);
 void	print_long_format(char **all_files_or_dirs);
+char	*append_single_dir(char *dir, char *files_or_dir);
+char	*get_name_from_path(char *path);
