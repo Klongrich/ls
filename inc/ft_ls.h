@@ -38,3 +38,4 @@ void	print_nsec(char *file_path);
 void	print_long_format(char **all_files_or_dirs);
 char	*append_single_dir(char *dir, char *files_or_dir);
 char	*get_name_from_path(char *path);
+int	get_repo_or_file_count(char *dir_path, int a_flag);
