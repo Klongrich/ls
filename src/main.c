@@ -178,6 +178,7 @@ int 	main(int argc, char **argv){
 	int getting_flags;
 	int dash_found;
 	int dashdash_found;
+	char **temp;
 
 	i = 0;
 	getting_flags = 1;
@@ -188,7 +189,8 @@ int 	main(int argc, char **argv){
 		return (0);
 	}
 	if (argc == 1){
-		read_dir(".", &flags);	
+		temp = read_dir(".", &flags);
+		free_list(temp);
 	}
 	if (argc > 1) {
 		i = 1;
