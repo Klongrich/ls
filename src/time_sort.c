@@ -18,10 +18,18 @@ char	**time_sort(char **str, int r) {
 			lstat(str[j], &file_one);
 			lstat(str[j + 1], &file_two);
 			if (r) {
-				if (file_one.st_mtime > file_two.st_mtime) {
-					ft_strcpy(temp, str[j]);
-					ft_strcpy(str[j], str[j + 1]);
-					ft_strcpy(str[j + 1], temp);
+				if(file_one.st_mtime == file_two.st_mtime) {
+					if(file_one.st_mtimespec.tv_nsec > file_two.st_mtimespec.tv_nsec) {
+						ft_strcpy(temp, str[j]);
+						ft_strcpy(str[j], str[j + 1]);
+						ft_strcpy(str[j + 1], temp);
+					}
+				} else {
+					if (file_one.st_mtime > file_two.st_mtime) {
+						ft_strcpy(temp, str[j]);
+						ft_strcpy(str[j], str[j + 1]);
+						ft_strcpy(str[j + 1], temp);
+					}
 				}
 			} else {
 				if (file_one.st_mtime == file_two.st_mtime) {
