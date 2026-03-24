@@ -44,11 +44,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 				if(flags->t || flags->l) {
 					all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_PATH_LENGTH);
 					temp = append_single_dir(dir_path, dp->d_name);
-					all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], temp);		
-					if (!ft_strcmp(".", temp) || !ft_strcmp("..", temp)) { 
-					} else {
-						free(temp);
-					}
+					all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], temp);
 				} else {
 					all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
 					all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
@@ -58,7 +54,6 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 		}
 
 		closedir(dir);
-
 	
 		//Sorting our array a to z or by m_time;
 		if (flags->t) {
@@ -74,10 +69,6 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			while(all_files_or_directories[kk]) {
 				temp_name = get_name_from_path(all_files_or_directories[kk]);
 				all_files_or_directories[kk] = ft_strcpy(all_files_or_directories[kk], temp_name);
-				if(!ft_strcmp(".", temp_name) || !ft_strcmp("..", temp_name)) {
-				} else {
-					free(temp_name);
-				}
 				kk++;
 			}
 		}
