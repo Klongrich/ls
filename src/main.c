@@ -148,7 +148,10 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 
 	if (!argv[i]) {
 		if(flags->recur) {
-			recur(read_dir(".", flags), flags);
+			parsed_argv[0] = (char *)malloc(sizeof(char *) * 2);
+			parsed_argv[0][0] = '.';
+			parsed_argv[0][1] = '\0';
+			recur(parsed_argv, flags);
 		} else {
 			temp = read_dir(".", flags);
 			free_list(temp);
@@ -164,7 +167,9 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 
 		sorted = bubble_sort(parsed_argv, 0);	
 		list_of_args = check_is_file_or_dir(sorted);
-
+		printf("list_of_args\n");
+		print_list(list_of_args);
+		
 		i = 0;
 		
 		if(flags->recur) {
