@@ -8,6 +8,17 @@ char	*get_name_from_path(char *path) {
 	i = 0;
 	len = ft_strlen(path);
 	res = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
+
+	if (!ft_strcmp(".", path)) {
+		res = ".";
+		return(res);
+	}
+	
+	if (!ft_strcmp("..", path)) {
+		res = "..";
+		return(res);
+	}
+
 	while(path[len] != '/')	{
 		len--;
 	}		
