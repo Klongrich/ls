@@ -70,6 +70,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			while(all_files_or_directories[kk]) {
 				temp_name = get_name_from_path(all_files_or_directories[kk]);
 				all_files_or_directories[kk] = ft_strcpy(all_files_or_directories[kk], temp_name);
+				free(temp_name);
 				kk++;
 			}
 		}
