@@ -167,8 +167,6 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 
 		sorted = bubble_sort(parsed_argv, 0);	
 		list_of_args = check_is_file_or_dir(sorted);
-		printf("list_of_args\n");
-		print_list(list_of_args);
 		
 		i = 0;
 		
