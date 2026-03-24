@@ -54,8 +54,9 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			}
 		}
 
+		all_files_or_directories[i] = 0;
 		closedir(dir);
-	
+
 		//Sorting our array a to z or by m_time;
 		if (flags->t) {
 			all_files_or_directories = time_sort(all_files_or_directories, flags->r);
@@ -122,10 +123,13 @@ int	recur(char **files_or_repos, t_flags *flags) {
 	while (files_or_repos[i]) {
 		if(is_dir(files_or_repos[i])) {
 			printf("%s:\n", files_or_repos[i]);
-			files_from_repo = read_dir(files_or_repos[i],flags);
+			files_from_repo = read_dir(files_or_repos[i],flags);	
 			if(files_from_repo) {
-				append = append_dir(files_or_repos[i], files_from_repo);
+				append = append_dir(files_or_repos[i], files_from_repo);	
 				recur(append, flags);
+
+				free_list(append);
+				free_list(files_from_repo);
 			};
 		}
 		i++;
@@ -250,5 +254,6 @@ int 	main(int argc, char **argv){
 		}
 	
 	}
+	
 	return(0);
 }

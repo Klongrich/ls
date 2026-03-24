@@ -29,5 +29,6 @@ char	**append_dir(char *dir, char **files_or_dirs) {
 	}
 	if (!check_end(dir))
 		free(dir_);
+	res[j] = 0;
 	return(res);
 }
