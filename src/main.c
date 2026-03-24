@@ -45,6 +45,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 					all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_PATH_LENGTH);
 					temp = append_single_dir(dir_path, dp->d_name);
 					all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], temp);
+					free(temp);
 				} else {
 					all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
 					all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
