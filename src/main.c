@@ -5,73 +5,85 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	struct dirent *dp;
 	int repo_or_file_count;
 	char **all_files_or_directories;
+	char *temp;
+	char *temp_name;
 	int i;
 
 	i = 0;
-	dir = opendir(dir_path);
-	repo_or_file_count = 0;
-	if (!dir) {
-		printf("Opertaion Not Permitted\n");
-		return (0);
-	}
-	else {
-	//Counting the amount of character array's we have to allocate
-	while ((dp = readdir(dir))) {
-		if(!flags->a) {
-			if (!(dp->d_name[0] == '.')) {
-				repo_or_file_count++;
-			}
-		} else {
-			repo_or_file_count++;
-		}
-	}
-	closedir(dir);
 
-	//Allocating character array
-	all_files_or_directories = (char **)malloc(sizeof(char *) * repo_or_file_count + 1);
-	if (!all_files_or_directories)
-		printf("Error mallocing\n");
+	repo_or_file_count = get_repo_or_file_count(dir_path, flags->a);
+	
+	if (!repo_or_file_count) {
+		printf("\n");
+		//printf("Opertaion Not Permitted\n");
+		return(0);
+	} else {
 
-	//Copying data into our new array
-	dir = opendir(dir_path);
-	while ((dp = readdir(dir))) {
-		if(!flags->a) {
-			if (!(dp->d_name[0] == '.')) {
+		//Allocating character array
+		all_files_or_directories = (char **)malloc(sizeof(char *) * repo_or_file_count + 1);
+		if (!all_files_or_directories)
+			printf("Error mallocing\n");
+
+		//Copying data into our new array
+		dir = opendir(dir_path);
+		while ((dp = readdir(dir))) {
+			if(!flags->a) {
+				if (!(dp->d_name[0] == '.')){
+					if (flags->t || flags->l) {
+						all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_PATH_LENGTH);
+						temp = append_single_dir(dir_path, dp->d_name);
+						all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], temp);
+						free(temp); 
+					} else {
+						all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
+						all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
+					}
+					i++;		
+				}
+			} else {
 				all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
 				all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
-				i++;		
+				i++;
 			}
-		} else {
-			all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_FILE_LENGTH);
-			all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], dp->d_name);
-			i++;
 		}
-	}
-	closedir(dir);
+
+		closedir(dir);
+
 	
-	//Sorting our array a to z or by m_time;
-	if (flags->t) {
-		all_files_or_directories = time_sort(all_files_or_directories, flags->r);
-	} else {
-		all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
-	}
-
-
-	if (flags->l) {
-		print_long_format(all_files_or_directories);
-	} else {
-
-		int k;
-
-		k = 0;
-		while (all_files_or_directories[k]) {
-			printf("%s\n", all_files_or_directories[k]);
-		//	print_mtime(all_files_or_directories[k]);
-		//	print_nsec(all_files_or_directories[k]);
-			k++;
+		//Sorting our array a to z or by m_time;
+		if (flags->t) {
+			all_files_or_directories = time_sort(all_files_or_directories, flags->r);
+		} else {
+			all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
 		}
-	}
-	return(all_files_or_directories);
+	
+
+		if (flags->t) {
+			int kk;
+
+			kk = 0;
+			while(all_files_or_directories[kk]) {
+				temp_name = get_name_from_path(all_files_or_directories[kk]);
+				all_files_or_directories[kk] = ft_strcpy(all_files_or_directories[kk], temp_name);
+				free(temp_name);
+				kk++;
+			}
+		}
+
+		if (flags->l) {
+			print_long_format(all_files_or_directories);
+		} else {
+
+			int k;
+
+			k = 0;
+			while (all_files_or_directories[k]) {
+				printf("%s\n", all_files_or_directories[k]);
+				k++;
+			}
+		}
+
+		return(all_files_or_directories);
 	}
 }
 
@@ -108,10 +120,8 @@ int	recur(char **files_or_repos, t_flags *flags) {
 			files_from_repo = read_dir(files_or_repos[i],flags);
 			if(files_from_repo) {
 				append = append_dir(files_or_repos[i], files_from_repo);
-				recur(append, flags);
-			}
-			//free_list(files_from_repo);
-			//free_list(append);
+				recur(append, flags);	
+			};
 		}
 		i++;
 	}
@@ -122,6 +132,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	char **parsed_argv;
 	char **sorted;
 	char **list_of_args;
+	char **temp;
 	int j;
 	
 	j = 0;	
@@ -134,7 +145,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		if(flags->recur) {
 			recur(read_dir(".", flags), flags);
 		} else {
-			read_dir(".", flags);
+			temp = read_dir(".", flags);
+			free_list(temp);
 		}
 	} else {
 
@@ -156,16 +168,15 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			while (list_of_args[i]) {
 				if (is_dir(list_of_args[i])) {
 					printf("%s:\n", list_of_args[i]);
-					read_dir(list_of_args[i], flags);
+					temp = read_dir(list_of_args[i], flags);
 					printf("\n");	
+					free_list(temp);
 				} else {
 					printf("%s\n", list_of_args[i]);
 				}
 				i++;
 			}
 		}
-
-		if (flags) {}	
 		free(list_of_args);
 	}
 	free_list(parsed_argv);
@@ -189,7 +200,7 @@ int 	main(int argc, char **argv){
 		return (0);
 	}
 	if (argc == 1){
-		temp = read_dir(".", &flags);
+		temp = read_dir(".", &flags);	
 		free_list(temp);
 	}
 	if (argc > 1) {
