@@ -10,6 +10,8 @@ t_lengths	get_total(char	**file_or_dir_paths) {
 
 	while (file_or_dir_paths[i]) {
 		lstat(file_or_dir_paths[i], &statbuf);
+		if(ft_numlen(statbuf.st_nlink) > formatting_info.links)
+			formatting_info.links = ft_numlen(statbuf.st_nlink);
 		formatting_info = set_column_sizes(formatting_info, statbuf);
 		i++;
 		formatting_info.count += statbuf.st_blocks;	
