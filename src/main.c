@@ -62,6 +62,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			all_files_or_directories = time_sort(all_files_or_directories, flags->r);
 		} else {
 			all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
+			//all_files_or_directories = merge_sort(i, all_files_or_directories);
 		}
 
 		if (flags->t) {
@@ -254,6 +255,7 @@ int 	main(int argc, char **argv){
 		}
 	
 	}
-	
+	//used to run leaks in sepreate terminal
+	fscanf(stdin, "c");
 	return(0);
 }
