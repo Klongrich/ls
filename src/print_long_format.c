@@ -12,6 +12,7 @@ void	print_long_format(char **all_files_or_dirs) {
 	while (all_files_or_dirs[k]) {
 		lstat(all_files_or_dirs[k], &statbuff);
 		print_permissions(statbuff);
+		print_name_and_grid(formatting_lengths, statbuff);
 		printf("%s\n", all_files_or_dirs[k]);
 		k++;
 	}
