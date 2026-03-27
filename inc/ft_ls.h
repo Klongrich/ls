@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <pwd.h>
 #include <grp.h>
+#include <time.h>
 #include "../libft/libft.h"
 
 # define MAX_FILE_LENGTH 255
@@ -58,3 +59,4 @@ void	print_t_lengths(t_lengths to_print);
 t_lengths	set_column_sizes(t_lengths formatting_info, struct stat statbuff);
 void	print_permissions(struct stat statbuff);
 void	print_name_and_grid(t_lengths formatting_info, struct stat statbuff);
+void	print_last_time_modified(char *str);
