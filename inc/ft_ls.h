@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <dirent.h>
+#include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include "../libft/libft.h"
@@ -15,7 +16,16 @@ typedef struct 		flags {
 	int	t;
 	int	a;
 
-}			t_flags;
+}
+			t_flags;
+
+typedef struct		lengths {
+	int	links;
+	int 	name;
+	int	group;
+	int	size;
+	int	count;
+}			t_lengths;
 
 int	parse_flags(char *str, t_flags *flags);
 void	initialize_flags(t_flags *flags);
@@ -39,3 +49,6 @@ void	print_long_format(char **all_files_or_dirs);
 char	*append_single_dir(char *dir, char *files_or_dir);
 char	*get_name_from_path(char *path);
 int	get_repo_or_file_count(char *dir_path, int a_flag);
+char	**merge_sort(int size, char **str);
+t_lengths	initialize_t_lengths(void);
+t_lengths	get_total(char **file_or_dir_paths);
