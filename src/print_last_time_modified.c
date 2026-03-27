@@ -15,7 +15,6 @@ void		print_last_time_modified(char *str)
 	*/
 
 	lstat(str, &statbuf);
-	times = (char *)malloc(sizeof(char) * 40);
 	times = ctime(&statbuf.st_mtime);
 	times += 3;
 
