@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-t_lengths	get_total(char	**file_or_dir_paths) {
+t_lengths	get_formatting_lengths(char **file_or_dir_paths) {
 	int	i;
 	struct stat statbuf;
 	t_lengths	formatting_info;
