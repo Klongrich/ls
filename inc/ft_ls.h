@@ -52,3 +52,4 @@ int	get_repo_or_file_count(char *dir_path, int a_flag);
 char	**merge_sort(int size, char **str);
 t_lengths	initialize_t_lengths(void);
 t_lengths	get_total(char **file_or_dir_paths);
+void	print_t_lengths(t_lengths to_print);
