@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <pwd.h>
 #include "../libft/libft.h"
 
 # define MAX_FILE_LENGTH 255
@@ -53,3 +54,4 @@ char	**merge_sort(int size, char **str);
 t_lengths	initialize_t_lengths(void);
 t_lengths	get_total(char **file_or_dir_paths);
 void	print_t_lengths(t_lengths to_print);
+t_lengths	set_column_sizes(t_lengths formatting_info, struct stat statbuff);
