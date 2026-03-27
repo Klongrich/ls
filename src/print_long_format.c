@@ -13,6 +13,7 @@ void	print_long_format(char **all_files_or_dirs) {
 		lstat(all_files_or_dirs[k], &statbuff);
 		print_permissions(statbuff);
 		print_name_and_grid(formatting_lengths, statbuff);
+		ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 		printf("%s\n", all_files_or_dirs[k]);
 		k++;
 	}
