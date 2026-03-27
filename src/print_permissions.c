@@ -1,0 +1,24 @@
+#include "../inc/ft_ls.h"
+
+void		print_permissions(struct stat statbuff)
+{
+	ft_putchar((S_ISFIFO(statbuff.st_mode)) ? 'p' : '\0');
+	ft_putchar((S_ISCHR(statbuff.st_mode)) ? 'c' : '\0');
+	ft_putchar((S_ISDIR(statbuff.st_mode)) ? 'd' : '\0');
+	ft_putchar((S_ISBLK(statbuff.st_mode)) ? 'b' : '\0');
+	ft_putchar((S_ISREG(statbuff.st_mode)) ? '-' : '\0');
+	ft_putchar((S_ISLNK(statbuff.st_mode)) ? 'l' : '\0');
+	ft_putchar((S_ISSOCK(statbuff.st_mode)) ? 's' : '\0');
+	ft_putchar((statbuff.st_mode & S_IRUSR) ? 'r' : '-');
+	ft_putchar((statbuff.st_mode & S_IWUSR) ? 'w' : '-');
+	ft_putchar((statbuff.st_mode & S_IXUSR) ? 'x' : '-');
+	ft_putchar((statbuff.st_mode & S_IRGRP) ? 'r' : '-');
+	ft_putchar((statbuff.st_mode & S_IWGRP) ? 'w' : '-');
+	ft_putchar((statbuff.st_mode & S_IXGRP) ? 'x' : '-');
+	ft_putchar((statbuff.st_mode & S_IROTH) ? 'r' : '-');
+	ft_putchar((statbuff.st_mode & S_IWOTH) ? 'w' : '-');
+	ft_putchar((statbuff.st_mode & S_IXOTH) ? 'x' : '-');
+	ft_putchar(' ');
+	ft_putchar(' ');
+}
+

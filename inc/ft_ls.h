@@ -56,3 +56,4 @@ t_lengths	initialize_t_lengths(void);
 t_lengths	get_formatting_lengths(char **file_or_dir_paths);
 void	print_t_lengths(t_lengths to_print);
 t_lengths	set_column_sizes(t_lengths formatting_info, struct stat statbuff);
+void	print_permissions(struct stat statbuff);
