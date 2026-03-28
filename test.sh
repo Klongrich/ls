@@ -73,6 +73,7 @@ else
 	then
 		echo "$(tput setaf 2)\nALL TEST PASSED"
 	else
+		echo "$(tput setaf 1)"
 		echo "\nFalied $error / $count "
 	fi
 	read -p "$(tput setaf 7)" opt
