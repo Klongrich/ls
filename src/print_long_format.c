@@ -14,8 +14,8 @@ void	print_long_format(char **all_files_or_dirs) {
 		print_permissions(statbuff);
 		print_name_and_grid(formatting_lengths, statbuff);
 		ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
-		print_last_time_modified(all_files_or_dirs[k]);
-		
+		print_last_time_modified(statbuff);
+
 		temp = get_name_from_path(all_files_or_dirs[k]);
 		printf("%s\n", temp);
 		free(temp);
