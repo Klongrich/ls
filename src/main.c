@@ -189,7 +189,6 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		if(flags->recur) {
 			recur(list_of_args, flags);
 		} else {
-			printf("size: %d\n", get_size(list_of_args));
 			if(get_size(list_of_args) == 1) {
 				if (is_dir(list_of_args[0])) {
 					temp = read_dir(list_of_args[0], flags);
@@ -202,7 +201,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 					if (is_dir(list_of_args[i])) {
 						printf("%s:\n", list_of_args[i]);
 						temp = read_dir(list_of_args[i], flags);
-						printf("\n");
+						if(i + 1 != get_size(list_of_args))
+							printf("\n");
 						free_list(temp);
 					} else {
 						printf("%s\n", list_of_args[i]);
