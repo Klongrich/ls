@@ -23,5 +23,5 @@ void	print_long_format_files_from_args(char **all_files) {
 		free(temp);
 		k++;
 	}
-	free(all_files_appended);
+	free_list(all_files_appended);
 }
