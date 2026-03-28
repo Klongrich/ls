@@ -66,6 +66,8 @@ else
 	then
 		echo "$(tput setaf 1)\n FAILED TEST"
 		cat errors
+		echo "$(tput setaf 2)\n PASSED TEST"
+		cat passed
 	fi
 	if [ "$error" -eq "0" ];
 	then
