@@ -19,6 +19,8 @@ check ()
 		((error++))
 	else
 		result=.
+		echo $left >> passed
+		((passed++))
 	fi
 	((count++))
 }
