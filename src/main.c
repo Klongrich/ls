@@ -113,7 +113,6 @@ void	check_is_file_or_dir(char **sorted_args){
 			ft_putstr_fd(sorted_args[i], 2);
 			ft_putstr_fd(" No such file or directory\n", 2);
 		}
-		printf("");
 		i++;
 	}
 }
@@ -242,8 +241,10 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 				print_list(sorted_files);
 			}
 			recur(sorted_dirs, flags);
-			printf("\033[1A");
-			printf("\033[0G");		
+			if (sorted_dirs[0] != NULL) {
+				printf("\033[1A");
+				printf("\033[0G");
+			}		
 		} else {
 
 			if(number_of_valid_args == 1) {
