@@ -257,6 +257,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 				if(sorted_files[0] != NULL) {
 					if(flags->l) {
 						print_long_format_files_from_args(sorted_files);
+						printf("\n");
 					} else {
 						while(sorted_files[i]) {
 							printf("%s\n", sorted_files[i]);
