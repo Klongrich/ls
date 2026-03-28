@@ -45,6 +45,7 @@ else
 	make re
 	make clean
 	rm -f errors
+	rm -f passed
 
 	color="$(tput setaf 2)"
 	final="Basic Test: ["
