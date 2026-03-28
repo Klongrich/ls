@@ -65,7 +65,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			//all_files_or_directories = merge_sort(all_files_or_directories);
 		}
 
-		if (flags->t) {
+		if (flags->t && !flags->l) {
 			int kk;
 
 			kk = 0;
@@ -79,6 +79,17 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 
 		if (flags->l) {
 			print_long_format(all_files_or_directories);
+			
+			int kk;
+
+			kk = 0;
+			while(all_files_or_directories[kk]) {
+				temp_name = get_name_from_path(all_files_or_directories[kk]);
+				all_files_or_directories[kk] = ft_strcpy(all_files_or_directories[kk], temp_name);
+				free(temp_name);
+				kk++;
+			}
+			//print_list(all_files_or_directories);
 		} else {
 
 			int k;
@@ -178,16 +189,26 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		if(flags->recur) {
 			recur(list_of_args, flags);
 		} else {
-			while (list_of_args[i]) {
-				if (is_dir(list_of_args[i])) {
-					printf("%s:\n", list_of_args[i]);
-					temp = read_dir(list_of_args[i], flags);
-					printf("\n");	
+			printf("size: %d\n", get_size(list_of_args));
+			if(get_size(list_of_args) == 1) {
+				if (is_dir(list_of_args[0])) {
+					temp = read_dir(list_of_args[0], flags);
 					free_list(temp);
 				} else {
 					printf("%s\n", list_of_args[i]);
 				}
-				i++;
+			} else {
+				while (list_of_args[i]) {
+					if (is_dir(list_of_args[i])) {
+						printf("%s:\n", list_of_args[i]);
+						temp = read_dir(list_of_args[i], flags);
+						printf("\n");
+						free_list(temp);
+					} else {
+						printf("%s\n", list_of_args[i]);
+					}
+					i++;
+				}
 			}
 		}
 		free(list_of_args);
@@ -257,6 +278,6 @@ int 	main(int argc, char **argv){
 	}
 
 
-	fscanf(stdin, "c");	
+//	fscanf(stdin, "c");	
 	return(0);
 }
