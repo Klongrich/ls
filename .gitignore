@@ -1,3 +1,7 @@
 *.o
 *.swp
 *.pch
+other
+mine
+errors
+passed
