@@ -64,6 +64,7 @@ else
 	echo "$color$final ]"
 	if [ "$error" -gt "0" ];
 	then
+		echo "$(tput setaf 1)\n FAILED TEST"
 		cat errors
 	fi
 	if [ "$error" -eq "0" ];
