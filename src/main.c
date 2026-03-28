@@ -57,7 +57,6 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 		all_files_or_directories[i] = 0;
 		closedir(dir);
 
-		//Sorting our array a to z or by m_time;
 		if (flags->t) {
 			all_files_or_directories = time_sort(all_files_or_directories, flags->r);
 		} else {
@@ -89,7 +88,6 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 				free(temp_name);
 				kk++;
 			}
-			//print_list(all_files_or_directories);
 		} else {
 
 			int k;
@@ -111,8 +109,11 @@ void	check_is_file_or_dir(char **sorted_args){
 	i = 0;
 	while(sorted_args[i]) {
 		if (!is_dir(sorted_args[i]) && !is_file(sorted_args[i])) {
-			printf("ls: %s: file or dir not found\n", sorted_args[i]);
+			ft_putstr_fd("ls: ", 2);
+			ft_putstr_fd(sorted_args[i], 2);
+			ft_putstr_fd(" No such file or directory\n", 2);
 		}
+		printf("");
 		i++;
 	}
 }
@@ -165,7 +166,7 @@ int	recur(char **files_or_repos, t_flags *flags) {
 		if(is_dir(files_or_repos[i])) {
 			printf("%s:\n", files_or_repos[i]);
 			files_from_repo = read_dir(files_or_repos[i],flags);
-			printf("\n");	
+			printf("\n");
 			if(files_from_repo) {
 				append = append_dir(files_or_repos[i], files_from_repo);	
 				recur(append, flags);
@@ -183,6 +184,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	char **parsed_argv;
 	char **sorted;
 	char **temp;
+	char **temp3;
+	char **temp4;
 	char *long_temp;
 	int number_of_valid_args;
 	int j;
@@ -195,24 +198,25 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 
 	if (!argv[i]) {
 		if(flags->recur) {
-			parsed_argv[0] = (char *)malloc(sizeof(char *) * 2);
-			parsed_argv[0][0] = '.';
-			parsed_argv[0][1] = '\0';
-			recur(parsed_argv, flags);
+			temp3 = read_dir(".", flags);
+			printf("\n");
+			temp4 = append_dir("./", temp3);;
+			recur(temp4, flags);
+			printf("\033[1A");
+    			printf("\033[0G");
+			free_list(temp3);
+			free_list(temp4);
 		} else {
 			temp = read_dir(".", flags);
 			free_list(temp);
 		}
 	} else {
-
 		while(argv[i]) {
 			parsed_argv[j] = (char *)malloc(sizeof(char ) * MAX_PATH_LENGTH + 1);
 			parsed_argv[j]= ft_strcpy(parsed_argv[j], argv[i]);
 			i++;
 			j++;
 		}
-
-		//pass parsed_argv
 		char **files;
 		char **dirs;
 
@@ -225,6 +229,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		files = get_files_from_args(parsed_argv);
 		dirs = get_dirs_from_args(parsed_argv);
 
+		//Can check if time_sort is passed
 		sorted_files = bubble_sort(files, flags->r);
 		sorted_dirs = bubble_sort(dirs, flags->r);
 		
@@ -237,7 +242,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 				print_list(sorted_files);
 			}
 			recur(sorted_dirs, flags);
-			
+			printf("\033[1A");
+			printf("\033[0G");		
 		} else {
 
 			if(number_of_valid_args == 1) {
@@ -299,7 +305,7 @@ int 	main(int argc, char **argv){
 	}
 	if (argc == 1){
 		temp = read_dir(".", &flags);	
-		free_list(temp);
+		free_list(temp);		
 	}
 	if (argc > 1) {
 		i = 1;
@@ -342,6 +348,4 @@ int 	main(int argc, char **argv){
 	}
 
 
-//	fscanf(stdin, "c");	
-	return(0);
 }
