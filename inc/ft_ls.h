@@ -62,3 +62,4 @@ t_lengths	set_column_sizes(t_lengths formatting_info, struct stat statbuff);
 void	print_permissions(struct stat statbuff);
 void	print_name_and_grid(t_lengths formatting_info, struct stat statbuff);
 void	print_last_time_modified(struct stat statbuff);
+void	print_long_format_files_from_args(char **all_files);
