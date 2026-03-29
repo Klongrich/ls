@@ -188,6 +188,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	char *long_temp;
 	int number_of_valid_args;
 	int j;
+	int sorted_dirs_size;
 	
 	j = 0;	
 	parsed_argv = (char **)malloc(sizeof(char *) * get_size(argv) + 1 - i);
@@ -275,13 +276,16 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 							printf("%s\n", sorted_files[i]);
 							i++;
 						}
+						printf("\n");
 					}
 				}
 				i = 0;
+				sorted_dirs_size = get_size(sorted_dirs);
 				while(sorted_dirs[i]) {
 					printf("%s:\n", sorted_dirs[i]);
 					temp = read_dir(sorted_dirs[i], flags);
-					printf("\n");
+					if (i + 1 != sorted_dirs_size)
+						printf("\n");
 					free_list(temp);
 					i++;
 				}
