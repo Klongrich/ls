@@ -228,9 +228,14 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		files = get_files_from_args(parsed_argv);
 		dirs = get_dirs_from_args(parsed_argv);
 
-		//Can check if time_sort is passed
-		sorted_files = bubble_sort(files, flags->r);
-		sorted_dirs = bubble_sort(dirs, flags->r);
+		//Could use strcoll() to mimic extact behavior with special characters
+		if (flags->t) {
+			sorted_files = time_sort(files, flags->r);
+			sorted_dirs = time_sort(dirs, flags->r);
+		} else {
+			sorted_files = bubble_sort(files, flags->r);
+			sorted_dirs = bubble_sort(dirs, flags->r);
+		}
 		
 		i = 0;
 		number_of_valid_args = get_size(sorted_files) + get_size(sorted_dirs);
@@ -268,6 +273,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 					} else {
 						while(sorted_files[i]) {
 							printf("%s\n", sorted_files[i]);
+							i++;
 						}
 					}
 				}
