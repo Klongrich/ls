@@ -14,7 +14,10 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	repo_or_file_count = get_repo_or_file_count(dir_path, flags->a);
 	
 	if (!repo_or_file_count) {
-		printf("\n");
+		if(flags->l)
+			printf("total 0\n");
+		else
+			printf("\n");
 		//printf("Opertaion Not Permitted\n");
 		return(0);
 	} else {
