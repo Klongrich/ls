@@ -10,6 +10,9 @@ all: $(NAME)
 %.o: $(addprefix ./src/,%.c)
 	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
 
+%.o: $(addprefix ./debug/,%.c)
+	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
+
 $(NAME): $(OBJ)
 	@gcc -g $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
