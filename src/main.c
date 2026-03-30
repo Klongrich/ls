@@ -61,10 +61,8 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 		closedir(dir);
 
 		if (flags->t) {
-			//all_files_or_directories = time_sort(all_files_or_directories, flags->r);
 			merge_time_sort(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
 		} else {
-			//all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
 			merge_sort2(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
 		}
 
@@ -107,18 +105,22 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	}
 }
 
-void	check_is_file_or_dir(char **sorted_args){
+int	check_is_file_or_dir(char **sorted_args){
 	int i;
+	int invalid_file_or_repo_count;
 
 	i = 0;
+	invalid_file_or_repo_count = 0;
 	while(sorted_args[i]) {
 		if (!is_dir(sorted_args[i]) && !is_file(sorted_args[i])) {
 			ft_putstr_fd("ls: ", 2);
 			ft_putstr_fd(sorted_args[i], 2);
 			ft_putstr_fd(" No such file or directory\n", 2);
+			invalid_file_or_repo_count++;
 		}
 		i++;
 	}
+	return (invalid_file_or_repo_count);
 }
 
 char	**get_files_from_args(char **list_of_args) {
@@ -191,10 +193,12 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	char **temp4;
 	char *long_temp;
 	int number_of_valid_args;
+	int number_of_invalid_args;
 	int j;
 	int sorted_dirs_size;
 	
-	j = 0;	
+	j = 0;
+	number_of_invalid_args = 0;	
 	parsed_argv = (char **)malloc(sizeof(char *) * get_size(argv) + 1 - i);
 	if (!parsed_argv) {
 		printf("error mallocing\n");
@@ -228,7 +232,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		char **sorted_dirs;
 
 		sorted = bubble_sort(parsed_argv, 0);
-		check_is_file_or_dir(sorted);
+		number_of_invalid_args = check_is_file_or_dir(sorted);
 
 		files = get_files_from_args(parsed_argv);
 		dirs = get_dirs_from_args(parsed_argv);
@@ -250,10 +254,21 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			} else {
 				print_list(sorted_files);
 			}
-			recur(sorted_dirs, flags);
-			if (sorted_dirs[0] != NULL) {
+			if(number_of_valid_args == 1 && number_of_invalid_args == 0 && sorted_dirs[0]) {
+				temp3 = read_dir(sorted_dirs[0], flags);
+				printf("\n");
+				temp4 = append_dir(sorted_dirs[0], temp3);
+				recur(temp4, flags);
 				printf("\033[1A");
 				printf("\033[0G");
+				free_list(temp3);
+				free_list(temp4);	
+			} else {
+				recur(sorted_dirs, flags);
+				if (sorted_dirs[0] != NULL) {
+					printf("\033[1A");
+					printf("\033[0G");
+				}
 			}		
 		} else {
 
