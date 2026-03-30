@@ -272,7 +272,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			}		
 		} else {
 
-			if(number_of_valid_args == 1) {
+			if(number_of_valid_args == 1 && number_of_invalid_args == 0) {
 				if (sorted_dirs[0] != NULL) {
 					temp = read_dir(sorted_dirs[0], flags);
 					free_list(temp);
@@ -377,6 +377,4 @@ int 	main(int argc, char **argv){
 		}
 	
 	}
-
-
 }
