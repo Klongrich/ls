@@ -295,7 +295,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 							printf("%s\n", sorted_files[i]);
 							i++;
 						}
-						printf("\n");
+						if(sorted_dirs[0] != NULL)
+							printf("\n");
 					}
 				}
 				i = 0;
