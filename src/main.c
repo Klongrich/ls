@@ -366,8 +366,8 @@ int 	main(int argc, char **argv){
 				if (argv[i][0] == '-' && argv[i][1] == '-' && !dashdash_found && !dash_found) {
 					dashdash_found = 1;
 				} else {
-				
-					if (is_flag(argv[i]))
+					
+					if (is_flag(argv[i]) && !dashdash_found)
 						i++;
 					initalize_arguments(argv, &flags, i);
 					break;
