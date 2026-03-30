@@ -4,7 +4,7 @@ void	print_long_format(char **all_files_or_dirs) {
 	t_lengths	formatting_lengths;
 	struct stat	statbuff;
 	int k;
-	char *temp;
+	//char *temp;
 
 	k = 0;
 	formatting_lengths = get_formatting_lengths(all_files_or_dirs);
@@ -19,9 +19,10 @@ void	print_long_format(char **all_files_or_dirs) {
 		} else
 			ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 		print_last_time_modified(statbuff);
-		temp = get_name_from_path(all_files_or_dirs[k]);
-		ft_printf("%s\n", temp);
-		free(temp);
+		print_file_name(all_files_or_dirs[k]);
+		//temp = get_name_from_path(all_files_or_dirs[k]);
+		//ft_printf("%s\n", temp);
+		//free(temp);
 		k++;
 	}
 

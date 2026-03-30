@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
@@ -65,3 +66,4 @@ void	print_last_time_modified(struct stat statbuff);
 void	print_long_format_files_from_args(char **all_files);
 void	merge_sort2(char *arr[], int l, int r, int r_flag);
 void	merge_time_sort(char *arr[], int l, int r, int r_flag);
+void	print_file_name(char *filepath);
