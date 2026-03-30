@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void merge2(char* arr[], int l, int m, int r) {
+void merge2(char* arr[], int l, int m, int r, int r_flag) {
     int n1 = m - l + 1;
     int n2 = r - m;
 
@@ -12,7 +12,8 @@ void merge2(char* arr[], int l, int m, int r) {
 
     int i = 0, j = 0, k = l;
     while (i < n1 && j < n2) {
-        if (compare_strs_lowercase(L[i], R[j]) <= 0) {
+        if ((r_flag && compare_strs_lowercase(L[i], R[j]) >= 0) ||
+	    (!r_flag && compare_strs_lowercase(L[i], R[j]) <= 0)) {
             arr[k] = L[i];
             i++;
         } else {
@@ -29,11 +30,11 @@ void merge2(char* arr[], int l, int m, int r) {
     free(R);
 }
 
-void merge_sort2(char* arr[], int l, int r) {
+void merge_sort2(char* arr[], int l, int r, int r_flag) {
     if (l < r) {
         int m = l + (r - l) / 2;
-        merge_sort2(arr, l, m);
-        merge_sort2(arr, m + 1, r);
-        merge2(arr, l, m, r);
+        merge_sort2(arr, l, m, r_flag);
+        merge_sort2(arr, m + 1, r, r_flag);
+        merge2(arr, l, m, r, r_flag);
     }
 }

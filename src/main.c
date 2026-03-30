@@ -64,7 +64,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			all_files_or_directories = time_sort(all_files_or_directories, flags->r);
 		} else {
 			//all_files_or_directories = bubble_sort(all_files_or_directories, flags->r);
-			merge_sort2(all_files_or_directories, 0, get_size(all_files_or_directories) - 1);
+			merge_sort2(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
 		}
 
 		if (flags->t && !flags->l) {
