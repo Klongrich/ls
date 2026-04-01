@@ -16,8 +16,6 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	if (!repo_or_file_count) {
 		if(flags->l)
 			printf("total 0\n");
-		else
-			printf("\n");
 		//printf("Opertaion Not Permitted\n");
 		return(0);
 	} else {
@@ -169,9 +167,9 @@ int	recur(char **files_or_repos, t_flags *flags) {
 	i = 0;
 	while (files_or_repos[i]) {
 		if(is_dir(files_or_repos[i])) {
+			printf("\n");
 			printf("%s:\n", files_or_repos[i]);
 			files_from_repo = read_dir(files_or_repos[i],flags);
-			printf("\n");
 			if(files_from_repo) {
 				append = append_dir(files_or_repos[i], files_from_repo);	
 				recur(append, flags);
@@ -207,11 +205,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	if (!argv[i]) {
 		if(flags->recur) {
 			temp3 = read_dir(".", flags);
-			printf("\n");
 			temp4 = append_dir("./", temp3);;
 			recur(temp4, flags);
-			printf("\033[1A");
-    			printf("\033[0G");
 			free_list(temp3);
 			free_list(temp4);
 		} else {
@@ -255,19 +250,12 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			}
 			if(number_of_valid_args == 1 && number_of_invalid_args == 0 && sorted_dirs[0]) {
 				temp3 = read_dir(sorted_dirs[0], flags);
-				printf("\n");
 				temp4 = append_dir(sorted_dirs[0], temp3);
 				recur(temp4, flags);
-				printf("\033[1A");
-				printf("\033[0G");
 				free_list(temp3);
 				free_list(temp4);	
 			} else {
 				recur(sorted_dirs, flags);
-				if (sorted_dirs[0] != NULL) {
-					printf("\033[1A");
-					printf("\033[0G");
-				}
 			}		
 		} else {
 
