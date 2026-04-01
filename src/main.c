@@ -236,7 +236,6 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 
 		files = get_files_from_args(parsed_argv);
 		dirs = get_dirs_from_args(parsed_argv);
-
 		//Could use strcoll() to mimic extact behavior with special characters
 		if (flags->t) {
 			sorted_files = time_sort(files, flags->r);
@@ -278,9 +277,14 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 					free_list(temp);
 				} else {
 					if (flags->l) {
-						long_temp = ft_strjoin("./", sorted_files[0]);
-						print_single_file_long_format(long_temp);
-						free(long_temp);
+						if (sorted_files[0][0] != '/') {
+							long_temp = ft_strjoin("./", sorted_files[0]);
+							print_single_file_long_format(long_temp);
+							free(long_temp);
+						}
+						else {
+							print_single_file_long_format(sorted_files[0]);
+						}
 					} else {
 						printf("%s\n", sorted_files[0]);
 					}
