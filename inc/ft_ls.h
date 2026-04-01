@@ -67,3 +67,4 @@ void	print_long_format_files_from_args(char **all_files);
 void	merge_sort2(char *arr[], int l, int r, int r_flag);
 void	merge_time_sort(char *arr[], int l, int r, int r_flag);
 void	print_file_name(char *filepath);
+void	decimalToHex(int n, char hextString[]);
