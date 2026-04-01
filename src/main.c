@@ -281,16 +281,14 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 				if(sorted_files[0] != NULL) {
 					if(flags->l) {
 						print_long_format_files_from_args(sorted_files);
-						if(sorted_dirs[0] != NULL)
-							printf("\n");
 					} else {
 						while(sorted_files[i]) {
 							printf("%s\n", sorted_files[i]);
 							i++;
 						}
-						if(sorted_dirs[0] != NULL)
-							printf("\n");
 					}
+					if(sorted_dirs[0] != NULL)
+						printf("\n");
 				}
 				i = 0;
 				sorted_dirs_size = get_size(sorted_dirs);
