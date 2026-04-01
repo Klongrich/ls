@@ -4,12 +4,12 @@ void	print_long_format_files_from_args(char **all_files) {
 	t_lengths	formatting_lengths;
 	struct stat	statbuff;
 	int k;
-	char *temp;
+	int i;
 	char **all_files_appended;
 
 	k = 0;
-	
-	all_files_appended = append_dir("./", all_files);
+	i = 0;	
+	all_files_appended = append_files_from_args_for_long_format("./", all_files);
 	formatting_lengths = get_formatting_lengths(all_files_appended);
 	while (all_files_appended[k]) {
 		lstat(all_files[k], &statbuff);
@@ -18,9 +18,16 @@ void	print_long_format_files_from_args(char **all_files) {
 		ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 		print_last_time_modified(statbuff);
 
-		temp = get_name_from_path(all_files_appended[k]);
-		printf("%s\n", temp);
-		free(temp);
+		if(all_files_appended[k][0] != '/') {
+			i = 2;
+			while (all_files_appended[k][i]) {
+				ft_putchar(all_files_appended[k][i]);
+				i++;
+			}
+			ft_putchar('\n');
+		} else {
+			printf("%s\n", all_files_appended[k]);
+		}	
 		k++;
 	}
 	free_list(all_files_appended);
