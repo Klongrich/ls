@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/xattr.h>
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
@@ -61,7 +62,7 @@ t_lengths	get_formatting_lengths(char **file_or_dir_paths);
 t_lengths	get_single_file_formatting_lengths(char *file_path);
 void	print_t_lengths(t_lengths to_print);
 t_lengths	set_column_sizes(t_lengths formatting_info, struct stat statbuff);
-void	print_permissions(struct stat statbuff);
+void	print_permissions(struct stat statbuff, char *file_path);
 void	print_name_and_grid(t_lengths formatting_info, struct stat statbuff);
 void	print_last_time_modified(struct stat statbuff);
 void	print_long_format_files_from_args(char **all_files);

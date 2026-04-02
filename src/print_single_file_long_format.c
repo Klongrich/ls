@@ -7,7 +7,7 @@ void	print_single_file_long_format(char *file_path) {
 	formatting_lengths = get_single_file_formatting_lengths(file_path);
 
 	lstat(file_path, &statbuff);
-	print_permissions(statbuff);
+	print_permissions(statbuff, file_path);
 	print_name_and_grid(formatting_lengths, statbuff);
 	ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 	print_last_time_modified(statbuff);

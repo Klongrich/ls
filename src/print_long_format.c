@@ -12,7 +12,7 @@ void	print_long_format(char **all_files_or_dirs) {
 	ft_printf("total %d\n", formatting_lengths.count);	
 	while (all_files_or_dirs[k]) {
 		lstat(all_files_or_dirs[k], &statbuff);
-		print_permissions(statbuff);
+		print_permissions(statbuff, all_files_or_dirs[k]);
 		print_name_and_grid(formatting_lengths, statbuff);		
 		if (S_ISCHR(statbuff.st_mode) || S_ISBLK(statbuff.st_mode)) {
 			num = makedev(major(statbuff.st_rdev), minor(statbuff.st_rdev));

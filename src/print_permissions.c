@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void		print_permissions(struct stat statbuff)
+void		print_permissions(struct stat statbuff, char *file_path)
 {
 	if(S_ISDIR(statbuff.st_mode)) {
 		ft_putchar('d');
@@ -66,7 +66,19 @@ void		print_permissions(struct stat statbuff)
 	} else {
 		ft_putchar('-');
 	}	
-	ft_putchar(' ');
-	ft_putchar(' ');
+
+	ssize_t ret;
+	//acl_t acl;
+	//acl_entry_t entry;
+
+	//printf("checking file_path: %s\n", file_path);
+	ret = listxattr(file_path, NULL, 0, XATTR_NOFOLLOW);
+	if (ret > 0) {
+		ft_putchar('@');
+		ft_putchar(' ');
+	} else {	
+		ft_putchar(' ');
+		ft_putchar(' ');
+	}
 }
 
