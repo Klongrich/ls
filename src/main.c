@@ -12,11 +12,10 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	i = 0;
 
 	repo_or_file_count = get_repo_or_file_count(dir_path, flags->a);
-	
+		
 	if (!repo_or_file_count) {
 		if(flags->l)
 			printf("total 0\n");
-		//printf("Opertaion Not Permitted\n");
 		return(0);
 	} else {
 
@@ -262,7 +261,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			if(number_of_valid_args == 1 && number_of_invalid_args == 0) {
 				if (sorted_dirs[0] != NULL) {
 					temp = read_dir(sorted_dirs[0], flags);
-					free_list(temp);
+					if(temp)
+						free_list(temp);
 				} else {
 					if (flags->l) {
 						if (sorted_files[0][0] != '/') {

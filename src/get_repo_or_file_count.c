@@ -8,6 +8,9 @@ int	get_repo_or_file_count(char *dir_path, int a_flag) {
 	count = 0;
 	dir = opendir(dir_path);
 	if (!dir) {
+		if(errno == EACCES) {
+			printf("ls: %s: Permission denied\n", dir_path);
+		}
 		return(0);
 	} else {
 		if (a_flag) {

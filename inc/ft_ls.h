@@ -7,6 +7,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
+#include <errno.h>
 #include "../libft/libft.h"
 
 # define MAX_FILE_LENGTH 255
