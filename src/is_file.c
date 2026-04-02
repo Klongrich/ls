@@ -3,7 +3,7 @@
 int	is_file(const char *path){
 	struct stat path_stat;
 
-	if ((stat(path, &path_stat)) == -1)
+	if ((lstat(path, &path_stat)) == -1)
 		return(0);
 	//mode_t file_type = path_stat.st_mode & S_IFMT;
 	//printf("mode_t: %hu\n", file_type);
@@ -20,6 +20,11 @@ int	is_file(const char *path){
 
 	//Block device (eg /dev/sda)
 	if (S_ISBLK(path_stat.st_mode)){
+		return(1);
+	}
+
+	//Symoblic Link (e.g. /home -> );
+	if (S_ISLNK(path_stat.st_mode)) {
 		return(1);
 	}
 	//Regular files?
