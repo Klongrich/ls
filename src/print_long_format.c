@@ -6,6 +6,7 @@ void	print_long_format(char **all_files_or_dirs) {
 	int k;
 	int num;
 	char hex[20];
+	char *hex_temp;
 
 	k = 0;
 	formatting_lengths = get_formatting_lengths(all_files_or_dirs);
@@ -17,7 +18,9 @@ void	print_long_format(char **all_files_or_dirs) {
 		if (S_ISCHR(statbuff.st_mode) || S_ISBLK(statbuff.st_mode)) {
 			num = makedev(major(statbuff.st_rdev), minor(statbuff.st_rdev));
 			decimalToHex(num, hex);
-			ft_printf("0x%s", hex);
+			hex_temp = ft_strjoin("0x", hex);
+			ft_printf("%#s", formatting_lengths.size, hex_temp);
+			free(hex_temp);
 		} else
 			ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 		print_last_time_modified(statbuff);
