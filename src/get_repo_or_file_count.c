@@ -10,6 +10,8 @@ int	get_repo_or_file_count(char *dir_path, int a_flag) {
 	if (!dir) {
 		if(errno == EACCES) {
 			printf("ls: %s: Permission denied\n", dir_path);
+		} else if (errno == EPERM) {
+			printf("ls: %s: Operation not permitted\n", dir_path);
 		}
 		return(0);
 	} else {
