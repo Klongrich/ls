@@ -2,20 +2,20 @@
 
 void		print_permissions(struct stat statbuff)
 {
-	/*
-	ft_putchar((S_ISFIFO(statbuff.st_mode)) ? 'p' : '\0');
-	ft_putchar((S_ISCHR(statbuff.st_mode)) ? 'c' : '\0');
-	ft_putchar((S_ISDIR(statbuff.st_mode)) ? 'd' : '\0');
-	ft_putchar((S_ISBLK(statbuff.st_mode)) ? 'b' : '\0');
-	ft_putchar((S_ISREG(statbuff.st_mode)) ? '-' : '\0');
-	ft_putchar((S_ISLNK(statbuff.st_mode)) ? 'l' : '\0');
-	ft_putchar((S_ISSOCK(statbuff.st_mode)) ? 's' : '\0');
-	*/
-
 	if(S_ISDIR(statbuff.st_mode)) {
 		ft_putchar('d');
 	} else if(S_ISSOCK(statbuff.st_mode)) {
 		ft_putchar('s'); 
+	} else if (S_ISFIFO(statbuff.st_mode)) {
+		ft_putchar('p');
+	} else if (S_ISCHR(statbuff.st_mode)) {
+		ft_putchar('c');
+	} else if (S_ISBLK(statbuff.st_mode)) {
+		ft_putchar('b');
+	} else if (S_ISREG(statbuff.st_mode)) {
+		ft_putchar('-');
+	} else if (S_ISLNK(statbuff.st_mode)) {
+		ft_putchar('l');
 	} else {
 		ft_putchar('-');
 	}
