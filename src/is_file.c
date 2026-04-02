@@ -13,6 +13,11 @@ int	is_file(const char *path){
 		return (1);
 	}
 
+	//Socket file (e.g. /mysql/socket
+	if (S_ISSOCK(path_stat.st_mode)){
+		return (1);
+	}
+
 	//Block device (eg /dev/sda)
 	if (S_ISBLK(path_stat.st_mode)){
 		return(1);
