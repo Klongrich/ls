@@ -21,7 +21,7 @@ void	print_long_format(char **all_files_or_dirs) {
 		} else
 			ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 		print_last_time_modified(statbuff);
-		print_file_name(all_files_or_dirs[k]);
+		print_file_name(all_files_or_dirs[k], 0);
 		k++;
 	}
 }

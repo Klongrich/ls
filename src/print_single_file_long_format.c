@@ -17,7 +17,7 @@ void	print_single_file_long_format(char *file_path) {
 		file_path++;
 		printf("%s\n", file_path);
 	} else {
-		printf("%s\n", file_path);
+		print_file_name(file_path, 1);
 	}
 }
 

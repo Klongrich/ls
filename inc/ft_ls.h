@@ -66,6 +66,6 @@ void	print_last_time_modified(struct stat statbuff);
 void	print_long_format_files_from_args(char **all_files);
 void	merge_sort2(char *arr[], int l, int r, int r_flag);
 void	merge_time_sort(char *arr[], int l, int r, int r_flag);
-void	print_file_name(char *filepath);
+void	print_file_name(char *filepath, int is_single_file);
 void	decimalToHex(int n, char hextString[]);
 char	**append_files_from_args_for_long_format(char *dir, char **files);

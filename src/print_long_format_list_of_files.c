@@ -26,7 +26,7 @@ void	print_long_format_files_from_args(char **all_files) {
 			}
 			ft_putchar('\n');
 		} else {
-			printf("%s\n", all_files_appended[k]);
+			print_file_name(all_files_appended[k], 1);
 		}	
 		k++;
 	}
