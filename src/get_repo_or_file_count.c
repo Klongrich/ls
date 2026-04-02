@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-int	get_repo_or_file_count(char *dir_path, int a_flag) {
+int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag) {
 	DIR *dir;
 	struct dirent  *dp;
 	int count;
@@ -8,6 +8,8 @@ int	get_repo_or_file_count(char *dir_path, int a_flag) {
 	count = 0;
 	dir = opendir(dir_path);
 	if (!dir) {
+		if(l_flag)
+			ft_putstr("total 0\n");
 		if(errno == EACCES) {
 			printf("ls: %s: Permission denied\n", dir_path);
 		} else if (errno == EPERM) {

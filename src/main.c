@@ -11,11 +11,9 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 
 	i = 0;
 
-	repo_or_file_count = get_repo_or_file_count(dir_path, flags->a);
+	repo_or_file_count = get_repo_or_file_count(dir_path, flags->a, flags->l);
 		
 	if (!repo_or_file_count) {
-		if(flags->l)
-			printf("total 0\n");
 		return(0);
 	} else {
 

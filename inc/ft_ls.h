@@ -54,7 +54,7 @@ void	print_long_format(char **all_files_or_dirs);
 void	print_single_file_long_format(char *file_path);
 char	*append_single_dir(char *dir, char *files_or_dir);
 char	*get_name_from_path(char *path);
-int	get_repo_or_file_count(char *dir_path, int a_flag);
+int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag);
 void	merge_sort(char **arr, int l, int r);
 t_lengths	initialize_t_lengths(void);
 t_lengths	get_formatting_lengths(char **file_or_dir_paths);
