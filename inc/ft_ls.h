@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <dirent.h>
-#include <string.h>
+
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -9,7 +9,8 @@
 #include <grp.h>
 #include <time.h>
 #include <errno.h>
-#include "../libft/libft.h"
+#include <unistd.h>
+#include "libft.h"
 
 # define MAX_FILE_LENGTH 255
 # define MAX_PATH_LENGTH 4096
@@ -75,4 +76,3 @@ void	ft_putstr_lowercase(char *str);
 void	bubble_swap(char **str_one, char **str_two);
 void	compare_str_bubble_normal(char **str, int j);
 void	compare_str_bubble_reverse(char **str, int j);
-
