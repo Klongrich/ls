@@ -223,7 +223,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		char **sorted_files;
 		char **sorted_dirs;
 
-		sorted = bubble_sort(parsed_argv, 0);
+		sorted = bubble_sort(parsed_argv, 0, get_size(parsed_argv));
 		number_of_invalid_args = check_is_file_or_dir(sorted);
 
 		files = get_files_from_args(parsed_argv);
@@ -233,8 +233,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 			sorted_files = time_sort(files, flags->r);
 			sorted_dirs = time_sort(dirs, flags->r);
 		} else {
-			sorted_files = bubble_sort(files, flags->r);
-			sorted_dirs = bubble_sort(dirs, flags->r);
+			sorted_files = bubble_sort(files, flags->r, get_size(files));
+			sorted_dirs = bubble_sort(dirs, flags->r, get_size(dirs));
 		}
 		
 		i = 0;
