@@ -1,5 +1,5 @@
 NAME = ft_ls
-OBJ = main.o parse_flags.o is_dir.o is_file.o bubble_sort.o print_list.o print_list_n.o get_size.o is_flag.o free_list.o compare_strs_lowercase.o check_end.o append_dir.o initialize_flags.o time_sort.o print_mtime.o print_nsec.o print_long_format.o append_single_dir.o get_name_from_path.o get_repo_or_file_count.o merge_sort.o initialize_t_lengths.o get_formatting_lengths.o print_t_lengths.o set_column_size.o print_permissions.o print_name_and_grid.o print_last_time_modified.o print_single_file_long_format.o get_single_file_formatting_lengths.o print_long_format_list_of_files.o merge_sort_2.o merge_time_sort.o print_file_name.o decimal_to_hex.o append_files_from_args_for_long_format.o
+OBJ = main.o parse_flags.o is_dir.o is_file.o bubble_sort.o print_list.o print_list_n.o get_size.o is_flag.o free_list.o compare_strs_lowercase.o check_end.o append_dir.o initialize_flags.o time_sort.o print_mtime.o print_nsec.o print_long_format.o append_single_dir.o get_name_from_path.o get_repo_or_file_count.o merge_sort.o initialize_t_lengths.o get_formatting_lengths.o print_t_lengths.o set_column_size.o print_permissions.o print_name_and_grid.o print_last_time_modified.o print_single_file_long_format.o get_single_file_formatting_lengths.o print_long_format_list_of_files.o merge_sort_2.o merge_time_sort.o print_file_name.o decimal_to_hex.o append_files_from_args_for_long_format.o ft_putstr_lowercase.o bubble_swap.o compare_str_bubble_normal.o compare_str_bubble_reverse.o
 INC = inc/ft_ls.h
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft/libft.a
@@ -11,6 +11,9 @@ all: $(NAME)
 	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
 
 %.o: $(addprefix ./debug/,%.c)
+	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
+
+%.o: $(addprefix ./sort/,%.c)
 	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
 
 $(NAME): $(OBJ)

@@ -1,31 +1,18 @@
 #include "../inc/ft_ls.h"
 
-char	**bubble_sort(char **str, int r) {
-
+char	**bubble_sort(char **str, int r_flag, int number_of_strs) {
 	int i;
 	int j;
-	int size;
-	char temp[MAX_FILE_LENGTH];
 
-	size = get_size(str);
 	i = 0;
 	j = 0;
-	while (i < size - 1) {
+	while (i < number_of_strs - 1) {
 		j = 0;
-		while (j < size - i - 1) {
-			if (r) {
-				if (compare_strs_lowercase(str[j], str[j + 1]) < 0) {
-					ft_strcpy(temp, str[j]);
-					ft_strcpy(str[j], str[j + 1]);
-					ft_strcpy(str[j + 1], temp);
-				}
-			} else {
-				if (compare_strs_lowercase(str[j], str[j + 1]) > 0) {
-					ft_strcpy(temp, str[j]);
-					ft_strcpy(str[j], str[j + 1]);
-					ft_strcpy(str[j + 1], temp);
-				}
-			}
+		while (j < number_of_strs - i - 1) {
+			if (r_flag) 
+				compare_str_bubble_reverse(str, j);
+			 else 
+				compare_str_bubble_normal(str, j);
 			j++;
 		}
 		i++;
