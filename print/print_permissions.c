@@ -68,8 +68,8 @@ void		print_permissions(struct stat statbuff, char *file_path)
 	}	
 
 	ssize_t ret;
-	//acl_t acl;
-	//acl_entry_t entry;
+//	acl_t acl;
+//	acl_entry_t entry;
 
 	//printf("checking file_path: %s\n", file_path);
 	ret = listxattr(file_path, NULL, 0, XATTR_NOFOLLOW);
