@@ -16,6 +16,12 @@ all: $(NAME)
 %.o: $(addprefix ./sort/,%.c)
 	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
 
+%.o: $(addprefix ./print/,%.c)
+	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
+
+%.o: $(addprefix ./print_formatting/,%.c)
+	@gcc $(CFLAGS) $(INC) -c $< $(LIBH)
+
 $(NAME): $(OBJ)
 	@gcc -g $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
