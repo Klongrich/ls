@@ -76,3 +76,4 @@ void	bubble_swap(char **str_one, char **str_two);
 void	compare_str_bubble_normal(char **str, int j);
 void	compare_str_bubble_reverse(char **str, int j);
 void	ft_putstr_lowercase(char const *s);
+int	check_start_of_flag(char *str);
