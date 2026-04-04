@@ -13,7 +13,7 @@ void	sformatpound(char **str, int num, char *arg) {
 			ft_putchar(' ');
 			i--;
 		}
-		ft_putstr(arg);
+		ft_putstr_lowercase(arg);
 	}
 }
 

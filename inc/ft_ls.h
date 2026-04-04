@@ -72,7 +72,7 @@ void	merge_time_sort(char *arr[], int l, int r, int r_flag);
 void	print_file_name(char *filepath, int is_single_file);
 void	decimalToHex(int n, char hextString[]);
 char	**append_files_from_args_for_long_format(char *dir, char **files);
-void	ft_putstr_lowercase(char *str);
 void	bubble_swap(char **str_one, char **str_two);
 void	compare_str_bubble_normal(char **str, int j);
 void	compare_str_bubble_reverse(char **str, int j);
+void	ft_putstr_lowercase(char const *s);
