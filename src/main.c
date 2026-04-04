@@ -295,7 +295,8 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 					temp = read_dir(sorted_dirs[i], flags);
 					if (i + 1 != sorted_dirs_size)
 						printf("\n");
-					free_list(temp);
+					if (temp)
+						free_list(temp);
 					i++;
 				}
 			}
