@@ -27,6 +27,9 @@ all: $(NAME)
 %.o: $(addprefix ./read_dir/,%.c)
 	@gcc $(CFLAGS) $(INC) -c $<
 
+%.o: $(addprefix ./parse_flags/,%.c)
+	@gcc $(CFLAGS) $(INC) -c $<
+
 $(NAME): $(OBJ)
 	@gcc -g $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
