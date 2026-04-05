@@ -12,12 +12,16 @@ void	print_single_file_long_format(char *file_path) {
 	ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 	print_last_time_modified(statbuff);
 
-	if(file_path[0] != '/') {
-		file_path++;
-		file_path++;
-		printf("%s\n", file_path);
-	} else {
+	if(check_files_link(file_path)) {
 		print_file_name(file_path, 1);
+	} else {
+		if(file_path[0] != '/') {
+			file_path++;
+			file_path++;
+			printf("%s\n", file_path);
+		} else {
+			print_file_name(file_path, 1);
+		}
 	}
 }
 

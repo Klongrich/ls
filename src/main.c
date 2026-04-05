@@ -91,7 +91,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 
 			k = 0;
 			while (all_files_or_directories[k]) {
-				printf("%s\n", all_files_or_directories[k]);
+				ft_printf("%s\n", all_files_or_directories[k]);
 				k++;
 			}
 		}
@@ -100,14 +100,14 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	}
 }
 
-int	check_is_file_or_dir(char **sorted_args){
+int	check_is_file_or_dir(char **sorted_args, int l_flag){
 	int i;
 	int invalid_file_or_repo_count;
 
 	i = 0;
 	invalid_file_or_repo_count = 0;
 	while(sorted_args[i]) {
-		if (!is_dir(sorted_args[i]) && !is_file(sorted_args[i])) {
+		if (!is_dir(sorted_args[i], l_flag) && !is_file(sorted_args[i], l_flag)) {
 			ft_putstr_fd("ls: ", 2);
 			ft_putstr_fd(sorted_args[i], 2);
 			ft_putstr_fd(" No such file or directory\n", 2);
@@ -118,7 +118,7 @@ int	check_is_file_or_dir(char **sorted_args){
 	return (invalid_file_or_repo_count);
 }
 
-char	**get_files_from_args(char **list_of_args) {
+char	**get_files_from_args(char **list_of_args, int l_flag) {
 	int i;
 	int j;
 	char **result;
@@ -127,7 +127,7 @@ char	**get_files_from_args(char **list_of_args) {
 	j = 0;
 	result = (char **)malloc(sizeof(char *) * get_size(list_of_args) + 1);
 	while (list_of_args[i]) {
-		if(is_file(list_of_args[i])) {
+		if(is_file(list_of_args[i], l_flag)) {
 			result[j] = list_of_args[i];
 			j++;
 		}
@@ -138,7 +138,7 @@ char	**get_files_from_args(char **list_of_args) {
 
 }
 
-char	**get_dirs_from_args(char **list_of_args) {
+char	**get_dirs_from_args(char **list_of_args, int l_flag) {
 	int i;
 	int j;
 	char **result;
@@ -147,7 +147,7 @@ char	**get_dirs_from_args(char **list_of_args) {
 	i = 0;
 	result = (char **)malloc(sizeof(char *) * get_size(list_of_args) + 1);
 	while (list_of_args[i]) {
-		if (is_dir(list_of_args[i])) {
+		if (is_dir(list_of_args[i], l_flag)) {
 			result[j] = list_of_args[i];
 			j++;
 		}
@@ -163,17 +163,19 @@ int	recur(char **files_or_repos, t_flags *flags) {
 
 	i = 0;
 	while (files_or_repos[i]) {
-		if(is_dir(files_or_repos[i])) {
-			printf("\n");
-			printf("%s:\n", files_or_repos[i]);
-			files_from_repo = read_dir(files_or_repos[i],flags);
-			if(files_from_repo) {
-				append = append_dir(files_or_repos[i], files_from_repo);	
-				recur(append, flags);
+		if(is_dir(files_or_repos[i], flags->l)) {
+			if (!check_files_link_during_recur(files_or_repos[i])) {
+				ft_printf("\n");
+				ft_printf("%s:\n", files_or_repos[i]);
+				files_from_repo = read_dir(files_or_repos[i],flags);
+				if(files_from_repo) {
+					append = append_dir(files_or_repos[i], files_from_repo);	
+					recur(append, flags);
 
-				free_list(append);
-				free_list(files_from_repo);
-			};
+					free_list(append);
+					free_list(files_from_repo);
+				}
+			}
 		}
 		i++;
 	}
@@ -224,10 +226,10 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		char **sorted_dirs;
 
 		sorted = bubble_sort(parsed_argv, 0, get_size(parsed_argv));
-		number_of_invalid_args = check_is_file_or_dir(sorted);
+		number_of_invalid_args = check_is_file_or_dir(sorted, flags->l);
 
-		files = get_files_from_args(parsed_argv);
-		dirs = get_dirs_from_args(parsed_argv);
+		files = get_files_from_args(parsed_argv, flags->l);
+		dirs = get_dirs_from_args(parsed_argv, flags->l);
 		//Could use strcoll() to mimic extact behavior with special characters
 		if (flags->t) {
 			sorted_files = time_sort(files, flags->r);
@@ -272,7 +274,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 							print_single_file_long_format(sorted_files[0]);
 						}
 					} else {
-						printf("%s\n", sorted_files[0]);
+						ft_printf("%s\n", sorted_files[0]);
 					}
 				}
 			} else {
@@ -281,7 +283,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 						print_long_format_files_from_args(sorted_files);
 					} else {
 						while(sorted_files[i]) {
-							printf("%s\n", sorted_files[i]);
+							ft_printf("%s\n", sorted_files[i]);
 							i++;
 						}
 					}
@@ -291,10 +293,10 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 				i = 0;
 				sorted_dirs_size = get_size(sorted_dirs);
 				while(sorted_dirs[i]) {
-					printf("%s:\n", sorted_dirs[i]);
+					ft_printf("%s:\n", sorted_dirs[i]);
 					temp = read_dir(sorted_dirs[i], flags);
 					if (i + 1 != sorted_dirs_size)
-						printf("\n");
+						ft_printf("\n");
 					if (temp)
 						free_list(temp);
 					i++;

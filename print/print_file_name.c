@@ -1,16 +1,5 @@
 #include "../inc/ft_ls.h"
 
-int	check_files_link(char *str)
-{
-	struct stat stuff;
-
-	lstat(str, &stuff);
-	if (S_ISLNK(stuff.st_mode))
-		return(1);
-	else
-		return(0);
-}
-
 void	print_file_name(char *filepath, int is_single_file)
 {
 	size_t			len;
@@ -25,6 +14,10 @@ void	print_file_name(char *filepath, int is_single_file)
 	{
 		len = readlink(filepath, buff, 1023);
 		buff[len] = '\0';
+		if (name[0] != '/' && is_single_file){
+			name++;
+			name++;
+		}
 		ft_printf("%s -> %s\n", name, buff);
 	}
 	else

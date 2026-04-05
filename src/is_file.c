@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-int	is_file(const char *path){
+int	is_file(const char *path, int l_flag){
 	struct stat path_stat;
 
 	if ((lstat(path, &path_stat)) == -1)
@@ -23,10 +23,13 @@ int	is_file(const char *path){
 		return(1);
 	}
 
-	//Symoblic Link (e.g. /home -> );
-	if (S_ISLNK(path_stat.st_mode)) {
-		return(1);
+	if(l_flag) {
+		//Symoblic Link (e.g. /home -> );
+		if (S_ISLNK(path_stat.st_mode)) {
+			return(1);
+		}
 	}
+
 	//Regular files?
 	/*
 	if (file_type == S_IFREG) {

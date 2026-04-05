@@ -17,10 +17,15 @@ void	print_long_format(char **all_files_or_dirs) {
 		print_name_and_grid(formatting_lengths, statbuff);		
 		if (S_ISCHR(statbuff.st_mode) || S_ISBLK(statbuff.st_mode)) {
 			num = makedev(major(statbuff.st_rdev), minor(statbuff.st_rdev));
-			decimalToHex(num, hex);
-			hex_temp = ft_strjoin("0x", hex);
-			ft_printf("%#s", formatting_lengths.size, hex_temp);
-			free(hex_temp);
+			if(num != 0) {
+				decimalToHex(num, hex);
+				hex_temp = ft_strjoin("0x", hex);
+				ft_printf("%#s", formatting_lengths.size, hex_temp);
+				free(hex_temp);
+			} else {
+				hex_temp = "0";
+				ft_printf("%#s", formatting_lengths.size, hex_temp);
+			}
 		} else
 			ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
 		print_last_time_modified(statbuff);

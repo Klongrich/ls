@@ -37,8 +37,8 @@ typedef struct		lengths {
 int	parse_flags(char *str, t_flags *flags);
 void	initialize_flags(t_flags *flags);
 void	print_flags(t_flags *flags);
-int	is_dir(const char *path);
-int	is_file(const char *path);
+int	is_dir(const char *path, int l_flag);
+int	is_file(const char *path, int l_flag);
 char	**bubble_sort(char **str, int r, int size);
 void	print_list(char **str);
 void	print_list_n(char **str, int n);
@@ -77,3 +77,5 @@ void	compare_str_bubble_normal(char **str, int j);
 void	compare_str_bubble_reverse(char **str, int j);
 void	ft_putstr_lowercase(char const *s);
 int	check_start_of_flag(char *str);
+int	check_files_link(char *str);
+int	check_files_link_during_recur(char *str);

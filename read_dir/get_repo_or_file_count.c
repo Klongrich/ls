@@ -13,7 +13,9 @@ int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag) {
 		if(errno == EACCES) {
 			printf("ls: %s: Permission denied\n", dir_path);
 		} else if (errno == EPERM) {
-			printf("ls: %s: Operation not permitted\n", dir_path);
+			ft_putstr_fd("ls: ", 2);
+			ft_putstr_fd(dir_path, 2);
+			ft_putstr_fd(" Operation not permitted\n", 2);
 		}
 		return(0);
 	} else {
@@ -26,6 +28,8 @@ int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag) {
 					count++; 
 			}		
 		}
+		if(l_flag && count == 0)
+			ft_putstr("total 0\n");
 	}
 	closedir(dir);
 	return (count);
