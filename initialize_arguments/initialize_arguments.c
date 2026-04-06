@@ -3,11 +3,9 @@
 void initialize_arguments(char **argv, t_flags *flags, int i){
 	char **parsed_argv;
 	char **sorted;
-	char **temp;
 	int number_of_valid_args;
 	int number_of_invalid_args;
 	int j;
-	int sorted_dirs_size;
 	
 	j = 0;
 	number_of_invalid_args = 0;	
@@ -49,33 +47,10 @@ void initialize_arguments(char **argv, t_flags *flags, int i){
 		if(flags->recur) {
 			run_recursion(sorted_files, sorted_dirs, flags, number_of_invalid_args);		
 		} else {
-			if(number_of_valid_args == 1 && number_of_invalid_args == 0) {
+			if(number_of_valid_args == 1 && number_of_invalid_args == 0) 
 				run_one_valid_argument(sorted_dirs, sorted_files, flags);
-			} else {
-				if(sorted_files[0] != NULL) {
-					if(flags->l) {
-						print_long_format_files_from_args(sorted_files);
-					} else {
-						while(sorted_files[i]) {
-							ft_printf("%s\n", sorted_files[i]);
-							i++;
-						}
-					}
-					if(sorted_dirs[0] != NULL)
-						printf("\n");
-				}
-				i = 0;
-				sorted_dirs_size = get_size(sorted_dirs);
-				while(sorted_dirs[i]) {
-					ft_printf("%s:\n", sorted_dirs[i]);
-					temp = read_dir(sorted_dirs[i], flags);
-					if (i + 1 != sorted_dirs_size)
-						ft_printf("\n");
-					if (temp)
-						free_list(temp);
-					i++;
-				}
-			}
+			else 
+				run_multiple_arguments(sorted_files, sorted_dirs, flags);
 		}
 		free(files);
 		free(dirs);
