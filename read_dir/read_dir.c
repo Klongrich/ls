@@ -85,17 +85,8 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 				free(temp_name);
 				kk++;
 			}
-		} else {
-
-			int k;
-
-			k = 0;
-			while (all_files_or_directories[k]) {
-				ft_printf("%s\n", all_files_or_directories[k]);
-				k++;
-			}
-		}
-
+		} else 
+			print_list(all_files_or_directories);
 		return(all_files_or_directories);
 	}
 }

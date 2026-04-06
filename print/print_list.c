@@ -5,7 +5,7 @@ void	print_list(char **str){
 
 	i = 0;
 	while (str[i]) {
-		printf("%s\n", str[i]);
+		ft_printf("%s\n", str[i]);
 		i++;
 	}
 }
