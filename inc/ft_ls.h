@@ -93,3 +93,4 @@ char	**get_dirs_from_args(char **list_of_args, int l_flag);
 int	check_is_file_or_dir(char **sorted_args, int l_flag);
 int	recur(char **files_or_repos, t_flags *flags);
 char	**read_dir(char *dir_path, t_flags *flags);
+void	cut_file_path_from_files_or_dirs(char **all_files_or_directories);

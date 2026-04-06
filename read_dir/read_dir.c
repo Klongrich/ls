@@ -6,23 +6,18 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	int repo_or_file_count;
 	char **all_files_or_directories;
 	char *temp;
-	char *temp_name;
 	int i;
 
 	i = 0;
-
-	repo_or_file_count = get_repo_or_file_count(dir_path, flags->a, flags->l);
-		
+	repo_or_file_count = get_repo_or_file_count(dir_path, flags->a, flags->l);	
 	if (!repo_or_file_count) {
 		return(0);
 	} else {
 
-		//Allocating character array
 		all_files_or_directories = (char **)malloc(sizeof(char *) * repo_or_file_count + 1);
 		if (!all_files_or_directories)
 			printf("Error mallocing\n");
 
-		//Copying data into our new array
 		dir = opendir(dir_path);
 		while ((dp = readdir(dir))) {
 			if(!flags->a) {
@@ -54,39 +49,19 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 
 		all_files_or_directories[i] = 0;
 		closedir(dir);
-
-		if (flags->t) {
+		
+		if (flags->t) 
 			merge_time_sort(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
-		} else {
+		else 
 			merge_sort2(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
-		}
 
-		if (flags->t && !flags->l) {
-			int kk;
-
-			kk = 0;
-			while(all_files_or_directories[kk]) {
-				temp_name = get_name_from_path(all_files_or_directories[kk]);
-				all_files_or_directories[kk] = ft_strcpy(all_files_or_directories[kk], temp_name);
-				free(temp_name);
-				kk++;
-			}
-		}
-
-		if (flags->l) {
-			print_long_format(all_files_or_directories);
-			
-			int kk;
-
-			kk = 0;
-			while(all_files_or_directories[kk]) {
-				temp_name = get_name_from_path(all_files_or_directories[kk]);
-				all_files_or_directories[kk] = ft_strcpy(all_files_or_directories[kk], temp_name);
-				free(temp_name);
-				kk++;
-			}
-		} else 
+		if(flags->l)
+			print_long_format(all_files_or_directories);	
+		if (flags->l || flags->t) {
+			cut_file_path_from_files_or_dirs(all_files_or_directories);
+		if(!flags->l)
 			print_list(all_files_or_directories);
+
 		return(all_files_or_directories);
 	}
 }
