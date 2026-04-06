@@ -100,50 +100,6 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 	}
 }
 
-int	check_is_file_or_dir(char **sorted_args, int l_flag){
-	int i;
-	int invalid_file_or_repo_count;
-
-	i = 0;
-	invalid_file_or_repo_count = 0;
-	while(sorted_args[i]) {
-		if (!is_dir(sorted_args[i], l_flag) && !is_file(sorted_args[i], l_flag)) {
-			ft_putstr_fd("ls: ", 2);
-			ft_putstr_fd(sorted_args[i], 2);
-			ft_putstr_fd(" No such file or directory\n", 2);
-			invalid_file_or_repo_count++;
-		}
-		i++;
-	}
-	return (invalid_file_or_repo_count);
-}
-
-int	recur(char **files_or_repos, t_flags *flags) {
-	int i;
-	char **append;
-	char **files_from_repo;
-
-	i = 0;
-	while (files_or_repos[i]) {
-		if(is_dir(files_or_repos[i], flags->l)) {
-			if (!check_files_link_during_recur(files_or_repos[i])) {
-				ft_printf("\n");
-				ft_printf("%s:\n", files_or_repos[i]);
-				files_from_repo = read_dir(files_or_repos[i],flags);
-				if(files_from_repo) {
-					append = append_dir(files_or_repos[i], files_from_repo);	
-					recur(append, flags);
-
-					free_list(append);
-					free_list(files_from_repo);
-				}
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
 void initalize_arguments(char **argv, t_flags *flags, int i){
 	char **parsed_argv;
 	char **sorted;
