@@ -6,7 +6,7 @@ int	final_flag_parse_from_args(char **argv, int i, t_dash dash_check, t_flags fl
 	} else {
 		if (is_flag(argv[i]) && !dash_check.dashdash_found)
 			i++;
-		initalize_arguments(argv, &flags, i);
+		initialize_arguments(argv, &flags, i);
 		return (1);
 	}
 	return(0);
