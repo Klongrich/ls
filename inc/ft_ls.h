@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <dirent.h>
-
+#include <stdbool.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -99,3 +99,4 @@ void    read_dir_standard(char **all_files_or_directories, char *dir_path, t_fla
 void	initialize_arguments(char **argv, t_flags *flags, int i);
 void	run_with_no_files_or_repos_passed(t_flags *flags);
 void	print_errors_opening_dir(int l_flag, char *dir_path);
+void    run_recursion(char **sorted_files, char **sorted_dirs, t_flags *flags, int number_of_invalid_args);
