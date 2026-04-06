@@ -1,5 +1,10 @@
 #include "../inc/ft_ls.h"
 
+int	print_invalid_flag_error() {
+	printf("error, invalid flags usage: [-lratR]\n");
+	return(0);
+}
+
 int 	parse_flags(char *str, t_flags *flags){
 	int i;
 
@@ -16,7 +21,7 @@ int 	parse_flags(char *str, t_flags *flags){
 		else if (str[i] == 'a')
 			flags->a = 1;
 		else
-			return(0);
+			return(print_invalid_flag_error());
 		i++;
 	}
 	return (1);

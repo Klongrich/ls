@@ -200,8 +200,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 	if (!parsed_argv) {
 		printf("error mallocing\n");
 	}
-
-	if (!argv[i]) {
+	if (!argv[i] || (!ft_strcmp(argv[i], "--"))) {
 		if(flags->recur) {
 			temp3 = read_dir(".", flags);
 			temp4 = append_dir("./", temp3);;
@@ -312,16 +311,10 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 int 	main(int argc, char **argv){
 
 	t_flags flags;	
-	int i;
-	int getting_flags;
-	int dash_found;
-	int dashdash_found;
 	char **temp;
+	int i;
 
 	i = 0;
-	getting_flags = 1;
-	dashdash_found = 0;
-	dash_found = 0;
 	initialize_flags(&flags);
 	if (argc == 0) {
 		return (0);
@@ -331,42 +324,6 @@ int 	main(int argc, char **argv){
 		free_list(temp);		
 	}
 	if (argc > 1) {
-		i = 1;
-		while (argv[i]) {
-			if (argv[i][0] == '-' && getting_flags) {
-				if (!argv[i][1]) {
-					getting_flags = 0;
-					dash_found = 1;
-				} else if (argv[i][1] == '-' && !argv[i][2]) {
-					getting_flags = 0;
-				} else {
-					if((parse_flags(argv[i], &flags) == 0)) {
-						printf("error, invalid flag. Usage: [-lratR]\n");
-						return (0);
-					}
-				}
-			}
-			if (argv[i][0] != '-') {
-				getting_flags = 0;
-			}
-			
-			if (i + 1 == argc) {
-				getting_flags = 0;
-			}
-
-			if (!getting_flags) {
-				if (argv[i][0] == '-' && argv[i][1] == '-' && !dashdash_found && !dash_found) {
-					dashdash_found = 1;
-				} else {
-					
-					if (is_flag(argv[i]) && !dashdash_found)
-						i++;
-					initalize_arguments(argv, &flags, i);
-					break;
-				}
-			}
-			i++;
-		}
-	
+		parse_flags_from_args_passed(argv, argc, flags, i);
 	}
 }

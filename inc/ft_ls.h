@@ -34,6 +34,13 @@ typedef struct		lengths {
 	int	count;
 }			t_lengths;
 
+typedef struct		dash {
+
+	int dash_found;
+	int dashdash_found;
+}			t_dash;
+
+
 int	parse_flags(char *str, t_flags *flags);
 void	initialize_flags(t_flags *flags);
 void	print_flags(t_flags *flags);
@@ -79,3 +86,8 @@ void	ft_putstr_lowercase(char const *s);
 int	check_start_of_flag(char *str);
 int	check_files_link(char *str);
 int	check_files_link_during_recur(char *str);
+void	parse_flags_from_args_passed(char **argv, int argc, t_flags flags, int i);
+void	initalize_arguments(char **argv, t_flags *flags, int i);
+
+
+
