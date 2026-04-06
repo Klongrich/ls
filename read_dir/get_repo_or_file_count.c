@@ -8,15 +8,7 @@ int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag) {
 	count = 0;
 	dir = opendir(dir_path);
 	if (!dir) {
-		if(l_flag)
-			ft_putstr("total 0\n");
-		if(errno == EACCES) {
-			printf("ls: %s: Permission denied\n", dir_path);
-		} else if (errno == EPERM) {
-			ft_putstr_fd("ls: ", 2);
-			ft_putstr_fd(dir_path, 2);
-			ft_putstr_fd(" Operation not permitted\n", 2);
-		}
+		print_errors_opening_dir(l_flag, dir_path);
 		return(0);
 	} else {
 		if (a_flag) {

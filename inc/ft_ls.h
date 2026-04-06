@@ -98,4 +98,4 @@ void	read_dir_with_hidden_files(char **all_files_or_directories, char *dir_path,
 void    read_dir_standard(char **all_files_or_directories, char *dir_path, t_flags *flags);
 void	initialize_arguments(char **argv, t_flags *flags, int i);
 void	run_with_no_files_or_repos_passed(t_flags *flags);
-
+void	print_errors_opening_dir(int l_flag, char *dir_path);
