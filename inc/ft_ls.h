@@ -94,3 +94,7 @@ int	check_is_file_or_dir(char **sorted_args, int l_flag);
 int	recur(char **files_or_repos, t_flags *flags);
 char	**read_dir(char *dir_path, t_flags *flags);
 void	cut_file_path_from_files_or_dirs(char **all_files_or_directories);
+void	read_dir_with_hidden_files(char **all_files_or_directories, char *dir_path, t_flags *flags);
+void    read_dir_standard(char **all_files_or_directories, char *dir_path, t_flags *flags);
+
+
