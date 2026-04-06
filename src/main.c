@@ -118,44 +118,6 @@ int	check_is_file_or_dir(char **sorted_args, int l_flag){
 	return (invalid_file_or_repo_count);
 }
 
-char	**get_files_from_args(char **list_of_args, int l_flag) {
-	int i;
-	int j;
-	char **result;
-
-	i = 0;
-	j = 0;
-	result = (char **)malloc(sizeof(char *) * get_size(list_of_args) + 1);
-	while (list_of_args[i]) {
-		if(is_file(list_of_args[i], l_flag)) {
-			result[j] = list_of_args[i];
-			j++;
-		}
-		i++;
-	}
-
-	return (result);
-
-}
-
-char	**get_dirs_from_args(char **list_of_args, int l_flag) {
-	int i;
-	int j;
-	char **result;
-
-	j = 0;
-	i = 0;
-	result = (char **)malloc(sizeof(char *) * get_size(list_of_args) + 1);
-	while (list_of_args[i]) {
-		if (is_dir(list_of_args[i], l_flag)) {
-			result[j] = list_of_args[i];
-			j++;
-		}
-		i++; 
-	}
-	return (result);
-}
-
 int	recur(char **files_or_repos, t_flags *flags) {
 	int i;
 	char **append;

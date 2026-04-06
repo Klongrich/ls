@@ -23,7 +23,6 @@ void	parse_flags_from_args_passed(char **argv, int argc, t_flags flags, int i) {
 	t_dash dash_check;
 	
 	getting_flags = 1;
-
 	dash_check.dash_found = 0;
 	dash_check.dashdash_found = 0;
 	while (argv[i++]) {

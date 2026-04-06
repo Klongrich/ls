@@ -88,6 +88,7 @@ int	check_files_link(char *str);
 int	check_files_link_during_recur(char *str);
 void	parse_flags_from_args_passed(char **argv, int argc, t_flags flags, int i);
 void	initalize_arguments(char **argv, t_flags *flags, int i);
-
+char	**get_files_from_args(char **list_of_args, int l_flag);
+char	**get_dirs_from_args(char **list_of_args, int l_flag);
 
 
