@@ -51,26 +51,6 @@ void initialize_arguments(char **argv, t_flags *flags, int i){
 		} else {
 			if(number_of_valid_args == 1 && number_of_invalid_args == 0) {
 				run_one_valid_argument(sorted_dirs, sorted_files, flags);
-				/*
-				if (sorted_dirs[0] != NULL) {
-					temp = read_dir(sorted_dirs[0], flags);
-					if(temp)
-						free_list(temp);
-				} else {
-					if (flags->l) {
-						if (sorted_files[0][0] != '/') {
-							long_temp = ft_strjoin("./", sorted_files[0]);
-							print_single_file_long_format(long_temp);
-							free(long_temp);
-						}
-						else {
-							print_single_file_long_format(sorted_files[0]);
-						}
-					} else {
-						ft_printf("%s\n", sorted_files[0]);
-					}
-				}
-				*/
 			} else {
 				if(sorted_files[0] != NULL) {
 					if(flags->l) {
