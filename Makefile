@@ -33,7 +33,7 @@ all: $(NAME)
 %.o: $(addprefix ./memory_management/,%.c)
 	@gcc $(CFLAGS) $(INC) -c $<
 
-%.o: $(addprefix ./parse_from_args/,%.c)
+%.o: $(addprefix ./parse_from_arguments_passed/,%.c)
 	@gcc $(CFLAGS) $(INC) -c $<
 
 %.o: $(addprefix ./recursion/,%.c)
