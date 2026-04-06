@@ -4,7 +4,6 @@ void initialize_arguments(char **argv, t_flags *flags, int i){
 	char **parsed_argv;
 	char **sorted;
 	char **temp;
-	char *long_temp;
 	int number_of_valid_args;
 	int number_of_invalid_args;
 	int j;
@@ -48,26 +47,11 @@ void initialize_arguments(char **argv, t_flags *flags, int i){
 		i = 0;
 		number_of_valid_args = get_size(sorted_files) + get_size(sorted_dirs);
 		if(flags->recur) {
-			run_recursion(sorted_files, sorted_dirs, flags, number_of_invalid_args);
-			/*
-			if (flags->l) {
-				print_long_format_files_from_args(sorted_files);
-			} else {
-				print_list(sorted_files);
-			}
-			if(number_of_valid_args == 1 && number_of_invalid_args == 0 && sorted_dirs[0]) {
-				temp3 = read_dir(sorted_dirs[0], flags);
-				temp4 = append_dir(sorted_dirs[0], temp3);
-				recur(temp4, flags);
-				free_list(temp3);
-				free_list(temp4);	
-			} else {
-				recur(sorted_dirs, flags);
-			}
-			*/		
+			run_recursion(sorted_files, sorted_dirs, flags, number_of_invalid_args);		
 		} else {
-
 			if(number_of_valid_args == 1 && number_of_invalid_args == 0) {
+				run_one_valid_argument(sorted_dirs, sorted_files, flags);
+				/*
 				if (sorted_dirs[0] != NULL) {
 					temp = read_dir(sorted_dirs[0], flags);
 					if(temp)
@@ -86,6 +70,7 @@ void initialize_arguments(char **argv, t_flags *flags, int i){
 						ft_printf("%s\n", sorted_files[0]);
 					}
 				}
+				*/
 			} else {
 				if(sorted_files[0] != NULL) {
 					if(flags->l) {
