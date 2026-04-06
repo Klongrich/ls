@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void initalize_arguments(char **argv, t_flags *flags, int i){
+void initialize_arguments(char **argv, t_flags *flags, int i){
 	char **parsed_argv;
 	char **sorted;
 	char **temp;
@@ -19,16 +19,7 @@ void initalize_arguments(char **argv, t_flags *flags, int i){
 		printf("error mallocing\n");
 	}
 	if (!argv[i] || (!ft_strcmp(argv[i], "--"))) {
-		if(flags->recur) {
-			temp3 = read_dir(".", flags);
-			temp4 = append_dir("./", temp3);;
-			recur(temp4, flags);
-			free_list(temp3);
-			free_list(temp4);
-		} else {
-			temp = read_dir(".", flags);
-			free_list(temp);
-		}
+		run_with_no_files_or_repos_passed(flags);	
 	} else {
 		while(argv[i]) {
 			parsed_argv[j] = (char *)malloc(sizeof(char ) * MAX_PATH_LENGTH + 1);
