@@ -30,9 +30,12 @@ void		print_permissions(struct stat statbuff, char *file_path)
 		ft_putchar('w');
 	} else {
 		ft_putchar('-');
-	}
+	}	
 	if (statbuff.st_mode & S_IXUSR) {
-		ft_putchar('x');
+		if(statbuff.st_mode & S_ISUID)
+			ft_putchar('s');
+		else
+			ft_putchar('x');
 	} else {
 		ft_putchar('-');
 	}	
