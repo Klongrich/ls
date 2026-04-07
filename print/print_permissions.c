@@ -66,7 +66,10 @@ void		print_permissions(struct stat statbuff, char *file_path)
 		ft_putchar('-');
 	}
 	if (statbuff.st_mode & S_IXOTH) {
-		ft_putchar('x');
+		if (statbuff.st_mode & S_ISVTX)
+                	ft_putchar('t');
+            	else
+			ft_putchar('x');
 	} else {
 		ft_putchar('-');
 	}	
