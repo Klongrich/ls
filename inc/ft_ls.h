@@ -23,6 +23,7 @@ typedef struct 		flags {
 	int	t;
 	int	a;
 	int	color;
+	int	u;
 
 }
 			t_flags;
@@ -104,3 +105,5 @@ void    run_recursion(char **sorted_files, char **sorted_dirs, t_flags *flags, i
 void    run_one_valid_argument(char **sorted_dirs, char **sorted_files, t_flags *flags);
 void    run_multiple_arguments(char **sorted_files, char **sorted_dirs, t_flags *flags);
 void	print_color(char **paths);
+char	**last_time_accessed_sort(char **str, int r);
+void	merge_last_time_accessed_sort(char* arr[], int l, int r, int r_flag);
