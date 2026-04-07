@@ -103,4 +103,4 @@ void	print_errors_opening_dir(int l_flag, char *dir_path);
 void    run_recursion(char **sorted_files, char **sorted_dirs, t_flags *flags, int number_of_invalid_args);
 void    run_one_valid_argument(char **sorted_dirs, char **sorted_files, t_flags *flags);
 void    run_multiple_arguments(char **sorted_files, char **sorted_dirs, t_flags *flags);
-
+void	print_color(char **paths);

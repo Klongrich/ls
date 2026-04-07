@@ -4,7 +4,7 @@ void	handel_printing(char **all_files_or_directories, t_flags *flags) {
 	if(flags->l)
 		print_long_format(all_files_or_directories);
 	if(flags->color & !flags->l)
-		printf("add print color function");    
+		print_color(all_files_or_directories);    
 	if (flags->l || flags->t || flags->color) 
 		cut_file_path_from_files_or_dirs(all_files_or_directories);
 	if(!flags->l & !flags->color)
