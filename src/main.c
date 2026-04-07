@@ -17,6 +17,5 @@ int 	main(int argc, char **argv){
 	if (argc > 1) {
 		parse_flags_from_args_passed(argv, argc, flags, i);
 	}
-
 	return (0);
 }

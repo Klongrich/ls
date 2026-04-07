@@ -17,7 +17,7 @@ int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag) {
 		} else {
 			while((dp = readdir(dir))) {
 				if(!(dp->d_name[0] == '.'))
-					count++; 
+					count++;
 			}		
 		}
 		if(l_flag && count == 0)

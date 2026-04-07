@@ -39,6 +39,7 @@ void	sort_then_run_argv(char **parsed_argv, t_flags *flags) {
 		sorted_files = time_sort(files, flags->r);
 		sorted_dirs = time_sort(dirs, flags->r);
 	} else {
+
 		sorted_files = bubble_sort(files, flags->r, get_size(files));
 		sorted_dirs = bubble_sort(dirs, flags->r, get_size(dirs));
 	}
@@ -61,7 +62,6 @@ void initialize_arguments(char **argv, t_flags *flags, int i){
 	if (!argv[i] || (!ft_strcmp(argv[i], "--"))) {
 		run_with_no_files_or_repos_passed(flags);	
 	} else {
-
 		init_parsed_argv(parsed_argv, argv, i, j);
 		sort_then_run_argv(parsed_argv, flags);
 	}
