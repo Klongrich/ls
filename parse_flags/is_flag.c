@@ -21,6 +21,8 @@ int	is_flag(char *str) {
 				i++;
 			else if (str[i] == 'G')
 				i++;
+			else if (str[i] == 'u')
+				i++;
 			else
 				return(0);
 		}
