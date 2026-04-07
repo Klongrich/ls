@@ -9,7 +9,7 @@ void	read_dir_with_hidden_files(char **all_files_or_directories, char *dir_path,
 	i = 0;
 	dir = opendir(dir_path);
 	while ((dp = readdir(dir))) {
-		if (flags->t || flags->l) {
+		if (flags->t || flags->l || flags->color) {
 			all_files_or_directories[i] = (char *)malloc(sizeof(char) * MAX_PATH_LENGTH);
 			temp = append_single_dir(dir_path, dp->d_name);
 			all_files_or_directories[i] = ft_strcpy(all_files_or_directories[i], temp);
