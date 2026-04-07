@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void	print_long_format(char **all_files_or_dirs) {
+void	print_long_format(char **all_files_or_dirs, t_flags *flags) {
 	t_lengths	formatting_lengths;
 	struct stat	statbuff;
 	int k;
@@ -28,7 +28,10 @@ void	print_long_format(char **all_files_or_dirs) {
 			}
 		} else
 			ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
-		print_last_time_modified(statbuff);
+		if (flags->t & flags->u)
+			print_last_time_accessed(statbuff);
+		else
+			print_last_time_modified(statbuff);
 		print_file_name(all_files_or_dirs[k], 0);
 		k++;
 	}

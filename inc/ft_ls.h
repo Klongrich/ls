@@ -61,7 +61,7 @@ void	initialize_flags(t_flags *flags);
 char 	**time_sort(char **str, int r);
 void	print_mtime(char *file_path);
 void	print_nsec(char *file_path);
-void	print_long_format(char **all_files_or_dirs);
+void	print_long_format(char **all_files_or_dirs, t_flags *flags);
 void	print_single_file_long_format(char *file_path);
 char	*append_single_dir(char *dir, char *files_or_dir);
 char	*get_name_from_path(char *path);
@@ -107,3 +107,4 @@ void    run_multiple_arguments(char **sorted_files, char **sorted_dirs, t_flags 
 void	print_color(char **paths);
 char	**last_time_accessed_sort(char **str, int r);
 void	merge_last_time_accessed_sort(char* arr[], int l, int r, int r_flag);
+void	print_last_time_accessed(struct stat statbuff);

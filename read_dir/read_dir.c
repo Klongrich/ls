@@ -2,7 +2,7 @@
 
 void	handel_printing(char **all_files_or_directories, t_flags *flags) {
 	if(flags->l)
-		print_long_format(all_files_or_directories);
+		print_long_format(all_files_or_directories, flags);
 	if(flags->color & !flags->l)
 		print_color(all_files_or_directories);    
 	if (flags->l || flags->t || flags->color) 
