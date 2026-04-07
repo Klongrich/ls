@@ -22,6 +22,8 @@ int 	parse_flags(char *str, t_flags *flags){
 			flags->a = 1;
 		else if (str[i] == 'G')
 			flags->color = 1;
+		else if (str[i] == 'u')
+			flags->u = 1;
 		else
 			return(print_invalid_flag_error());
 		i++;
