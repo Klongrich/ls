@@ -44,6 +44,9 @@ all: $(NAME)
 %.o: $(addprefix ./initialize_arguments/,%.c)
 	@gcc $(CFLAGS) $(INC) -c $<
 
+%.o: $(addprefix ./run/,%.c)
+	@gcc $(CFLAGS) $(INC) -c $<
+
 
 $(NAME): $(OBJ)
 	@gcc -g $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
