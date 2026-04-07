@@ -19,8 +19,6 @@ void		print_permissions(struct stat statbuff, char *file_path)
 	} else {
 		ft_putchar('-');
 	}
-
-
 	if(statbuff.st_mode & S_IRUSR) {
 		ft_putchar('r');
 	} else {
@@ -50,7 +48,10 @@ void		print_permissions(struct stat statbuff, char *file_path)
 		ft_putchar('-');
 	}
 	if (statbuff.st_mode & S_IXGRP) {
-		ft_putchar('x');
+		if(statbuff.st_mode & S_ISGID)
+			ft_putchar('s');
+		else
+			ft_putchar('x');
 	} else {
 		ft_putchar('-');
 	}
