@@ -36,8 +36,13 @@ void	sort_then_run_argv(char **parsed_argv, t_flags *flags) {
 	dirs = get_dirs_from_args(parsed_argv, flags->l);
 
 	if (flags->t) {
-		sorted_files = time_sort(files, flags->r);
-		sorted_dirs = time_sort(dirs, flags->r);
+		if (flags->u) {
+			sorted_files = last_time_accessed_sort(files, flags->r);
+			sorted_dirs =  last_time_accessed_sort(dirs, flags->r);
+		} else {
+			sorted_files = time_sort(files, flags->r);
+			sorted_dirs = time_sort(dirs, flags->r);
+		}
 	} else {
 
 		sorted_files = bubble_sort(files, flags->r, get_size(files));
