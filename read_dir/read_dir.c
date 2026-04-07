@@ -24,10 +24,12 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			read_dir_with_hidden_files(all_files_or_directories, dir_path, flags);
 		else
 			read_dir_standard(all_files_or_directories, dir_path, flags);
-
-		if (flags->t) 
-			merge_time_sort(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
-		else 
+		if (flags->t) {
+			if(flags->u) 
+				merge_last_time_accessed_sort(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
+			else
+				merge_time_sort(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
+		} else 
 			merge_sort2(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
 		handel_printing(all_files_or_directories, flags);
 		return(all_files_or_directories);
