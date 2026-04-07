@@ -16,8 +16,10 @@ int	is_flag(char *str) {
 			else if (str[i] == 'l')
 				i++;
 			else if (str[i] == 'r')
-			i++;
+				i++;
 			else if (str[i] == 'R')
+				i++;
+			else if (str[i] == 'G')
 				i++;
 			else
 				return(0);

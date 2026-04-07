@@ -6,4 +6,5 @@ void	initialize_flags(t_flags *flags){
 	flags->recur = 0;
 	flags->t = 0;
 	flags->a = 0;
+	flags->color = 0;
 }	

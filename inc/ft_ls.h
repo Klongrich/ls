@@ -22,6 +22,7 @@ typedef struct 		flags {
 	int 	recur;
 	int	t;
 	int	a;
+	int	color;
 
 }
 			t_flags;
