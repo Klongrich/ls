@@ -9,14 +9,20 @@ void	run_one_valid_argument(char **sorted_dirs, char **sorted_files, t_flags *fl
 		if(temp)
 			free_list(temp);
 	} else {
-		if (flags->l) {
+		if (flags->l || flags->color) {
 			if (sorted_files[0][0] != '/') {
 				long_temp = ft_strjoin("./", sorted_files[0]);
-				print_single_file_long_format(long_temp, flags);
+				if(flags->color & !flags->l)
+					print_color_single(long_temp);
+				else
+					print_single_file_long_format(long_temp, flags);
 				free(long_temp);
 			}
 			else {
-				print_single_file_long_format(sorted_files[0], flags);
+				if(flags->color & !flags->l)
+					print_color_single(sorted_files[0]);
+				else
+					print_single_file_long_format(sorted_files[0], flags);
 			}
 		} else {
 			ft_printf("%s\n", sorted_files[0]);
