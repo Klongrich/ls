@@ -22,7 +22,7 @@ void	print_file_name(char *filepath, int is_single_file, t_flags *flags)
 	}
 	else {
 		if (flags->color)
-			print_color_single(filepath);
+			print_color_single(filepath, 0);
 		else
 			ft_printf("%s\n", name);
 	}

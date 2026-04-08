@@ -28,7 +28,7 @@ void	run_files(char **sorted_files, char **sorted_dirs, t_flags *flags) {
 		if(flags->l || flags->color) {
 			if(flags->color & !flags->l) {
 				all_files_appended = append_files_from_args_for_long_format("./", sorted_files);
-				print_color(all_files_appended);
+				print_color(all_files_appended, 1);
 				free_list(all_files_appended);
 			} else 
 				print_long_format_files_from_args(sorted_files, flags);
