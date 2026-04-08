@@ -28,7 +28,7 @@ void	print_long_format_files_from_args(char **all_files, t_flags *flags) {
 			}
 			ft_putchar('\n');
 		} else {
-			print_file_name(all_files_appended[k], 1);
+			print_file_name(all_files_appended[k], 1, flags);
 		}	
 		k++;
 	}

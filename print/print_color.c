@@ -32,43 +32,49 @@ void	print_color_text(char *str, char *color) {
 	ft_printf("\n");
 }
 
-void	print_color(char **paths) {
-	int i;
+void	print_color_single(char *path) {
 	struct stat data;
 	struct stat ldata;
 
+	stat(path, &data);
+	lstat(path, &ldata);
+	if(S_ISLNK(ldata.st_mode)) {
+		print_color_text(path, MAGENTA);
+	} else if(S_ISDIR(data.st_mode)) {
+		if(ldata.st_mode & S_ISVTX)
+			print_color_text(path, GREEN_BACKGROUND);
+		else if (ldata.st_mode & S_IWOTH)
+			print_color_text(path, YELLOW_BACKGROUND);	
+		else
+			print_color_text(path, BLUE);
+	} else if (S_ISREG(data.st_mode) && access(path, X_OK) == 0) {
+       	 	if (ldata.st_mode & S_ISUID)
+			print_color_text(path, RED_BACKGROUND);
+		else if (ldata.st_mode & S_ISGID)
+			print_color_text(path, CYAN_BACKGROUND);
+		else
+			print_color_text(path, RED);
+    	} else if (S_ISCHR(ldata.st_mode)) {
+		print_color_text(path, BLUE_YELLOW);
+	} else if (S_ISBLK(ldata.st_mode)) {
+		 print_color_text(path, BLUE_CYAN);
+	} else if (S_ISSOCK(ldata.st_mode)) {
+		print_color_text(path, GREEN);
+	} else if (S_ISFIFO(ldata.st_mode)) {
+		print_color_text(path, YELLOW);
+	} 
+	else {
+		ft_printf("%s\n", get_name_from_path(path));
+	}
+}
+
+
+void	print_color(char **paths) {
+	int i;
+
 	i = 0;
 	while(paths[i]) {
-		stat(paths[i], &data);
-		lstat(paths[i], &ldata);
-		if(S_ISLNK(ldata.st_mode)) {
-			print_color_text(paths[i], MAGENTA);
-		} else if(S_ISDIR(data.st_mode)) {
-			if(ldata.st_mode & S_ISVTX)
-				print_color_text(paths[i], GREEN_BACKGROUND);
-			else if (ldata.st_mode & S_IWOTH)
-				print_color_text(paths[i], YELLOW_BACKGROUND);	
-			else
-				print_color_text(paths[i], BLUE);
-		} else if (S_ISREG(data.st_mode) && access(paths[i], X_OK) == 0) {
-       	 		if (ldata.st_mode & S_ISUID)
-				print_color_text(paths[i], RED_BACKGROUND);
-			else if (ldata.st_mode & S_ISGID)
-				print_color_text(paths[i], CYAN_BACKGROUND);
-			else
-				print_color_text(paths[i], RED);
-    		} else if (S_ISCHR(ldata.st_mode)) {
-			print_color_text(paths[i], BLUE_YELLOW);
-		} else if (S_ISBLK(ldata.st_mode)) {
-		 	print_color_text(paths[i], BLUE_CYAN);
-		} else if (S_ISSOCK(ldata.st_mode)) {
-			print_color_text(paths[i], GREEN);
-		} else if (S_ISFIFO(ldata.st_mode)) {
-			print_color_text(paths[i], YELLOW);
-		} 
-		else {
-			ft_printf("%s\n", get_name_from_path(paths[i]));
-		}
+		print_color_single(paths[i]);	
 		i++;
 	}
 }

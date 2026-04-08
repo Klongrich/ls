@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void	print_file_name(char *filepath, int is_single_file)
+void	print_file_name(char *filepath, int is_single_file, t_flags *flags)
 {
 	size_t			len;
 	char			buff[1024];
@@ -20,8 +20,12 @@ void	print_file_name(char *filepath, int is_single_file)
 		}
 		ft_printf("%s -> %s\n", name, buff);
 	}
-	else
-		ft_printf("%s\n", name);
+	else {
+		if (flags->color)
+			print_color_single(filepath);
+		else
+			ft_printf("%s\n", name);
+	}
 	if (!is_single_file)
 		free(name);
 }
