@@ -28,7 +28,7 @@ void	run_recursion(char **sorted_files, char **sorted_dirs, t_flags *flags, int 
 		
 	number_of_valid_args = get_size(sorted_files) + get_size(sorted_dirs);
 	if (flags->l) {
-		print_long_format_files_from_args(sorted_files);
+		print_long_format_files_from_args(sorted_files, flags);
 	} else {
 		print_list(sorted_files);
 	}

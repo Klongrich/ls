@@ -25,7 +25,7 @@ void	run_files(char **sorted_files, char **sorted_dirs, t_flags *flags) {
 	i = 0;
 	if(sorted_files[0] != NULL) { 
 		if(flags->l) {
-                          print_long_format_files_from_args(sorted_files);
+                          print_long_format_files_from_args(sorted_files, flags);
                   } else {
                           while(sorted_files[i]) {
                                   ft_printf("%s\n", sorted_files[i]);

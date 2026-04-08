@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void	print_long_format_files_from_args(char **all_files) {
+void	print_long_format_files_from_args(char **all_files, t_flags *flags) {
 	t_lengths	formatting_lengths;
 	struct stat	statbuff;
 	int k;
@@ -16,8 +16,10 @@ void	print_long_format_files_from_args(char **all_files) {
 		print_permissions(statbuff, all_files[k]);
 		print_name_and_grid(formatting_lengths, statbuff);
 		ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
-		print_last_time_modified(statbuff);
-
+		if (flags->t & flags->u)
+			print_last_time_accessed(statbuff);
+		else
+			print_last_time_modified(statbuff);
 		if(all_files_appended[k][0] != '/') {
 			i = 2;
 			while (all_files_appended[k][i]) {

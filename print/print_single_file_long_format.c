@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void	print_single_file_long_format(char *file_path) {
+void	print_single_file_long_format(char *file_path, t_flags *flags) {
 	t_lengths	formatting_lengths;
 	struct stat	statbuff;
 
@@ -10,8 +10,10 @@ void	print_single_file_long_format(char *file_path) {
 	print_permissions(statbuff, file_path);
 	print_name_and_grid(formatting_lengths, statbuff);
 	ft_printf("%*d", formatting_lengths.size, (int)statbuff.st_size);
-	print_last_time_modified(statbuff);
-
+	if(flags->t & flags->u)
+		print_last_time_accessed(statbuff);
+	else
+		print_last_time_modified(statbuff);
 	if(check_files_link(file_path)) {
 		print_file_name(file_path, 1);
 	} else {
