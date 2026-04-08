@@ -21,11 +21,17 @@ void	run_dirs(char **sorted_dirs, t_flags *flags) {
 
 void	run_files(char **sorted_files, char **sorted_dirs, t_flags *flags) {
 	int i;
+	char **all_files_appended;
 
 	i = 0;
 	if(sorted_files[0] != NULL) { 
-		if(flags->l) {
-                          print_long_format_files_from_args(sorted_files, flags);
+		if(flags->l || flags->color) {
+			if(flags->color & !flags->l) {
+				all_files_appended = append_files_from_args_for_long_format("./", sorted_files);
+				print_color(all_files_appended);
+				free_list(all_files_appended);
+			} else 
+				print_long_format_files_from_args(sorted_files, flags);
                   } else {
                           while(sorted_files[i]) {
                                   ft_printf("%s\n", sorted_files[i]);
