@@ -37,12 +37,22 @@ void merge_time(char* arr[], int l, int m, int r, int r_flag) {
 		k++;
 	} else {
 		if (right.st_mtime == left.st_mtime) {
-			if(right.st_mtimespec.tv_nsec < left.st_mtimespec.tv_nsec) {
-				arr[k] = L[i];
-				i++;
+			if (right.st_mtimespec.tv_nsec == left.st_mtimespec.tv_nsec) {
+				if(compare_strs_lowercase(L[i], R[j]) <= 0) {
+					arr[k] = L[i];
+					i++;
+				} else {
+					arr[k] = R[j];
+					j++;
+				}
 			} else {
-				arr[k] = R[j];
-				j++;
+				if(right.st_mtimespec.tv_nsec < left.st_mtimespec.tv_nsec) {
+					arr[k] = L[i];
+					i++;
+				} else {
+					arr[k] = R[j];
+					j++;
+				}
 			}
 		} else {
 			if(right.st_mtime < left.st_mtime) {
