@@ -7,7 +7,7 @@ int     recur(char **files_or_repos, t_flags *flags) {
  
         i = 0;
         while (files_or_repos[i]) {
-               if(is_dir(files_or_repos[i], flags->l)) {
+               if(is_dir(files_or_repos[i], flags)) {
                         if (!check_files_link_during_recur(files_or_repos[i])) {
                         	ft_printf("\n");
                                 ft_printf("%s:\n", files_or_repos[i]);
