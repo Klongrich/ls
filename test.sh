@@ -1,3 +1,10 @@
+: '
+Kyle Longrich 
+
+Note on Device ID Consistency: When running ls -l /dev on pseudo-devices like dtrace or autofs_ nodes, the minor numbers (and thus the dev_t hex value) are dynamically assigned by the kernel at runtime. Because these assignments are non-persistent across system reboots or service restarts, binary comparisons of ls output for these files will likely show discrepancies in the minor device field.
+
+'
+
 clear
 choice="1"
 tests="tests"
