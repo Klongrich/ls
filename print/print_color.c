@@ -8,7 +8,7 @@
 #define BLUE_CYAN	"\033[34;46m"
 #define GREEN		"\033[32m"
 #define YELLOW		"\033[33m"
-#define RED_BACKGROUND	"\033[41m"
+#define BLACK_RED	"\033[30;41m"
 #define CYAN_BACKGROUND "\033[46m"
 #define GREEN_BACKGROUND "\033[42m"
 #define YELLOW_BACKGROUND "\033[43m"
@@ -77,9 +77,8 @@ void	print_color_single(char *path, int is_from_args) {
 			print_color_text(path, BLUE, is_from_args);
 	} else if (S_ISREG(data.st_mode) && access(path, X_OK) == 0) {
        	 	if (ldata.st_mode & S_ISUID)
-			print_color_text(path, RED_BACKGROUND, is_from_args);
-		else if (ldata.st_mode & S_ISGID)
-			print_color_text(path, CYAN_BACKGROUND, is_from_args);
+			print_color_text(path, BLACK_RED, is_from_args);
+
 		else
 			print_color_text(path, RED, is_from_args);
     	} else if (S_ISCHR(ldata.st_mode)) {
