@@ -2,11 +2,14 @@ Main things on the to_do_list
 
 Consider how to handle special characters using strcoll() of another function that would work.
 fix ls -l /dev/fd (different use of file descriptors)
+add support for -rt if tv_nsec is equal
+- fix ctime call in -l for older last time modified
+
 - Fix time sort if tv_nsec is equal
 Support for major & minor numbers with -l with single file passed as repo
 
 
-- Update other -l printing formats to use -ut update
+- Add black foreground color to text with yellow, cyan, and green background if -G is passed
 - Update other files types for color printing with -G flag.
 - Add support for -Gl
 - Support -G with single and multiple arugements passed
