@@ -31,9 +31,9 @@ void	sort_then_run_argv(char **parsed_argv, t_flags *flags) {
 	char **sorted_dirs;
 	int number_of_invalid_args;
 	
-	number_of_invalid_args = check_is_file_or_dir(bubble_sort(parsed_argv, 0, get_size(parsed_argv)), flags->l);
-	files = get_files_from_args(parsed_argv, flags->l);
-	dirs = get_dirs_from_args(parsed_argv, flags->l);
+	number_of_invalid_args = check_is_file_or_dir(bubble_sort(parsed_argv, 0, get_size(parsed_argv)), flags);
+	files = get_files_from_args(parsed_argv, flags);
+	dirs = get_dirs_from_args(parsed_argv, flags);
 
 	if (flags->t) {
 		if (flags->u) {
