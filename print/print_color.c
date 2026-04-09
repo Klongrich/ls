@@ -92,7 +92,7 @@ void	print_link_with_color(char *str, char *color, int is_from_args) {
 }
 
 
-void	print_color_single(char *path, int is_from_args) {
+void	print_color_single(char *path, int is_from_args, int l_flag) {
 	struct stat data;
 	struct stat ldata;
 	char	*temp;
@@ -100,7 +100,10 @@ void	print_color_single(char *path, int is_from_args) {
 	stat(path, &data);
 	lstat(path, &ldata);
 	if(S_ISLNK(ldata.st_mode)) {
-		print_link_with_color(path, MAGENTA, is_from_args);
+		if(l_flag)
+			print_link_with_color(path, MAGENTA, is_from_args);
+		else
+			print_color_text(path, MAGENTA, is_from_args);
 	} else if(S_ISDIR(data.st_mode)) {
 		if(ldata.st_mode & S_ISVTX)
 			print_color_text(path, GREEN_BACKGROUND, is_from_args);
@@ -136,12 +139,12 @@ void	print_color_single(char *path, int is_from_args) {
 	}
 }
 
-void	print_color(char **paths, int is_from_args) {
+void	print_color(char **paths, int is_from_args, int l_flag) {
 	int i;
 
 	i = 0;
 	while(paths[i]) {
-		print_color_single(paths[i], is_from_args);	
+		print_color_single(paths[i], is_from_args, l_flag);	
 		i++;
 	}
 }
