@@ -1,6 +1,17 @@
 #include "../inc/ft_ls.h"
 
-int	is_file(const char *path, int l_flag){
+
+bool	is_block_device(mode_t file_type) {
+	if(S_ISBLK(file_type))
+		return (true);
+	return (false);
+}
+
+int	is_regular_file(mode_t file_type) {
+	return (S_ISREG(file_type));
+}
+
+int	is_file(const char *path, t_flags *flags){
 	struct stat path_stat;
 
 	if ((lstat(path, &path_stat)) == -1)
@@ -17,13 +28,9 @@ int	is_file(const char *path, int l_flag){
 	if (S_ISSOCK(path_stat.st_mode)){
 		return (1);
 	}
-
-	//Block device (eg /dev/sda)
-	if (S_ISBLK(path_stat.st_mode)){
+	if (is_block_device(path_stat.st_mode))
 		return(1);
-	}
-
-	if(l_flag) {
+	if(flags->l || flags->color) {
 		//Symoblic Link (e.g. /home -> );
 		if (S_ISLNK(path_stat.st_mode)) {
 			return(1);
@@ -37,6 +44,6 @@ int	is_file(const char *path, int l_flag){
 		return(1);\
 	}
 	*/
-	return(S_ISREG(path_stat.st_mode));
+	return(is_regular_file(path_stat.st_mode));
 
 }

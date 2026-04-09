@@ -1,9 +1,9 @@
 #include "../inc/ft_ls.h"
 
-int	is_dir(const char *path, int l_flag){
+int	is_dir(const char *path, t_flags *flags){
 	struct stat path_stat;
 
-	if(l_flag) {
+	if(flags->l || flags->color) {
 		if((lstat(path, &path_stat)) == -1)
 			return(0);
 	} else {
