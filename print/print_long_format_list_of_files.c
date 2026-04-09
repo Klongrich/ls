@@ -20,16 +20,20 @@ void	print_long_format_files_from_args(char **all_files, t_flags *flags) {
 			print_last_time_accessed(statbuff);
 		else
 			print_last_time_modified(statbuff);
-		if(all_files_appended[k][0] != '/') {
-			i = 2;
-			while (all_files_appended[k][i]) {
-				ft_putchar(all_files_appended[k][i]);
-				i++;
-			}
-			ft_putchar('\n');
+		if (flags->color) {
+			print_color_single(all_files_appended[k], 1);
 		} else {
-			print_file_name(all_files_appended[k], 1, flags);
-		}	
+			if(all_files_appended[k][0] != '/') {
+				i = 2;
+				while (all_files_appended[k][i]) {
+					ft_putchar(all_files_appended[k][i]);
+					i++;
+				}
+				ft_putchar('\n');
+				} else {
+					print_file_name(all_files_appended[k], 1, flags);
+				}
+			}	
 		k++;
 	}
 	free_list(all_files_appended);
