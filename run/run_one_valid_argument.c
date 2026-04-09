@@ -13,14 +13,14 @@ void	run_one_valid_argument(char **sorted_dirs, char **sorted_files, t_flags *fl
 			if (sorted_files[0][0] != '/') {
 				long_temp = ft_strjoin("./", sorted_files[0]);
 				if(flags->color & !flags->l)
-					print_color_single(long_temp, 1);
+					print_color_single(long_temp, 1, 0);
 				else
 					print_single_file_long_format(long_temp, flags);
 				free(long_temp);
 			}
 			else {
 				if(flags->color & !flags->l)
-					print_color_single(sorted_files[0], 1);
+					print_color_single(sorted_files[0], 1, 0);
 				else
 					print_single_file_long_format(sorted_files[0], flags);
 			}
