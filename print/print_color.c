@@ -9,9 +9,9 @@
 #define GREEN		"\033[32m"
 #define YELLOW		"\033[33m"
 #define BLACK_RED	"\033[30;41m"
-#define CYAN_BACKGROUND "\033[46m"
-#define GREEN_BACKGROUND "\033[42m"
-#define YELLOW_BACKGROUND "\033[43m"
+#define BLACK_CYAN 	"\033[30;46m"
+#define BLACK_GREEN	"\033[30;42m"
+#define BLACK_YELLOW 	"\033[30;43m"
 
 char	*build_color_string(char *str, char *color) {
 	char	*res;
@@ -106,15 +106,16 @@ void	print_color_single(char *path, int is_from_args, int l_flag) {
 			print_color_text(path, MAGENTA, is_from_args);
 	} else if(S_ISDIR(data.st_mode)) {
 		if(ldata.st_mode & S_ISVTX)
-			print_color_text(path, GREEN_BACKGROUND, is_from_args);
+			print_color_text(path, BLACK_GREEN, is_from_args);
 		else if (ldata.st_mode & S_IWOTH)
-			print_color_text(path, YELLOW_BACKGROUND, is_from_args);	
+			print_color_text(path, BLACK_YELLOW, is_from_args);	
 		else
 			print_color_text(path, BLUE, is_from_args);
 	} else if (S_ISREG(data.st_mode) && access(path, X_OK) == 0) {
        	 	if (ldata.st_mode & S_ISUID)
 			print_color_text(path, BLACK_RED, is_from_args);
-
+		else if (ldata.st_mode & S_ISGID)
+			print_color_text(path, BLACK_CYAN, is_from_args);
 		else
 			print_color_text(path, RED, is_from_args);
     	} else if (S_ISCHR(ldata.st_mode)) {
