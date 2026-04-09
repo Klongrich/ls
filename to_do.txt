@@ -2,6 +2,9 @@ Main things on the to_do_list
 
 Consider how to handle special characters using strcoll() of another function that would work.
 fix ls -l /dev/fd (different use of file descriptors)
+- Fix time sort if tv_nsec is equal
+Support for major & minor numbers with -l with single file passed as repo
+
 
 - Update other -l printing formats to use -ut update
 - Update other files types for color printing with -G flag.
@@ -14,10 +17,6 @@ fix ls -l /dev/fd (different use of file descriptors)
 - add suport for -Gl smbloic links
 - Investigate error with st_mtimespec & st_mtimespect.tv_nsec on /usr/bin /dev
 - Add suport for -G with symblioc link repo passed as paratmer
-
-Fix time sort if tv_nsec is equal
-Support for major & minor numbers with -l with single file passed as repo
-
 - Update single file -l printing along with multifile -l printing to handle major and minor numbers.
 - Handle pasing ls -- 
 - Fix formatting by implementing hex converted plus major and minor calls to -l formatter
