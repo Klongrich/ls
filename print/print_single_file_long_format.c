@@ -14,11 +14,12 @@ void	print_single_file_long_format(char *file_path, t_flags *flags) {
 		print_last_time_accessed(statbuff);
 	else
 		print_last_time_modified(statbuff);
-	if(check_files_link(file_path)) {
-		print_file_name(file_path, 1, flags);
+	
+	if(flags->color) {
+		print_color_single(file_path, 1, 1);
 	} else {
-                if(flags->color) {
-                 	print_color_single(file_path, 1);
+		if(check_files_link(file_path)) {
+			print_file_name(file_path, 1, flags);
 		} else {
 			if(file_path[0] != '/') {
 				file_path++;
