@@ -2,7 +2,7 @@ Main things on the to_do_list
 
 - Consider how to handle special characters using strcoll() of another function that would work.
 fix ls -l /dev/fd (different use of file descriptors)
-add support for -rt if tv_nsec is equal
+- add support for -rt if tv_nsec is equal
 check isatty(STDOUT_FILENO) in -G to print color out to strictly terminal
 Support for major & minor numbers with -l with single file passed as repo
 
