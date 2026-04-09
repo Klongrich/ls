@@ -17,12 +17,16 @@ void	print_single_file_long_format(char *file_path, t_flags *flags) {
 	if(check_files_link(file_path)) {
 		print_file_name(file_path, 1, flags);
 	} else {
-		if(file_path[0] != '/') {
-			file_path++;
-			file_path++;
-			printf("%s\n", file_path);
+                if(flags->color) {
+                 	print_color_single(file_path, 1);
 		} else {
-			print_file_name(file_path, 1, flags);
+			if(file_path[0] != '/') {
+				file_path++;
+				file_path++;
+				printf("%s\n", file_path);
+			} else {
+				print_file_name(file_path, 1, flags);
+			}
 		}
 	}
 }
