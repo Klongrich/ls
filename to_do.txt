@@ -1,0 +1,54 @@
+Main things on the to_do_list
+
+Consider how to handle special characters using strcoll() of another function that would work.
+fix ls -l /dev/fd (different use of file descriptors)
+
+- Update other -l printing formats to use -ut update
+- Update other files types for color printing with -G flag.
+- Add support for -Gl
+- Support -G with single and multiple arugements passed
+- Support -G when repo/file is passed as argument
+- add support for single file -Gl
+- add support for multi file -Gl
+- add support for -G symbloic link repo passed as single or multi paramter
+- add suport for -Gl smbloic links
+- Investigate error with st_mtimespec & st_mtimespect.tv_nsec on /usr/bin /dev
+- Add suport for -G with symblioc link repo passed as paratmer
+
+Fix time sort if tv_nsec is equal
+Support for major & minor numbers with -l with single file passed as repo
+
+- Update single file -l printing along with multifile -l printing to handle major and minor numbers.
+- Handle pasing ls -- 
+- Fix formatting by implementing hex converted plus major and minor calls to -l formatter
+- change is_dir & is_file to use stat or lstat depending on if -l flag is passed
+- fix segfault when passing /home with other repo's
+- Switch -l to print total abover opendir errors
+- Implement @ or + on extended attrbuites
+- Check for permissioned deined on repos
+- fix -R flag to not recurse on repos or files with symbolic links
+- Figure how how not to print a newline at the end of the -R function.
+- Figure out why -l is createind a binaray file when it should be text that appears to be equal.
+- fix printing symbloic links from single file passed as -l
+- Fix -l format when a file is passed as an argument, the entire file path is printed, not just the file name.
+- Figure out printing @ or + if files have extended attrbuites.
+- fix ls -l /etc /home
+- R skips files or dirs that have symbolic links
+- Move libft functions into strings repo.
+
+
+can set LC_COLLATE=C to get proper special character formatting in terminal
+
+- fix ls -R inc src (passing multiple valid repos as args with -R flag)
+
+Create different output path for objects files from Makefile. 
+ 
+check 
+
+/Applications/XAMPP/xamppfiles/share/man/man3
+/dev/fd/3:
+/dev/fd
+
+***
+ - means completed
+***
