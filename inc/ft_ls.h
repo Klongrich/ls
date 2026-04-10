@@ -113,5 +113,6 @@ void	print_color_single(char *path, int is_from_args, int l_flag);
 char    *cut_file_path_for_printing_file_passed_in_args(char *str);
 void    print_file_size(struct stat statbuff, t_lengths formatting_lengths);
 void    print_date_year(char *times);
- char    **handel_file_sort(char **files, t_flags *flags);
- char    **handel_dir_sort(char **dirs, t_flags *flags);
+char    **handel_file_sort(char **files, t_flags *flags);
+char    **handel_dir_sort(char **dirs, t_flags *flags);
+int     check_characters_on_flag(char c);

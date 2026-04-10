@@ -9,21 +9,7 @@ int	is_flag(char *str) {
 	} else {
 		i++;
 		while(str[i]) {
-			if (str[i] == 'a')
-				i++;
-			else if (str[i] == 't')
-				i++;
-			else if (str[i] == 'l')
-				i++;
-			else if (str[i] == 'r')
-				i++;
-			else if (str[i] == 'R')
-				i++;
-			else if (str[i] == 'G')
-				i++;
-			else if (str[i] == 'u')
-				i++;
-			else if (str[i] == 'f')
+			if (check_characters_on_flag(str[i]))
 				i++;
 			else
 				return(0);
