@@ -15,7 +15,7 @@ void	print_single_file_long_format(char *file_path, t_flags *flags) {
 	else
 		print_last_time_modified(statbuff);
 	
-	if(flags->color) {
+	if(flags->color & isatty(STDOUT_FILENO)) {
 		print_color_single(file_path, 1, 1);
 	} else {
 		if(check_files_link(file_path)) {
