@@ -1,9 +1,11 @@
 Main things on the to_do_list
 
 fix ls -l /dev/fd (different use of file descriptors)
-check isatty(STDOUT_FILENO) in -G to print color out to strictly terminal
-Support for major & minor numbers with -l with single file passed as repo
 
+- add suport for -f
+- check isatty(STDOUT_FILENO) in -G to print color out to strictly terminal
+- Support for major & minor numbers with -l with single file passed as repo
+- Suport -lut adding date, month, year if older than 6 months
 - add support for -rt if tv_nsec is equal
 - Consider how to handel special charactes using strcoll() or another function that would work.
 - fix ctime call in -l for older last time modified
@@ -36,19 +38,13 @@ Support for major & minor numbers with -l with single file passed as repo
 - fix ls -l /etc /home
 - R skips files or dirs that have symbolic links
 - Move libft functions into strings repo.
-
-
-can set LC_COLLATE=C to get proper special character formatting in terminal
-
 - fix ls -R inc src (passing multiple valid repos as args with -R flag)
 
 Create different output path for objects files from Makefile. 
  
 check 
 
-/Applications/XAMPP/xamppfiles/share/man/man3
-/dev/fd/3:
-/dev/fd
+/Applications/XAMPP/xamppfiles/share/man/man3 
 
 ***
  - means completed
