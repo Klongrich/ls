@@ -35,21 +35,8 @@ void	sort_then_run_argv(char **parsed_argv, t_flags *flags) {
 	files = get_files_from_args(parsed_argv, flags);
 	dirs = get_dirs_from_args(parsed_argv, flags);
 
-	if(flags->f) {
-		sorted_files = files;
-		sorted_dirs = dirs;
-	} else if (flags->t) {
-		if (flags->u) {
-			sorted_files = last_time_accessed_sort(files, flags->r);
-			sorted_dirs =  last_time_accessed_sort(dirs, flags->r);
-		} else {
-			sorted_files = time_sort(files, flags->r);
-			sorted_dirs = time_sort(dirs, flags->r);
-		}
-	} else {
-		sorted_files = bubble_sort(files, flags->r, get_size(files));
-		sorted_dirs = bubble_sort(dirs, flags->r, get_size(dirs));
-	}
+	sorted_files = handel_file_sort(files, flags);
+	sorted_dirs = handel_dir_sort(dirs, flags);
 
 	run_sorted_argv(sorted_files, sorted_dirs, number_of_invalid_args, flags);
 	free(files);
