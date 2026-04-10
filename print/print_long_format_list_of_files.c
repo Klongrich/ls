@@ -20,7 +20,7 @@ void	print_long_format_files_from_args(char **all_files, t_flags *flags) {
 			print_last_time_accessed(statbuff);
 		else
 			print_last_time_modified(statbuff);
-		if (flags->color) {
+		if (flags->color & isatty(STDOUT_FILENO)) {
 			print_color_single(all_files_appended[k], 1, 1);
 		} else {
 			if(all_files_appended[k][0] != '/') {
