@@ -25,7 +25,7 @@ void	run_files(char **sorted_files, char **sorted_dirs, t_flags *flags) {
 
 	i = 0;
 	if(sorted_files[0] != NULL) { 
-		if(flags->l || flags->color) {
+		if(flags->l || (flags->color & isatty(STDOUT_FILENO))) {
 			if(flags->color & !flags->l) {
 				all_files_appended = append_files_from_args_for_long_format("./", sorted_files);
 				print_color(all_files_appended, 1, 0);
