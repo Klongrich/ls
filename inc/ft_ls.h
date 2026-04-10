@@ -24,6 +24,7 @@ typedef struct 		flags {
 	int	a;
 	int	color;
 	int	u;
+	int	f;
 
 }
 			t_flags;
@@ -65,7 +66,7 @@ void	print_long_format(char **all_files_or_dirs, t_flags *flags);
 void	print_single_file_long_format(char *file_path, t_flags *flags);
 char	*append_single_dir(char *dir, char *files_or_dir);
 char	*get_name_from_path(char *path);
-int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag);
+int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag, int f_flag);
 void	merge_sort(char **arr, int l, int r);
 t_lengths	initialize_t_lengths(void);
 t_lengths	get_formatting_lengths(char **file_or_dir_paths);
@@ -110,3 +111,5 @@ void	merge_last_time_accessed_sort(char* arr[], int l, int r, int r_flag);
 void	print_last_time_accessed(struct stat statbuff);
 void	print_color_single(char *path, int is_from_args, int l_flag);
 char    *cut_file_path_for_printing_file_passed_in_args(char *str);
+void    print_file_size(struct stat statbuff, t_lengths formatting_lengths);
+void    print_date_year(char *times);
