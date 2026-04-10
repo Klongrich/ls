@@ -1,6 +1,6 @@
 #include "../inc/ft_ls.h"
 
-int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag) {
+int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag, int f_flag) {
 	DIR *dir;
 	struct dirent  *dp;
 	int count;
@@ -11,7 +11,7 @@ int	get_repo_or_file_count(char *dir_path, int a_flag, int l_flag) {
 		print_errors_opening_dir(l_flag, dir_path);
 		return(0);
 	} else {
-		if (a_flag) {
+		if (a_flag || f_flag) {
 			while((dp = readdir(dir))) 
 				count++;
 		} else {
