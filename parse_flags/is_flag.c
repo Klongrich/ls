@@ -23,6 +23,8 @@ int	is_flag(char *str) {
 				i++;
 			else if (str[i] == 'u')
 				i++;
+			else if (str[i] == 'f')
+				i++;
 			else
 				return(0);
 		}

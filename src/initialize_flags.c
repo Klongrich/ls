@@ -8,4 +8,5 @@ void	initialize_flags(t_flags *flags){
 	flags->a = 0;
 	flags->color = 0;
 	flags->u = 0;
+	flags->f = 0;
 }	
