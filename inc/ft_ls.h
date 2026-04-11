@@ -43,6 +43,16 @@ typedef struct		dash {
 	int dashdash_found;
 }			t_dash;
 
+typedef struct	merge {
+	int m;
+	int l;
+	int r;
+	int n1;
+	int n2;
+	int k;
+	int r_flag;
+} 		t_merge;
+
 
 int	parse_flags(char *str, t_flags *flags);
 void	initialize_flags(t_flags *flags);
