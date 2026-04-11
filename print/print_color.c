@@ -33,6 +33,8 @@ char	*cut_file_path_for_printing_file_passed_in_args(char *str) {
 			res[i] = str[i + 2];
 			i++;
 		}
+	} else {
+		ft_strcpy(res, str);
 	}		
 	return(res);
 }
@@ -92,10 +94,46 @@ void	print_link_with_color(char *str, char *color, int is_from_args) {
 }
 
 
+
+int	check_isdir_isexecutable(struct stat data, struct stat ldata, char *path, int is_from_args) {
+	if(S_ISDIR(data.st_mode)) {
+		if(ldata.st_mode & S_ISVTX)
+			print_color_text(path, BLACK_GREEN, is_from_args);
+		else if (ldata.st_mode & S_IWOTH)
+			print_color_text(path, BLACK_YELLOW, is_from_args);	
+		else
+			print_color_text(path, BLUE, is_from_args);
+		return (1);
+	} else if (S_ISREG(data.st_mode) && access(path, X_OK) == 0) {
+       	 	if (ldata.st_mode & S_ISUID)
+			print_color_text(path, BLACK_RED, is_from_args);
+		else if (ldata.st_mode & S_ISGID)
+			print_color_text(path, BLACK_CYAN, is_from_args);
+		else
+			print_color_text(path, RED, is_from_args);
+		return (1);
+	}
+	return (0);
+}
+
+
+void	print_normal_file(int is_from_args, char *path) {
+	char *temp;
+
+	if(is_from_args) {
+		temp = cut_file_path_for_printing_file_passed_in_args(path);
+		ft_printf("%s\n", temp);	
+		free(temp);
+	} else {
+		temp = get_name_from_path(path);
+		ft_printf("%s\n", temp);
+		free(temp);
+	}
+}
+
 void	print_color_single(char *path, int is_from_args, int l_flag) {
 	struct stat data;
 	struct stat ldata;
-	char	*temp;
 
 	stat(path, &data);
 	lstat(path, &ldata);
@@ -104,21 +142,8 @@ void	print_color_single(char *path, int is_from_args, int l_flag) {
 			print_link_with_color(path, MAGENTA, is_from_args);
 		else
 			print_color_text(path, MAGENTA, is_from_args);
-	} else if(S_ISDIR(data.st_mode)) {
-		if(ldata.st_mode & S_ISVTX)
-			print_color_text(path, BLACK_GREEN, is_from_args);
-		else if (ldata.st_mode & S_IWOTH)
-			print_color_text(path, BLACK_YELLOW, is_from_args);	
-		else
-			print_color_text(path, BLUE, is_from_args);
-	} else if (S_ISREG(data.st_mode) && access(path, X_OK) == 0) {
-       	 	if (ldata.st_mode & S_ISUID)
-			print_color_text(path, BLACK_RED, is_from_args);
-		else if (ldata.st_mode & S_ISGID)
-			print_color_text(path, BLACK_CYAN, is_from_args);
-		else
-			print_color_text(path, RED, is_from_args);
-    	} else if (S_ISCHR(ldata.st_mode)) {
+	} else if (check_isdir_isexecutable(data, ldata, path, is_from_args) ){ 
+	} else if (S_ISCHR(ldata.st_mode)) {
 		print_color_text(path, BLUE_YELLOW, is_from_args);
 	} else if (S_ISBLK(ldata.st_mode)) {
 		 print_color_text(path, BLUE_CYAN, is_from_args);
@@ -126,17 +151,8 @@ void	print_color_single(char *path, int is_from_args, int l_flag) {
 		print_color_text(path, GREEN, is_from_args);
 	} else if (S_ISFIFO(ldata.st_mode)) {
 		print_color_text(path, YELLOW, is_from_args);
-	} 
-	else {
-		if(is_from_args) {
-			temp = cut_file_path_for_printing_file_passed_in_args(path);
-			ft_printf("%s\n", temp);	
-			free(temp);
-		} else {
-			temp = get_name_from_path(path);
-			ft_printf("%s\n", temp);
-			free(temp);
-		}
+	} else {
+		print_normal_file(is_from_args, path);
 	}
 }
 
