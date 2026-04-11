@@ -15,6 +15,19 @@
 # define MAX_FILE_LENGTH 255
 # define MAX_PATH_LENGTH 4096
 
+#define BLUE		"\033[34m"
+#define RED		"\033[31m"
+#define RESET  		"\033[0m"
+#define MAGENTA 	"\033[35m"
+#define BLUE_YELLOW	"\033[34;43m"
+#define BLUE_CYAN	"\033[34;46m"
+#define GREEN		"\033[32m"
+#define YELLOW		"\033[33m"
+#define BLACK_RED	"\033[30;41m"
+#define BLACK_CYAN 	"\033[30;46m"
+#define BLACK_GREEN	"\033[30;42m"
+#define BLACK_YELLOW 	"\033[30;43m"
+
 typedef struct 		flags {
 
 	int	l;
@@ -127,3 +140,11 @@ char    **handel_file_sort(char **files, t_flags *flags);
 char    **handel_dir_sort(char **dirs, t_flags *flags);
 int     check_characters_on_flag(char c);
 int	set_flag_value(char c, t_flags *flags);
+void    sort_then_run_argv(char **parsed_argv, t_flags *flags);
+void    run_sorted_argv(char **sorted_files, char **sorted_dirs, int number_of_invalid_args, t_flags *flags);
+void    print_color_single(char *path, int is_from_args, int l_flag);
+void    print_color_text(char *str, char *color, int is_from_args);
+char    *build_color_string(char *str, char *color);
+void    print_colored_link(char *str, char *color, int is_from_args);
+void    print_color_normal_file(int is_from_args, char *path);
+void    print_colored_text_no_newline(char *str, char *color, int is_from_args);
