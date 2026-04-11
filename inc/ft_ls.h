@@ -148,3 +148,4 @@ char    *build_color_string(char *str, char *color);
 void    print_colored_link(char *str, char *color, int is_from_args);
 void    print_color_normal_file(int is_from_args, char *path);
 void    print_colored_text_no_newline(char *str, char *color, int is_from_args);
+char    *cut_file_path_for_printing_file_passed_in_args(char *str);
