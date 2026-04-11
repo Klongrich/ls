@@ -1,7 +1,7 @@
 CC       = gcc
 INC	 = inc
 CFLAGS   = -Wall -Wextra -Werror -I$(INC)
-SRC_DIRS = src debug initialize_arguments memory_management parse_flags parse_from_arguments_passed print print_formatting read_dir recursion run sort strings
+SRC_DIRS = src debug initialize_arguments memory_management parse_flags parse_from_arguments_passed print print_color print_formatting read_dir recursion run sort strings
 OBJ_DIR  = build
 TARGET   = ft_ls
 
