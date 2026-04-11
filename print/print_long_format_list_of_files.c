@@ -1,14 +1,27 @@
 #include "../inc/ft_ls.h"
 
+void	print_file_name_for_long_format(char **all_files_appended, int k, t_flags *flags) {
+	int i;
+
+	if(all_files_appended[k][0] != '/') {
+		i = 2;
+		while (all_files_appended[k][i]) {
+			ft_putchar(all_files_appended[k][i]);
+			i++;
+		}
+		ft_putchar('\n');
+	} else {
+		print_file_name(all_files_appended[k], 1, flags);
+	}
+}
+
 void	print_long_format_files_from_args(char **all_files, t_flags *flags) {
 	t_lengths	formatting_lengths;
 	struct stat	statbuff;
 	int k;
-	int i;
 	char **all_files_appended;
 
-	k = 0;
-	i = 0;	
+	k = 0;	
 	all_files_appended = append_files_from_args_for_long_format("./", all_files);
 	formatting_lengths = get_formatting_lengths(all_files_appended);
 	while (all_files_appended[k]) {
@@ -22,18 +35,8 @@ void	print_long_format_files_from_args(char **all_files, t_flags *flags) {
 			print_last_time_modified(statbuff);
 		if (flags->color & isatty(STDOUT_FILENO)) {
 			print_color_single(all_files_appended[k], 1, 1);
-		} else {
-			if(all_files_appended[k][0] != '/') {
-				i = 2;
-				while (all_files_appended[k][i]) {
-					ft_putchar(all_files_appended[k][i]);
-					i++;
-				}
-				ft_putchar('\n');
-				} else {
-					print_file_name(all_files_appended[k], 1, flags);
-				}
-			}	
+		} else 
+			print_file_name_for_long_format(all_files_appended, k, flags);		
 		k++;
 	}
 	free_list(all_files_appended);
