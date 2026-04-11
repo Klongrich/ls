@@ -116,3 +116,4 @@ void    print_date_year(char *times);
 char    **handel_file_sort(char **files, t_flags *flags);
 char    **handel_dir_sort(char **dirs, t_flags *flags);
 int     check_characters_on_flag(char c);
+int	set_flag_value(char c, t_flags *flags);
