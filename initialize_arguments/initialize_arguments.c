@@ -10,40 +10,6 @@ void	init_parsed_argv(char **parsed_argv, char **argv, int i, int j) {
         }
 }
 
-void	run_sorted_argv(char **sorted_files, char **sorted_dirs, int number_of_invalid_args, t_flags *flags) {
-	int number_of_valid_args;	
-
-	number_of_valid_args = get_size(sorted_files) + get_size(sorted_dirs);
-	if(flags->recur) {
-		run_recursion(sorted_files, sorted_dirs, flags, number_of_invalid_args);
-	} else {
-		if(number_of_valid_args == 1 && number_of_invalid_args == 0)
-			run_one_valid_argument(sorted_dirs, sorted_files, flags);
-		else
-			run_multiple_arguments(sorted_files, sorted_dirs, flags);
-	}  
-}
-
-void	sort_then_run_argv(char **parsed_argv, t_flags *flags) {
-	char **files;
-	char **dirs;
-	char **sorted_files;
-	char **sorted_dirs;
-	int number_of_invalid_args;
-	
-	number_of_invalid_args = check_is_file_or_dir(bubble_sort(parsed_argv, 0, get_size(parsed_argv)), flags);
-	files = get_files_from_args(parsed_argv, flags);
-	dirs = get_dirs_from_args(parsed_argv, flags);
-
-	sorted_files = handel_file_sort(files, flags);
-	sorted_dirs = handel_dir_sort(dirs, flags);
-
-	run_sorted_argv(sorted_files, sorted_dirs, number_of_invalid_args, flags);
-	free(files);
-	free(dirs);
-}
-
-
 void initialize_arguments(char **argv, t_flags *flags, int i){
 	char **parsed_argv;
 	int j;
