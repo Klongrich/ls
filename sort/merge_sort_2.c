@@ -18,12 +18,10 @@ void	merge_sides(char *arr[], char **L, char **R, t_merge *merge) {
 		}
 		merge->k++;
 	}
-	
 	while (i < merge->n1) 
 		arr[merge->k++] = L[i++];
 	while (j < merge->n2) 
 		arr[merge->k++] = R[j++];
-
 	free(L);
 	free(R);
 }
