@@ -38,8 +38,7 @@ typedef struct 		flags {
 	int	u;
 	int	f;
 	int	d;
-}
-			t_flags;
+}			t_flags;
 
 typedef struct		lengths {
 	int	links;
@@ -148,3 +147,7 @@ void    print_colored_link(char *str, char *color, int is_from_args);
 void    print_color_normal_file(int is_from_args, char *path);
 void    print_colored_text_no_newline(char *str, char *color, int is_from_args);
 char    *cut_file_path_for_printing_file_passed_in_args(char *str);
+int     get_number_of_valid_args(char **sorted_args, t_flags *flags);
+void    print_color_text_d_flag(char *str, char *color);
+void    print_color_d_flag(char *path, t_flags *flags);
+void    print_all_color_d_flag(char **paths, t_flags *flags);
