@@ -6,7 +6,11 @@ void	run_one_valid_argument(char **sorted_dirs, char **sorted_files, t_flags *fl
 
 	if (sorted_dirs[0] != NULL) {
 		if (flags->d) {
-			ft_printf("%s\n", sorted_dirs[0]);
+			if (flags->l) {
+				print_single_file_long_format(sorted_dirs[0], flags);
+			} else {
+				ft_printf("%s\n", sorted_dirs[0]);
+			}
 		} else {
 			temp = read_dir(sorted_dirs[0], flags);
 			if(temp)
