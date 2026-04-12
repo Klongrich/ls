@@ -5,9 +5,13 @@ void	run_one_valid_argument(char **sorted_dirs, char **sorted_files, t_flags *fl
 	char *long_temp;
 
 	if (sorted_dirs[0] != NULL) {
-		temp = read_dir(sorted_dirs[0], flags);
-		if(temp)
-			free_list(temp);
+		if (flags->d) {
+			ft_printf("%s\n", sorted_dirs[0]);
+		} else {
+			temp = read_dir(sorted_dirs[0], flags);
+			if(temp)
+				free_list(temp);
+		}
 	} else {
 		if (flags->l || (flags->color & isatty(STDOUT_FILENO))) {
 			if (sorted_files[0][0] != '/') {
