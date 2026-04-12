@@ -1,7 +1,7 @@
 #include "../inc/ft_ls.h"
 
 void	put_file_name(char *file_path, t_flags *flags) {
-	if(file_path[0] != '/') {
+	if(file_path[0] != '/' && !flags->d) {
 		file_path++;
 		file_path++;
 		printf("%s\n", file_path);

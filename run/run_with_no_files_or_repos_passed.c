@@ -6,7 +6,11 @@ void	run_with_no_files_or_repos_passed(t_flags *flags) {
 	char **temp4;
 
 	if (flags->d) {	
-		ft_printf(".\n");
+		if(flags->l) {
+			print_single_file_long_format(".", flags);
+		} else {
+			ft_printf(".\n");
+		}
 	} else if(flags->recur) {
 		temp3 = read_dir(".", flags);
 		temp4 = append_dir("./", temp3);;
