@@ -3,7 +3,7 @@ Main things on the to_do_list
 fix ls -l /dev/fd (different use of file descriptors)
 
 add support for -dGl calls (no args passed, one valid args, multi args passed)
-look into normal file not printing on -dG multi args passed. (hint, it's in the print_color_name function, it needs to be updated!)
+look into normal file not printing on -dG multi args passed. (hint, it's in the print_color_normal_file function, it needs to be updated!)
 
 - add support for -dG
 - add support for -df
