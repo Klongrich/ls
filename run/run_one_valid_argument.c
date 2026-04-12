@@ -8,6 +8,8 @@ void	run_one_valid_argument(char **sorted_dirs, char **sorted_files, t_flags *fl
 		if (flags->d) {
 			if (flags->l) {
 				print_single_file_long_format(sorted_dirs[0], flags);
+			} else if ((flags->color & isatty(STDOUT_FILENO))) {
+				print_color_d_flag(sorted_dirs[0], flags);
 			} else {
 				ft_printf("%s\n", sorted_dirs[0]);
 			}
