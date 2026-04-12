@@ -8,6 +8,8 @@ void	run_with_no_files_or_repos_passed(t_flags *flags) {
 	if (flags->d) {	
 		if(flags->l) {
 			print_single_file_long_format(".", flags);
+		} else if ((flags->color & isatty(STDOUT_FILENO))) {
+			print_color_d_flag(".", flags);
 		} else {
 			ft_printf(".\n");
 		}
