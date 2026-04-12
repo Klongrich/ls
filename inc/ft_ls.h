@@ -29,7 +29,6 @@
 #define BLACK_YELLOW 	"\033[30;43m"
 
 typedef struct 		flags {
-
 	int	l;
 	int 	r;
 	int 	recur;
@@ -38,7 +37,7 @@ typedef struct 		flags {
 	int	color;
 	int	u;
 	int	f;
-
+	int	d;
 }
 			t_flags;
 

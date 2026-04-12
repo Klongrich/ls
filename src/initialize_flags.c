@@ -9,4 +9,5 @@ void	initialize_flags(t_flags *flags){
 	flags->color = 0;
 	flags->u = 0;
 	flags->f = 0;
+	flags->d = 0;
 }	

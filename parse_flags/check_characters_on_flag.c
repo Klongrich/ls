@@ -17,6 +17,8 @@ int	check_characters_on_flag(char c) {
 		return (1);
 	else if (c == 'f')
 		return (1);
+	else if (c == 'd')
+		return(1);
 	else
 		return(0);
 }

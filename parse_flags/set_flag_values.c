@@ -23,6 +23,8 @@ int	set_flag_value(char c, t_flags *flags) {
 		flags->u = 1;
 	else if (c  == 'f')
 		flags->f = 1;
+	else if (c == 'd')
+		flags->d = 1;
 	else
 		return(print_invalid_flag_error());
 	return (1);
