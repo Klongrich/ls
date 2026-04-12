@@ -16,7 +16,7 @@ void	print_link(char *filepath, int is_single_file, char *name) {
 void	print_file_name(char *filepath, int is_single_file, t_flags *flags) {
 	char	*name;
 
-	if (!is_single_file)
+	if (!is_single_file && !flags->d)
 		name = get_name_from_path(filepath);
 	else
 		name = filepath;
@@ -28,6 +28,6 @@ void	print_file_name(char *filepath, int is_single_file, t_flags *flags) {
 		else
 			ft_printf("%s\n", name);
 	}
-	if (!is_single_file)
+	if (!is_single_file && !flags->d)
 		free(name);
 }
