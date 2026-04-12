@@ -14,7 +14,7 @@ void	run_dirs(char **sorted_dirs, t_flags *flags) {
 			ft_printf("\n");
 		if (temp)
 			free_list(temp);
-		 i++;
+		i++;
 	}
 }
 
@@ -38,14 +38,41 @@ void	run_files(char **sorted_files, char **sorted_dirs, t_flags *flags) {
                                   i++;    
                          }       
                   }       
-                  if(sorted_dirs[0] != NULL)
+                  if(sorted_dirs[0] != NULL && !flags->d)
                           printf("\n");
           }  
 }
 
+void	run_d_flag(char **sorted_files, char **sorted_dirs, t_flags *flags) {
+	char **all_files;
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	all_files = (char **)malloc(sizeof(char *) * (get_size(sorted_files) + get_size(sorted_dirs) + 1));
+	while (sorted_dirs[j]) 
+		all_files[i++] = sorted_dirs[j++];
+	j = 0;
+	while (sorted_files[j]) 
+		all_files[i++] = sorted_files[j++];
+	all_files = handel_file_sort(all_files, flags);;
+	if (flags->l) {
+		print_long_format(all_files, flags);
+	} else if(flags->color & isatty(STDOUT_FILENO)) {
+		print_all_color_d_flag(all_files, flags);
+	} else
+		print_list(all_files);
+	free(all_files);
+}
+
 void	run_multiple_arguments(char **sorted_files, char **sorted_dirs, t_flags *flags) {
-	run_files(sorted_files, sorted_dirs, flags);
-	run_dirs(sorted_dirs, flags);
+	if(flags->d) {
+		run_d_flag(sorted_files, sorted_dirs, flags);
+	} else {
+		run_files(sorted_files, sorted_dirs, flags);
+		run_dirs(sorted_dirs, flags);
+	}
 }
 
 
