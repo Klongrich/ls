@@ -7,7 +7,8 @@ void	print_long_format(char **all_files_or_dirs, t_flags *flags) {
 
 	k = 0;
 	formatting_lengths = get_formatting_lengths(all_files_or_dirs);
-	ft_printf("total %d\n", formatting_lengths.count);	
+	if(!flags->d)
+		ft_printf("total %d\n", formatting_lengths.count);	
 	while (all_files_or_dirs[k]) {
 		lstat(all_files_or_dirs[k], &statbuff);
 		print_permissions(statbuff, all_files_or_dirs[k]);
