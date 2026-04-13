@@ -10,6 +10,41 @@ int	check_letter(t_merge_data data, int i, int j, char *arr[]) {
 	}
 }
 
+int	check_letter_r(t_merge_data data, int i, int j, char *arr[]) {
+	if(compare_strs_lowercase(data.L[i], data.R[j]) >= 0) {
+		arr[data.k] = data.L[i];
+		return (1);
+	}  else { 
+		arr[data.k] = data.R[j];
+		return(2);
+	}
+}
+
+int	check_time_data_r(t_merge_data data, int i, int j, char *arr[]) {
+	if (data.right.st_mtime == data.left.st_mtime) {
+		if(data.right.st_mtimespec.tv_nsec == data.left.st_mtimespec.tv_nsec) {
+			return check_letter(data, i, j, arr);
+	 	} else {
+			if (data.right.st_mtimespec.tv_nsec > data.left.st_mtimespec.tv_nsec) {
+				arr[data.k] = data.L[i];
+				return (1);
+			} else { 
+				arr[data.k] = data.R[j];
+				return (2);
+			}
+		}
+	} else {
+		if (data.right.st_mtime > data.left.st_mtime) {
+			arr[data.k] = data.L[i];
+			return(1);
+		} else { 
+			arr[data.k] = data.R[j];
+			return(2);
+		}
+	}
+	return(0);
+}
+
 int	check_time_data(t_merge_data data, int i, int j, char *arr[]) {
 	if (data.right.st_mtime == data.left.st_mtime) {
 		if(data.right.st_mtimespec.tv_nsec == data.left.st_mtimespec.tv_nsec) {
@@ -59,11 +94,11 @@ void	merge_sides_t(char *arr[], char **L, char **R, t_merge *merge) {
 	while (i < merge->n1 && j < merge->n2) {
 		lstat(R[j], &data.right);
 		lstat(L[i], &data.left);
-		res = check_time_data(data, i, j, arr);
-		if (res == 1)
-			i++;
-		else if (res == 2)
-			j++;
+		if(merge->r_flag)
+			res = check_time_data_r(data, i, j, arr);
+		else
+			res = check_time_data(data,i, j, arr);
+		res == 1 ? i++ : j++;
 		data.k++;
 	}
 	put_rest_n1(data, merge, i, arr);

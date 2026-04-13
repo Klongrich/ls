@@ -10,6 +10,16 @@ int	check_letter_l(t_merge_data data, int i, int j, char *arr[]) {
 	}
 }
 
+int	check_letter_lr(t_merge_data data, int i, int j, char *arr[]) {
+	if(compare_strs_lowercase(data.L[i], data.R[j]) >= 0) {
+		arr[data.k] = data.L[i];
+		return (1);
+	}  else { 
+		arr[data.k] = data.R[j];
+		return(2);
+	}
+}
+
 int	check_time_data_l(t_merge_data data, int i, int j, char *arr[]) {
 	if (data.right.st_atime == data.left.st_atime) {
 		if(data.right.st_atimespec.tv_nsec == data.left.st_atimespec.tv_nsec) {
@@ -25,6 +35,31 @@ int	check_time_data_l(t_merge_data data, int i, int j, char *arr[]) {
 		}
 	} else {
 		if (data.right.st_atime < data.left.st_atime) {
+			arr[data.k] = data.L[i];
+			return(1);
+		} else { 
+			arr[data.k] = data.R[j];
+			return(2);
+		}
+	}
+	return(0);
+}
+
+int	check_time_data_lr(t_merge_data data, int i, int j, char *arr[]) {
+	if (data.right.st_atime == data.left.st_atime) {
+		if(data.right.st_atimespec.tv_nsec == data.left.st_atimespec.tv_nsec) {
+			return check_letter_lr(data, i, j, arr);
+	 	} else {
+			if (data.right.st_atimespec.tv_nsec > data.left.st_atimespec.tv_nsec) {
+				arr[data.k] = data.L[i];
+				return (1);
+			} else { 
+				arr[data.k] = data.R[j];
+				return (2);
+			}
+		}
+	} else {
+		if (data.right.st_atime > data.left.st_atime) {
 			arr[data.k] = data.L[i];
 			return(1);
 		} else { 
@@ -59,11 +94,11 @@ void	merge_sides_l(char *arr[], char **L, char **R, t_merge *merge) {
 	while (i < merge->n1 && j < merge->n2) {
 		lstat(R[j], &data.right);
 		lstat(L[i], &data.left);
-		res = check_time_data_l(data, i, j, arr);
-		if (res == 1)
-			i++;
-		else if (res == 2)
-			j++;
+		if(merge->r_flag)
+			res = check_time_data_lr(data, i, j, arr);
+		else
+			res = check_time_data_l(data,i, j, arr);
+		res == 1 ? i++ : j++;
 		data.k++;
 	}
 	put_rest_n1_l(data, merge, i, arr);
