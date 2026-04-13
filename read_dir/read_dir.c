@@ -30,7 +30,7 @@ char 	**read_dir(char *dir_path, t_flags *flags){
 			else
 				merge_time_sort(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
 		} else if (!flags->f)
-			merge_sort2(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
+			merge_sort(all_files_or_directories, 0, get_size(all_files_or_directories) - 1, flags->r);
 		handel_printing(all_files_or_directories, flags);
 		return(all_files_or_directories);
 	}
