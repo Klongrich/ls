@@ -36,10 +36,12 @@ void	run_recursion(char **sorted_files, char **sorted_dirs, t_flags *flags, int 
 		ft_printf("\n");
 	if(number_of_valid_args == 1 && number_of_invalid_args == 0 && sorted_dirs[0]) {
 		temp3 = read_dir(sorted_dirs[0], flags);
-		temp4 = append_dir(sorted_dirs[0], temp3);
-		recur(temp4, flags);
-		free_list(temp3);
-		free_list(temp4);	
+		if (temp3 != NULL) {
+			temp4 = append_dir(sorted_dirs[0], temp3);
+			recur(temp4, flags);
+			free_list(temp4);
+			free_list(temp3);
+		}
 	} else {
 		run_recursion_multiple_dirs(sorted_dirs, flags);
 	}
