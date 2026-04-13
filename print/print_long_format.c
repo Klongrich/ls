@@ -18,7 +18,10 @@ void	print_long_format(char **all_files_or_dirs, t_flags *flags) {
 			print_last_time_accessed(statbuff);
 		else	
 			print_last_time_modified(statbuff);
-		print_file_name(all_files_or_dirs[k], 0, flags);
+		if (flags->d & flags->color & isatty(STDOUT_FILENO)) {
+			print_color_d_flag(all_files_or_dirs[k], flags);
+		} else
+			print_file_name(all_files_or_dirs[k], 0, flags);
 		k++;
 	}
 }
