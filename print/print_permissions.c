@@ -86,19 +86,25 @@ void	print_oth(struct stat statbuff) {
 
 void		print_permissions(struct stat statbuff, char *file_path) {
 	ssize_t ret;
+	acl_t	acl;
 	
+        acl = acl_get_link_np(file_path, ACL_TYPE_EXTENDED);
+        ret = listxattr(file_path, NULL, 0, XATTR_NOFOLLOW);
 	print_type(statbuff);
 	print_usr(statbuff);
 	print_grp(statbuff);
 	print_oth(statbuff);
-
-	ret = listxattr(file_path, NULL, 0, XATTR_NOFOLLOW);
 	if (ret > 0) {
 		ft_putchar('@');
 		ft_putchar(' ');
-	} else {	
+	} else if (acl) {	
+		ft_putchar('+');
+		ft_putchar(' ');
+	} else {
 		ft_putchar(' ');
 		ft_putchar(' ');
 	}
+	if (acl)
+		free(acl);	
 }
 
