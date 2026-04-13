@@ -1,20 +1,15 @@
 #include "../inc/ft_ls.h"
 
-char	**append_dir(char *dir, char **files_or_dirs) {
+char	**append(char **files_or_dirs, char *dir_){
 	int i;
 	int j;
 	char **res;
-	char *dir_;
 
-	j = 0;
 	i = 0;
-	dir_ = dir;
+	j = 0;
 	res = (char **)malloc(sizeof(char *) * get_size(files_or_dirs) + 1);
-	if(!res) {
+	if(!res) 
 		printf("error\n");
-	}	
-	if (!check_end(dir))
-		dir_ = ft_strjoin(dir, "/");
 	while(files_or_dirs[i]) {
 		while ((!ft_strcmp(files_or_dirs[i], ".") || !ft_strcmp(files_or_dirs[i], ".."))) {
 			i++;
@@ -27,8 +22,19 @@ char	**append_dir(char *dir, char **files_or_dirs) {
 		i++;
 		j++;
 	}
+	res[j] = 0;
+	return(res);
+}
+
+char	**append_dir(char *dir, char **files_or_dirs) {
+	char **res;
+	char *dir_;
+
+	dir_ = dir;
+	if (!check_end(dir))
+		dir_ = ft_strjoin(dir, "/");
+	res = append(files_or_dirs, dir_);
 	if (!check_end(dir))
 		free(dir_);
-	res[j] = 0;
 	return(res);
 }
