@@ -1,7 +1,6 @@
 #include "../inc/ft_ls.h"
 
-void		print_permissions(struct stat statbuff, char *file_path)
-{
+void	print_type(struct stat statbuff) {
 	if(S_ISDIR(statbuff.st_mode)) {
 		ft_putchar('d');
 	} else if(S_ISSOCK(statbuff.st_mode)) {
@@ -19,6 +18,10 @@ void		print_permissions(struct stat statbuff, char *file_path)
 	} else {
 		ft_putchar('-');
 	}
+}
+
+
+void	print_usr(struct stat statbuff) {
 	if(statbuff.st_mode & S_IRUSR) {
 		ft_putchar('r');
 	} else {
@@ -36,7 +39,10 @@ void		print_permissions(struct stat statbuff, char *file_path)
 			ft_putchar('x');
 	} else {
 		ft_putchar('-');
-	}	
+	}
+}
+
+void	print_grp(struct stat statbuff) {
 	if (statbuff.st_mode & S_IRGRP) {
 		ft_putchar('r');
 	} else {
@@ -55,6 +61,9 @@ void		print_permissions(struct stat statbuff, char *file_path)
 	} else {
 		ft_putchar('-');
 	}
+}
+
+void	print_oth(struct stat statbuff) {
 	if (statbuff.st_mode & S_IROTH) {
 		ft_putchar('r');
 	} else {
@@ -72,13 +81,17 @@ void		print_permissions(struct stat statbuff, char *file_path)
 			ft_putchar('x');
 	} else {
 		ft_putchar('-');
-	}	
+	}
+}
 
+void		print_permissions(struct stat statbuff, char *file_path) {
 	ssize_t ret;
-//	acl_t acl;
-//	acl_entry_t entry;
+	
+	print_type(statbuff);
+	print_usr(statbuff);
+	print_grp(statbuff);
+	print_oth(statbuff);
 
-	//printf("checking file_path: %s\n", file_path);
 	ret = listxattr(file_path, NULL, 0, XATTR_NOFOLLOW);
 	if (ret > 0) {
 		ft_putchar('@');
