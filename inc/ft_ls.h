@@ -64,6 +64,14 @@ typedef struct	merge {
 	int r_flag;
 } 		t_merge;
 
+typedef	struct	merge_data {
+	struct stat right;
+	struct stat left;
+	char	**L;
+	char	**R;
+	int	k;
+}		t_merge_data;
+
 
 int	parse_flags(char *str, t_flags *flags);
 void	initialize_flags(t_flags *flags);
