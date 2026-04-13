@@ -1,13 +1,33 @@
 #include "../inc/ft_ls.h"
 
+void	compare_time_reverse(struct stat file_one, struct stat file_two, int j, char **str) {
+	if(file_one.st_mtime == file_two.st_mtime) {
+		if(file_one.st_mtimespec.tv_nsec > file_two.st_mtimespec.tv_nsec)
+			bubble_swap(&str[j], &str[j + 1]);
+	} else {
+		if (file_one.st_mtime > file_two.st_mtime)
+			bubble_swap(&str[j], &str[j + 1]);
+	}
+}
+
+void	compare_time_normal(struct stat file_one, struct stat file_two, int j, char **str) {
+	if (file_one.st_mtime == file_two.st_mtime) {
+		if (file_one.st_mtimespec.tv_nsec < file_two.st_mtimespec.tv_nsec) {
+			bubble_swap(&str[j], &str[j + 1]);
+		}
+	} else {
+		if (file_one.st_mtime < file_two.st_mtime) {
+			bubble_swap(&str[j], &str[j + 1]);
+		}
+	}
+}
+
 char	**time_sort(char **str, int r) {
-	
 	struct stat file_one;
 	struct stat file_two;
 	int i;
 	int j;
 	int size;
-	char temp[MAX_FILE_LENGTH];
 
 	size = get_size(str);
 	i = 0;
@@ -18,33 +38,9 @@ char	**time_sort(char **str, int r) {
 			lstat(str[j], &file_one);
 			lstat(str[j + 1], &file_two);
 			if (r) {
-				if(file_one.st_mtime == file_two.st_mtime) {
-					if(file_one.st_mtimespec.tv_nsec > file_two.st_mtimespec.tv_nsec) {
-						ft_strcpy(temp, str[j]);
-						ft_strcpy(str[j], str[j + 1]);
-						ft_strcpy(str[j + 1], temp);
-					}
-				} else {
-					if (file_one.st_mtime > file_two.st_mtime) {
-						ft_strcpy(temp, str[j]);
-						ft_strcpy(str[j], str[j + 1]);
-						ft_strcpy(str[j + 1], temp);
-					}
-				}
+				compare_time_reverse(file_one, file_two, j, str);
 			} else {
-				if (file_one.st_mtime == file_two.st_mtime) {
-					if (file_one.st_mtimespec.tv_nsec < file_two.st_mtimespec.tv_nsec) {
-						ft_strcpy(temp, str[j]);
-						ft_strcpy(str[j], str[j + 1]);
-						ft_strcpy(str[j + 1], temp);
-					}
-				} else {
-					if (file_one.st_mtime < file_two.st_mtime) {
-						ft_strcpy(temp, str[j]);
-						ft_strcpy(str[j], str[j + 1]);
-						ft_strcpy(str[j + 1], temp);
-					}
-				}
+				compare_time_normal(file_one, file_two, j, str);
 			}
 			j++;
 		}
