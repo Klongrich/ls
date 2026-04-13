@@ -79,18 +79,42 @@ void        skipthree(char *str)
    }
 }
 
-void	ft_printf(char *str, ...)
-{
+void	check_to_print(char *str, va_list list) {
+	if ((*str == '*' && *(str + 1) == 's'))
+		sformatstar(&str, va_arg(list, int), va_arg(list, char *));
+	else if ((*str == '*' && *(str + 1) == 'd'))
+		dformatstar(&str, va_arg(list, int), va_arg(list, int));
+	else if ((*str == '#' && *(str + 1) == 's'))
+		sformatpound(&str, va_arg(list, int), va_arg(list, char*));
+	else if (*str == '.')
+		sformatdot(&str, va_arg(list, int), va_arg(list, char *));
+	else if (*str == 'd')
+		ft_putnbr(va_arg(list, int));
+	else if (*str == 's')
+		ft_putstr(va_arg(list, char*));
+        else if (*str == '~')
+		skipthree(va_arg(list, char*));
+}
+
+
+int	put_str_before(char *str) {
+	int i;
+
+	i = 0;
+	while (*str != '%' && *str){
+		ft_putchar(*str);
+		str++;
+		i++;
+	}
+	return (i);
+}
+
+void	ft_printf(char *str, ...) {
 	va_list list;
 
 	va_start(list, str);
-	while (*str)
-	{
-		while (*str != '%' && *str)
-		{
-			ft_putchar(*str);
-			str++;
-		}
+	while (*str) {
+		str += put_str_before(str);
 		if (!*str)
 			break ;
 		str++;
@@ -106,8 +130,8 @@ void	ft_printf(char *str, ...)
 			ft_putnbr(va_arg(list, int));
 		else if (*str == 's')
 			ft_putstr(va_arg(list, char*));
-        else if (*str == '~')
-            skipthree(va_arg(list, char*));
+        	else if (*str == '~')
+            		skipthree(va_arg(list, char*));
 		str++;
 	}
 }
