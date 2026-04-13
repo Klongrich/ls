@@ -29,7 +29,7 @@ void	print_long_format_files_from_args(char **all_files, t_flags *flags) {
 		print_permissions(statbuff, all_files[k]);
 		print_name_and_grid(formatting_lengths, statbuff);
 		print_file_size(statbuff, formatting_lengths);
-		if (flags->t & flags->u)
+		if (flags->u)
 			print_last_time_accessed(statbuff);
 		else
 			print_last_time_modified(statbuff);
