@@ -29,7 +29,7 @@ void	print_color_d_flag(char *path, t_flags *flags) {
 	lstat(path, &ldata);
 	if(S_ISLNK(ldata.st_mode)) {
 		if(flags->l)
-			print_colored_link(path, MAGENTA, 0);
+			print_colored_link(path, MAGENTA, 1);
 		else
 			print_color_text_d_flag(path, MAGENTA);
 	} else if (check_isdir_isexecutable_d_flag(data, ldata, path) ){ 
@@ -42,7 +42,7 @@ void	print_color_d_flag(char *path, t_flags *flags) {
 	} else if (S_ISFIFO(ldata.st_mode)) {
 		print_color_text_d_flag(path, YELLOW);
 	} else {
-		print_color_normal_file(0, path);
+		ft_printf("%s\n", path);
 	}
 }
 
