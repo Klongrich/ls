@@ -67,12 +67,13 @@ void	run_d_flag(char **sorted_files, char **sorted_dirs, t_flags *flags) {
 }
 
 void	run_multiple_arguments(char **sorted_files, char **sorted_dirs, t_flags *flags) {
-	if(flags->d) {
-		run_d_flag(sorted_files, sorted_dirs, flags);
-	} else {
-		run_files(sorted_files, sorted_dirs, flags);
-		run_dirs(sorted_dirs, flags);
-	}
+	switch(flags->d) {
+		case 1:
+			run_d_flag(sorted_files, sorted_dirs, flags);
+			break;
+		case 0:
+			run_files(sorted_files, sorted_dirs, flags);
+			run_dirs(sorted_dirs, flags);
+			break;
+	}	
 }
-
-
